@@ -8,8 +8,9 @@ import java.util.ArrayList;
 
 public class Brightness1 extends Extractor<Brightness>{
 
-    Brightness1(Feature feature) {
-        super(feature);
+
+    Brightness1(Class<Brightness> typeTag) {
+        super(typeTag);
     }
 
     /**

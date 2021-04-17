@@ -25,12 +25,11 @@ public class FeatureExtractionNode extends Node {
 
 
     private final Extractor<?> evaluatingFunction;
-    private final Class<? extends Feature> featureType;
 
 
     FeatureExtractionNode(Extractor<? extends Feature> evaluatingFunction) throws IllegalAccessException, InstantiationException {
         this.evaluatingFunction = evaluatingFunction;
-        featureType = this.evaluatingFunction.getType();
+        Class<? extends Feature> featureType = this.evaluatingFunction.getType();
         output = featureType.newInstance();
 
 
@@ -66,6 +65,14 @@ public class FeatureExtractionNode extends Node {
             throw new UnsupportedOperationException(); //TODO maybe some other Exception
         }
 
+
+        input = new ArrayList<>();
+        for(FilteringNode node : inputNodes){
+            input.add(node.getOutput());
+        }
+        output.setFeatureValue(evaluatingFunction.apply(input));
+
+
         // TODO nie wiem czy chcemy sie bawic w watki,
         //  a jesli tak, to w jak to bedziemy realizowac?
         //  nizej napisalem (dosyc slaby) szkic z flagami
@@ -86,11 +93,5 @@ public class FeatureExtractionNode extends Node {
 //            }
 //         // tu gdzies takis wait(); ?
 //        }
-        input = new ArrayList<>();
-        for(FilteringNode node : inputNodes){
-            input.add(node.getOutput());
-        }
-        output.setFeatureValue(evaluatingFunction.apply(input));
-
     }
 }

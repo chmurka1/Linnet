@@ -9,11 +9,11 @@ public abstract class Extractor<T extends Feature> implements Function<ArrayList
 
     Class<? extends Feature> featureType;
 
-    Extractor(Feature feature){
-        featureType = feature.getClass();
+    Extractor(Class<T> typeTag) {
+        featureType = typeTag;
     }
 
-    public Class<? extends Feature> getType(){
+    public Class<? extends Feature> getType() {
         return featureType;
     }
 }
