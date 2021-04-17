@@ -7,13 +7,13 @@ import java.util.function.Function;
 
 public abstract class Extractor<T extends Feature> implements Function<ArrayList<Image>, Double> {
 
-    Class<? extends Feature> featureType;
+    Class<T> featureType;
 
     Extractor(Class<T> typeTag) {
         featureType = typeTag;
     }
 
-    public Class<? extends Feature> getType() {
+    public Class<T> getType() {
         return featureType;
     }
 }
