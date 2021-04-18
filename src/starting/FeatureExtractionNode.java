@@ -24,14 +24,12 @@ public class FeatureExtractionNode extends Node {
 
 
 
-    private final Extractor<?> evaluatingFunction;
+    private final Function<ArrayList<Image>, Feature> evaluatingFunction;
 
 
-    FeatureExtractionNode(Extractor<? extends Feature> evaluatingFunction) throws IllegalAccessException, InstantiationException {
+    FeatureExtractionNode(Function<ArrayList<Image>, Feature> evaluatingFunction) {
         this.evaluatingFunction = evaluatingFunction;
-        Class<? extends Feature> featureType = this.evaluatingFunction.getType();
-        output = featureType.newInstance();
-
+        //Class<? extends Feature> featureType = this.evaluatingFunction.getType();
 
         inputNodes = new ArrayList<>();
         //TODO dodajemy elementy, w momentcie, gdy user tworzy krawedz wchodzaca do tego noda ?
@@ -59,7 +57,7 @@ public class FeatureExtractionNode extends Node {
      * @see Thread#run()
      */
 
-    @Override
+    //@Override
     public void run() {
         if(inputNodes.size() < minSizeOfInputNodes || input.size() > maxSizeOfInputNodes){
             throw new UnsupportedOperationException(); //TODO maybe some other Exception
@@ -70,7 +68,7 @@ public class FeatureExtractionNode extends Node {
         for(FilteringNode node : inputNodes){
             input.add(node.getOutput());
         }
-        output.setFeatureValue(evaluatingFunction.apply(input));
+        output = evaluatingFunction.apply(input);
 
 
         // TODO nie wiem czy chcemy sie bawic w watki,

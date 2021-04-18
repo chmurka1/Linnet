@@ -1,26 +1,12 @@
 package starting;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.WritableImage;
-import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
+import java.util.function.Function;
 
-public class Brightness1 extends Extractor<Brightness>{
-
-
-    Brightness1(Class<Brightness> typeTag) {
-        super(typeTag);
-    }
-
-    /**
-     * Applies this function to the given argument.
-     *
-     * @param inputImages the function argument
-     * @return the function result
-     */
-    @Override
-    public Double apply(ArrayList<Image> inputImages) {
+public class Extractors {
+    public static final Function<ArrayList<Image>, Feature> brightness1 = (ArrayList<Image> inputImages) -> {
 
         if(inputImages.isEmpty()){
             throw new NullPointerException();
@@ -47,6 +33,16 @@ public class Brightness1 extends Extractor<Brightness>{
         averageBrightness = sum/inputImages.size();
 
 
-        return averageBrightness;
-    }
+        return new Brightness(averageBrightness);
+    };
 }
+//
+//    Class<T> featureType;
+//
+//    Extractor(Class<T> typeTag) {
+//        featureType = typeTag;
+//    }
+//
+//    public Class<T> getType() {
+//        return featureType;
+//    }

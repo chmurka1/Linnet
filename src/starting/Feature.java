@@ -5,7 +5,8 @@ public abstract class Feature {
     double featureValue = 0;
     /** w tej paczce javafx.scene.paint.Color wszystkie wartosci są CHYBA na double */
 
-    Feature(){
+    Feature(double featureValue){
+        this.featureValue = featureValue;
 
     }
 
