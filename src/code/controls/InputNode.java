@@ -29,7 +29,6 @@ public class InputNode extends AbstractNode {
 
     final FileChooser fileChooser = new FileChooser();
 
-    BufferedImage img=null;
 
     public InputNode(Canvas canvas) {
         super(canvas);
@@ -47,8 +46,8 @@ public class InputNode extends AbstractNode {
                         File file = fileChooser.showOpenDialog(null);
                         if(file!=null){
                             try{
-                                img= FileRead.read(file);
-                                System.out.println(img.getColorModel());
+                                out1= FileRead.read(file);
+                                System.out.println(out1.getColorModel());
                             }catch (FileFormatException exc){
                                 System.out.println("not an image");
                             }catch (FileNotFoundException exc){
