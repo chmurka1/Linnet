@@ -6,22 +6,16 @@ import java.io.File;
 import java.io.IOException;
 
 public class FileWrite {
-    public static boolean write(BufferedImage img, String format, String path)
+    public static void write(BufferedImage img, String format, File file)
     throws IOException{
-        File file=null;
-        try{
-            file=new File(path);
-        }catch (NullPointerException exc){//most likely never happening
-            System.out.println("null path");
-            return false;
+        if(img==null){
+            System.out.println("no input in write");
+            return;
         }
-
         try {
             ImageIO.write(img, format, file);
         } catch (IOException e) {
-            System.out.println("cannot write"); //TODO
             throw new IOException();
         }
-        return true;
     }
 }

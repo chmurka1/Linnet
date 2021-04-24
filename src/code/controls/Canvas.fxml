@@ -11,5 +11,6 @@
         <NodeControl fx:id="node1"/>
         <NodeControl fx:id="node2"/>
         <InputNode fx:id="inputNode1"/>
+        <OutputNode fx:id="outputNode1"/>
     </Pane>
 </fx:root>
