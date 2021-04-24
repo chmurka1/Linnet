@@ -1,11 +1,12 @@
 package code.controls;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 
 import java.io.IOException;
 
-public class Socket extends Pane {
+public class Socket extends VBox {
     public Socket() {
         super();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Socket.fxml"));

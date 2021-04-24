@@ -10,10 +10,10 @@
 
 <?import javafx.scene.shape.Circle?>
 
-<fx:root type="javafx.scene.layout.Pane" xmlns:fx="http://javafx.com/fxml">
-    <VBox alignment="CENTER">
-        <Circle/>
-    </VBox>
+<fx:root type="javafx.scene.layout.VBox" xmlns:fx="http://javafx.com/fxml" alignment="CENTER" >
+    <HBox alignment="CENTER">
+        <Circle radius="5.0"/>
+    </HBox>
 </fx:root>
 
 

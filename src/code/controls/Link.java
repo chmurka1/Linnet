@@ -3,29 +3,36 @@ package code.controls;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.ObjectBinding;
 import javafx.geometry.Bounds;
+import javafx.scene.Cursor;
+import javafx.scene.Group;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Line;
 
 public class Link extends Line {
 
-    private ObjectBinding<Bounds> canvasSourceBoundsBinding;
-    private ObjectBinding<Bounds> canvasTargetBoundsBinding;
+    private void removeLinkFromCanvas() {
+        if( this.getParent() instanceof Canvas ) {
+            ((Canvas) this.getParent()).removeLink(this);
+        }
+    }
+
+    final private ObjectBinding<Bounds> canvasSourceBoundsBinding;
+    final private ObjectBinding<Bounds> canvasTargetBoundsBinding;
 
     public Link( Canvas canvas, NodeControl sourceNode, NodeControl targetNode, Socket source, Socket target)   {
         super();
         canvasSourceBoundsBinding = Bindings.createObjectBinding(() -> {
                     Bounds localBound = source.getBoundsInLocal();
                     Bounds sceneBound = source.localToScene(localBound);
-                    Bounds canvasBound = canvas.sceneToLocal(sceneBound);
-                    return canvasBound;
+                    return sourceNode.sceneToLocal(sceneBound);
                 }, source.boundsInLocalProperty(), source.localToSceneTransformProperty(),
-                canvas.localToSceneTransformProperty());
+                sourceNode.localToSceneTransformProperty());
         canvasTargetBoundsBinding = Bindings.createObjectBinding(() -> {
-                    Bounds localBound = source.getBoundsInLocal();
-                    Bounds sceneBound = source.localToScene(localBound);
-                    Bounds canvasBound = canvas.sceneToLocal(sceneBound);
-                    return canvasBound;
-                }, source.boundsInLocalProperty(), source.localToSceneTransformProperty(),
-                canvas.localToSceneTransformProperty());
+                    Bounds localBound = target.getBoundsInLocal();
+                    Bounds sceneBound = target.localToScene(localBound);
+                    return targetNode.sceneToLocal(sceneBound);
+                }, target.boundsInLocalProperty(), target.localToSceneTransformProperty(),
+                targetNode.localToSceneTransformProperty());
         this.setStrokeWidth(3.0);
         this.startXProperty().bind(
                 Bindings.add(sourceNode.layoutXProperty(),
@@ -47,5 +54,7 @@ public class Link extends Line {
                         Bindings.createDoubleBinding(
                                 () ->  canvasTargetBoundsBinding.get().getCenterY(),
                                 canvasTargetBoundsBinding)));
+        this.setOnMousePressed( me -> removeLinkFromCanvas() );
+        this.setOnMouseEntered( me -> this.setCursor(Cursor.HAND));
     }
 }

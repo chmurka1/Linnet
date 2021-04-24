@@ -14,18 +14,17 @@
         <BorderPane>
             <left>
                 <VBox alignment="CENTER" style="-fx-padding: 10px; -fx-spacing: 5px;">
-                    <Socket fx:id="socket"/>
-                    <Button text="In1"/>
-                    <Button text="In2"/>
-                    <Button text="In2"/>
-                    <Button text="In2"/>
+                    <HBox><Socket fx:id="s1"/><Button text="In1"/></HBox>
+                    <HBox><Socket fx:id="s2"/><Button text="In1"/></HBox>
+                    <HBox><Socket fx:id="s3"/><Button text="In1"/></HBox>
+                    <HBox><Socket fx:id="s4"/><Button text="In1"/></HBox>
                 </VBox>
             </left>
             <right>
                 <VBox alignment="CENTER" style="-fx-padding: 10px; -fx-spacing: 5px;">
-                    <Label text="Out1"/>
-                    <Label text="Out2"/>
-                    <Label text="Out3"/>
+                    <HBox><Label text="Out1"/><Socket fx:id="s5"/></HBox>
+                    <HBox><Label text="Out1"/><Socket fx:id="s6"/></HBox>
+                    <HBox><Label text="Out1"/><Socket fx:id="s7"/></HBox>
                 </VBox>
             </right>
         </BorderPane>

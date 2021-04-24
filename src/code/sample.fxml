@@ -10,11 +10,15 @@
                 <MenuItem text="Load"/>
                 <MenuItem text="Save"/>
             </Menu>
+            <Menu text="Add nodes">
+                <MenuItem text="Input node"/>
+                <MenuItem text="Filter node"/>
+                <MenuItem text="Output node"/>
+            </Menu>
         </MenuBar>
         <HBox>
-            <ScrollPane prefWidth="1000" prefHeight="1000">
+            <ScrollPane >
                 <Canvas>
-                    <NodeControl/>
                 </Canvas>
             </ScrollPane>
             <ScrollPane prefWidth="1000">

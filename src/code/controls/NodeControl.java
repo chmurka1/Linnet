@@ -13,12 +13,25 @@ public class NodeControl extends AnchorPane {
     private Label title;
 
     @FXML
-    Socket socket;
+    Socket s1;
+    @FXML
+    Socket s2;
+    @FXML
+    Socket s3;
+    @FXML
+    Socket s4;
+    @FXML
+    Socket s5;
+    @FXML
+    Socket s6;
+    @FXML
+    Socket s7;
+
 
     double relativeX;
     double relativeY;
 
-    public NodeControl( ) {
+    public NodeControl() {
         super();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("NodeControl.fxml"));
         fxmlLoader.setRoot(this);
@@ -35,13 +48,5 @@ public class NodeControl extends AnchorPane {
         });
         this.setOnMouseEntered( me -> this.setCursor(Cursor.HAND));
         this.setOnMouseReleased( me -> this.setCursor(Cursor.HAND));
-    }
-
-    public void setTitleText( String s )   {
-        this.title.setText(s);
-    }
-
-    public String getTitleText()   {
-        return this.title.getText();
     }
 }
