@@ -1,8 +1,6 @@
 package starting;
 
-import javafx.scene.image.Image;
-
-import java.lang.reflect.Array;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.function.Function;
 
@@ -18,16 +16,15 @@ public class FeatureExtractionNode extends Node {
     int maxSizeOfInputNodes;
 
     ArrayList<FilteringNode> inputNodes;
-    boolean[] finishedInputNodes;
 
-    ArrayList<Image> input;
-
+    ArrayList<BufferedImage> input;
 
 
-    private final Function<ArrayList<Image>, Feature> evaluatingFunction;
+
+    private final Function<ArrayList<BufferedImage>, Feature> evaluatingFunction;
 
 
-    FeatureExtractionNode(Function<ArrayList<Image>, Feature> evaluatingFunction) {
+    FeatureExtractionNode(Function<ArrayList<BufferedImage>, Feature> evaluatingFunction) {
         this.evaluatingFunction = evaluatingFunction;
         //Class<? extends Feature> featureType = this.evaluatingFunction.getType();
 
@@ -60,7 +57,7 @@ public class FeatureExtractionNode extends Node {
     //@Override
     public void run() {
         if(inputNodes.size() < minSizeOfInputNodes || input.size() > maxSizeOfInputNodes){
-            throw new UnsupportedOperationException(); //TODO maybe some other Exception
+            throw new UnsupportedOperationException(); //TODO maybe some other Exception?
         }
 
 
@@ -70,26 +67,5 @@ public class FeatureExtractionNode extends Node {
         }
         output = evaluatingFunction.apply(input);
 
-
-        // TODO nie wiem czy chcemy sie bawic w watki,
-        //  a jesli tak, to w jak to bedziemy realizowac?
-        //  nizej napisalem (dosyc slaby) szkic z flagami
-
-
-//        finishedInputNodes = new boolean[inputNodes.size()];
-
-//        boolean mayIStart = false;
-//        while (!mayIStart){
-//            boolean check = true;
-//            for(boolean flag : finishedInputNodes){
-//                if(!flag){
-//                    check = false;
-//                }
-//            }
-//            if(check){
-//                mayIStart = true;
-//            }
-//         // tu gdzies takis wait(); ?
-//        }
     }
 }

@@ -1,8 +1,7 @@
 package starting;
 
-import javafx.scene.image.Image;
 
-import java.util.AbstractList;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public abstract class FilteringNode extends Node {
@@ -11,7 +10,7 @@ public abstract class FilteringNode extends Node {
     public ArrayList<Node> inputNodes;
 
     Filter filter;
-    Image output;
+    BufferedImage output;
 
     FilteringNode(Filter filter){
         this.filter = filter;
@@ -34,7 +33,7 @@ public abstract class FilteringNode extends Node {
 
 
     }
-    public Image getOutput(){
+    public BufferedImage getOutput(){
         if(output == null) {
             throw new NullPointerException(); //TODO w sumie nie wiem czy tak to chcemy robic
         }

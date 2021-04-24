@@ -1,13 +1,13 @@
 package starting;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.WritableImage;
-import javafx.scene.paint.Color;
 
-import java.util.ArrayList;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.function.Function;
 
-public class Filter implements Function<Image,Image> {
+import static java.awt.image.BufferedImage.TYPE_INT_RGB;
+
+public class Filter implements Function<BufferedImage,BufferedImage> {
 
     /**
      *  ustawia pixel (x,y) w output
@@ -23,17 +23,19 @@ public class Filter implements Function<Image,Image> {
      * @return the function result
      */
     @Override
-    public Image apply(Image inputImage) {
-        int width = (int) inputImage.getWidth();
-        int height = (int) inputImage.getHeight();
+    public BufferedImage apply(BufferedImage inputImage) {
+        int width = inputImage.getWidth();
+        int height = inputImage.getHeight();
 
-        WritableImage outputImage = new WritableImage(width,height);
+        //TODO ignoring alpha for now ?
+
+        BufferedImage outputImage = new BufferedImage(width,height,TYPE_INT_RGB);
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                Color pixelInputColor = inputImage.getPixelReader().getColor(x,y);
+                Color pixelInputColor = new Color(inputImage.getRGB(x,y));
                 Color pixelOutputColor = oneToOne.apply(pixelInputColor);
 
-                outputImage.getPixelWriter().setColor(x,y,pixelOutputColor);
+                outputImage.setRGB(x,y,pixelOutputColor.getRGB());
             }
         }
         return outputImage;

@@ -2,19 +2,19 @@ package starting;
 
 public abstract class Feature {
 
-    double featureValue = 0;
-    /** w tej paczce javafx.scene.paint.Color wszystkie wartosci są CHYBA na double */
+    int featureValue = 0;
 
-    Feature(double featureValue){
+
+    Feature(int featureValue){
         this.featureValue = featureValue;
 
     }
 
-    public double getFeatureValue() {
+    public int getFeatureValue() {
         return featureValue;
     }
 
-    public void setFeatureValue(double suggestedValue) {
+    public void setFeatureValue(int suggestedValue) {
         throw new UnsupportedOperationException();
     }
 
