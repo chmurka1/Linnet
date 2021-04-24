@@ -7,10 +7,8 @@
 <?import code.controls.NodeControl?>
 
 <fx:root type="javafx.scene.control.ScrollPane" xmlns:fx="http://javafx.com/fxml" prefWidth="1000" prefHeight="1000">
-    <Pane>
+    <Pane fx:id="pane">
         <NodeControl fx:id="node1"/>
         <NodeControl fx:id="node2"/>
-        <InputNode fx:id="inputNode1"/>
-        <OutputNode fx:id="outputNode1"/>
     </Pane>
 </fx:root>
