@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
+<?import code.controls.*?>
 <?import javafx.scene.layout.*?>
+
 
 <?import code.controls.NodeControl?>
 
@@ -12,5 +10,6 @@
     <Pane>
         <NodeControl fx:id="node1"/>
         <NodeControl fx:id="node2"/>
+        <InputNode fx:id="inputNode1"/>
     </Pane>
 </fx:root>

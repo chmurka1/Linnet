@@ -15,6 +15,8 @@ public class Canvas extends ScrollPane {
     NodeControl node1;
     @FXML
     NodeControl node2;
+    @FXML
+    InputNode inputNode1;
 
     public Canvas() {
         super();
