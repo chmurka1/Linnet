@@ -60,6 +60,7 @@ public class InputNode extends AnchorPane {
                         if(file!=null){
                             try{
                                 img= FileRead.read(file);
+                                System.out.println(img.getColorModel());
                             }catch (FileFormatException exc){
                                 System.out.println("not an image");
                             }catch (FileNotFoundException exc){
