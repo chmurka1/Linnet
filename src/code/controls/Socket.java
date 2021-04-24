@@ -42,6 +42,9 @@ public class Socket extends VBox {
                         if(node.canvas.clickedSocket==null){
                             node.canvas.clickedSocket=Socket.this;
                         }
+                        else if(node.canvas.clickedSocket.node==Socket.this.node){
+                            node.canvas.clickedSocket=null;
+                        }
                         else{
                             node.canvas.addLink(node.canvas.clickedSocket.node,Socket.this.node,
                                     node.canvas.clickedSocket,Socket.this);

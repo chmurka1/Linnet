@@ -23,13 +23,13 @@ public class Link extends Line {
         canvasSourceBoundsBinding = Bindings.createObjectBinding(() -> {
                     Bounds localBound = source.getBoundsInLocal();
                     Bounds sceneBound = source.localToScene(localBound);
-                    return canvas.pane.sceneToLocal(sceneBound);
+                    return sourceNode.sceneToLocal(sceneBound);
                 }, source.boundsInLocalProperty(), source.localToSceneTransformProperty(),
                 sourceNode.localToSceneTransformProperty());
         canvasTargetBoundsBinding = Bindings.createObjectBinding(() -> {
                     Bounds localBound = target.getBoundsInLocal();
                     Bounds sceneBound = target.localToScene(localBound);
-                    return canvas.pane.sceneToLocal(sceneBound);
+                    return targetNode.sceneToLocal(sceneBound);
                 }, target.boundsInLocalProperty(), target.localToSceneTransformProperty(),
                 targetNode.localToSceneTransformProperty());
         this.setStrokeWidth(3.0);
