@@ -17,10 +17,7 @@
             </Menu>
         </MenuBar>
         <HBox>
-            <ScrollPane >
-                <Canvas>
-                </Canvas>
-            </ScrollPane>
+            <Canvas></Canvas>
             <ScrollPane prefWidth="1000">
                 <Pane>
                 </Pane>

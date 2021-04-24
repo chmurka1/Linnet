@@ -6,10 +6,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
 public class Canvas extends ScrollPane {
+
+    @FXML
+    Pane pane;
 
     @FXML
     NodeControl node1;
@@ -33,10 +37,10 @@ public class Canvas extends ScrollPane {
     }
 
     public void removeLink(Link link) {
-        this.getChildren().remove(link);
+        this.pane.getChildren().remove(link);
     }
 
     public void addLink(NodeControl sourceNode, NodeControl targetNode, Socket s, Socket t) {
-        this.getChildren().add(new Link(this,sourceNode,targetNode,s,t));
+        this.pane.getChildren().add(new Link(this,sourceNode,targetNode,s,t));
     }
 }
