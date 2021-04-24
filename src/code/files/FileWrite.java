@@ -1,4 +1,4 @@
-package sample.files;
+package code.files;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

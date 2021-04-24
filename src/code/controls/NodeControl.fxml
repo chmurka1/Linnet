@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import code.controls.Socket?>
+
+<fx:root type="javafx.scene.layout.AnchorPane" xmlns:fx="http://javafx.com/fxml">
+    <VBox style="-fx-background-color: #DDD;">
+        <Pane style="-fx-background-color: #CCC;"><Label fx:id="title" text="Title" style="-fx-padding: 5px;"/></Pane>
+        <BorderPane>
+            <left>
+                <VBox alignment="CENTER" style="-fx-padding: 10px; -fx-spacing: 5px;">
+                    <Socket fx:id="socket"/>
+                    <Button text="In1"/>
+                    <Button text="In2"/>
+                    <Button text="In2"/>
+                    <Button text="In2"/>
+                </VBox>
+            </left>
+            <right>
+                <VBox alignment="CENTER" style="-fx-padding: 10px; -fx-spacing: 5px;">
+                    <Label text="Out1"/>
+                    <Label text="Out2"/>
+                    <Label text="Out3"/>
+                </VBox>
+            </right>
+        </BorderPane>
+    </VBox>
+</fx:root>
+
