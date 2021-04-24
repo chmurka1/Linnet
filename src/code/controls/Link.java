@@ -17,7 +17,7 @@ public class Link extends Line {
     final private ObjectBinding<Bounds> canvasSourceBoundsBinding;
     final private ObjectBinding<Bounds> canvasTargetBoundsBinding;
 
-    public Link(Canvas canvas, NodeControl sourceNode, NodeControl targetNode, Socket source, Socket target)   {
+    public Link(Canvas canvas, AbstractNode sourceNode, AbstractNode targetNode, Socket source, Socket target)   {
         super();
         this.canvas = canvas;
         canvasSourceBoundsBinding = Bindings.createObjectBinding(() -> {

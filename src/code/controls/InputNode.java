@@ -17,7 +17,7 @@ package code.controls;
         import java.io.FileNotFoundException;
         import java.io.IOException;
 
-public class InputNode extends AnchorPane {
+public class InputNode extends AbstractNode {
     @FXML
     private Label title;
 
@@ -27,30 +27,18 @@ public class InputNode extends AnchorPane {
     @FXML
     Button button;
 
-    double relativeX;
-    double relativeY;
-
     final FileChooser fileChooser = new FileChooser();
 
     BufferedImage img=null;
 
-    public InputNode() {
-        super();
+    public InputNode(Canvas canvas) {
+        super(canvas);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("InputNode.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         try { fxmlLoader.load(); } catch (IOException exception) { throw new RuntimeException(exception); }
-        this.setOnMousePressed(me -> {
-            this.relativeX = this.getLayoutX() - me.getSceneX();
-            this.relativeY = this.getLayoutY() - me.getSceneY();
-            this.setCursor(Cursor.MOVE);
-        });
-        this.setOnMouseDragged( me -> {
-            this.setLayoutX(me.getSceneX()+relativeX);
-            this.setLayoutY(me.getSceneY()+relativeY);
-        });
-        this.setOnMouseEntered( me -> this.setCursor(Cursor.HAND));
-        this.setOnMouseReleased( me -> this.setCursor(Cursor.HAND));
+
+        s1.node=this;
 
         button.setOnAction(
                 new EventHandler<ActionEvent>() {

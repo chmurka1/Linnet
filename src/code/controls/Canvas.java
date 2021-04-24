@@ -13,16 +13,20 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Canvas extends ScrollPane {
 
     @FXML
     Pane pane;
 
-    @FXML
-    NodeControl node1;
-    @FXML
-    NodeControl node2;
+    List<InputNode> listOfInputNodes=new LinkedList<>();
+    List<OutputNode> listOfOutputNodes=new LinkedList<>();
+    List<NodeControl> listOfNodeControls=new LinkedList<>();
+    List<Link> listOfLinks=new LinkedList<>();
+
+    Socket clickedSocket;
 
     public Canvas() {
         super();
@@ -66,26 +70,34 @@ public class Canvas extends ScrollPane {
         contextMenu.getItems().addAll(menuItem1,menuItem2,menuItem3);
         this.setContextMenu(contextMenu);
 
-        this.addLink(node1,node2,node1.s7,node2.s2);
+    //    this.addLink(node1,node2,node1.s7,node2.s2);
     }
 
     public void addInputNode(){
-        pane.getChildren().add(new InputNode());
+        InputNode tempNode=new InputNode(this);
+        listOfInputNodes.add(tempNode);
+        pane.getChildren().add(tempNode);
     }
 
     public void addOutputNode(){
-        pane.getChildren().add(new OutputNode());
+        OutputNode tempNode=new OutputNode(this);
+        listOfOutputNodes.add(tempNode);
+        pane.getChildren().add(tempNode);
     }
 
     public void addNodeControl(){
-        pane.getChildren().add(new NodeControl());
+        NodeControl tempNode=new NodeControl(this);
+        listOfNodeControls.add(tempNode);
+        pane.getChildren().add(tempNode);
     }
 
     public void removeLink(Link link) {
         this.pane.getChildren().remove(link);
     }
 
-    public void addLink(NodeControl sourceNode, NodeControl targetNode, Socket s, Socket t) {
-        this.pane.getChildren().add(new Link(this,sourceNode,targetNode,s,t));
+    public void addLink(AbstractNode sourceNode, AbstractNode targetNode, Socket s, Socket t) {
+        Link tempLink=new Link(this,sourceNode,targetNode,s,t);
+        listOfLinks.add(tempLink);
+        this.pane.getChildren().add(tempLink);
     }
 }

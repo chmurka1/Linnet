@@ -8,7 +8,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public class NodeControl extends AnchorPane {
+public class NodeControl extends AbstractNode {
     @FXML
     private Label title;
 
@@ -27,26 +27,13 @@ public class NodeControl extends AnchorPane {
     @FXML
     Socket s7;
 
-
-    double relativeX;
-    double relativeY;
-
-    public NodeControl() {
-        super();
+    public NodeControl(Canvas canvas) {
+        super(canvas);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("NodeControl.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         try { fxmlLoader.load(); } catch (IOException exception) { throw new RuntimeException(exception); }
-        this.setOnMousePressed(me -> {
-            this.relativeX = this.getLayoutX() - me.getSceneX();
-            this.relativeY = this.getLayoutY() - me.getSceneY();
-            this.setCursor(Cursor.MOVE);
-        });
-        this.setOnMouseDragged( me -> {
-            this.setLayoutX(me.getSceneX()+relativeX);
-            this.setLayoutY(me.getSceneY()+relativeY);
-        });
-        this.setOnMouseEntered( me -> this.setCursor(Cursor.HAND));
-        this.setOnMouseReleased( me -> this.setCursor(Cursor.HAND));
+        s1.node=this; s2.node=this; s3.node=this; s4.node=this;
+        s5.node=this; s6.node=this; s7.node=this;
     }
 }
