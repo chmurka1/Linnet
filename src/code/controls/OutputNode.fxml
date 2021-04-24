@@ -10,7 +10,7 @@
 
 <fx:root type="javafx.scene.layout.AnchorPane" xmlns:fx="http://javafx.com/fxml">
     <VBox style="-fx-background-color: #DDD;">
-        <Pane style="-fx-background-color: #CCC;"><Label fx:id="title" text="Title" style="-fx-padding: 5px;"/></Pane>
+        <Pane style="-fx-background-color: #CCC;"><Label fx:id="title" text="Image output" style="-fx-padding: 5px;"/></Pane>
         <BorderPane>
             <left>
                 <VBox alignment="CENTER" style="-fx-padding: 10px; -fx-spacing: 5px;">
@@ -19,7 +19,7 @@
             </left>
             <right>
                 <VBox alignment="CENTER" style="-fx-padding: 10px; -fx-spacing: 5px;">
-                    <HBox><Button fx:id="button" text="Out"/></HBox>
+                    <HBox><Button fx:id="button" text="Select path"/></HBox>
                 </VBox>
             </right>
         </BorderPane>
