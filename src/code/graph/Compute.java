@@ -25,6 +25,7 @@ public class Compute {
                     node.filter.apply(node);
                     if(node.out1!=null)transferImage(node.s1out);
                     if(node.out2!=null)transferImage(node.s2out);
+                    node.isFilterApplied=true;
                     flag=true;
                 }
             }
