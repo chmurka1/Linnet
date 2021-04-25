@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 
 public class Compute {
     public static void compute(Canvas canvas){
+        clear(canvas);
+
         for(InputNode inputNode:canvas.listOfInputNodes){
             if(inputNode.out1!=null)
             {
@@ -56,6 +58,17 @@ public class Compute {
         }
         else{
             s.nextSocket.node.in2=img;
+        }
+    }
+
+    private static void clear(Canvas canvas){
+        for(NodeControl node:canvas.listOfNodeControls){
+            node.isFilterApplied=false;
+            node.in1=null; node.in2=null;
+            node.out1=null; node.out2=null;
+        }
+        for(OutputNode outputNode:canvas.listOfOutputNodes){
+            outputNode.in1=null;
         }
     }
 }
