@@ -7,7 +7,6 @@ import java.awt.image.BufferedImage;
 
 
 public class Filters {
-    Filter brightenImage = new code.filters.FilterType1(Color::brighter);
-    Filter darkenImage = new code.filters.FilterType1(Color::darker);
-
+    public static Filter brightenImage = new code.filters.FilterType1(Color::brighter);
+    public static Filter darkenImage = new code.filters.FilterType1(Color::darker);
 }
