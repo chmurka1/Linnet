@@ -6,12 +6,12 @@ import java.awt.image.BufferedImage;
 
 public class Compute {
     public static void compute(Canvas canvas){
-        clear(canvas);
+        innerClear(canvas);
 
         for(InputNode inputNode:canvas.listOfInputNodes){
             if(inputNode.out1!=null)
             {
-                System.out.println("loading images from disk");
+            //    System.out.println("loading images from disk");
                 transferImage(inputNode.s1out);
             }
         }
@@ -34,8 +34,10 @@ public class Compute {
         }
 
         for(OutputNode outputNode: canvas.listOfOutputNodes){
-            if(outputNode.in1!=null) System.out.println("output ready");
-            outputNode.colorTitlePane();
+            if(outputNode.in1!=null) {
+                System.out.println("output ready");
+                outputNode.colorTitlePane();
+            }
         }
     }
 
@@ -62,7 +64,8 @@ public class Compute {
         }
     }
 
-    private static void clear(Canvas canvas){
+    private static void innerClear(Canvas canvas){
+        canvas.clickedSocket=null;
         for(NodeControl node:canvas.listOfNodeControls){
             node.isFilterApplied=false;
             node.in1=null; node.in2=null;
@@ -71,5 +74,26 @@ public class Compute {
         for(OutputNode outputNode:canvas.listOfOutputNodes){
             outputNode.in1=null;
         }
+    }
+
+    public static void fullClear(Canvas canvas){
+        for(Link link:canvas.listOfLinks){
+            link.removeLinkFromCanvas();
+        }
+        canvas.listOfLinks.clear();
+        for(InputNode inputNode:canvas.listOfInputNodes){
+            canvas.removeInputNode(inputNode);
+        }
+        canvas.listOfInputNodes.clear();
+        for(OutputNode outputNode:canvas.listOfOutputNodes){
+            canvas.removeOutputNode(outputNode);
+        }
+        canvas.listOfOutputNodes.clear();
+        for(NodeControl node: canvas.listOfNodeControls){
+            canvas.removeNodeControl(node);
+        }
+        canvas.listOfNodeControls.clear();
+
+        canvas.clickedSocket=null;
     }
 }
