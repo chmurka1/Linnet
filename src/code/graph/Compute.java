@@ -5,9 +5,13 @@ import code.controls.*;
 import java.awt.image.BufferedImage;
 
 public class Compute {
-    public void compute(Canvas canvas){
+    public static void compute(Canvas canvas){
         for(InputNode inputNode:canvas.listOfInputNodes){
-            if(inputNode.in1!=null)transferImage(inputNode.s1out);
+            if(inputNode.out1!=null)
+            {
+                System.out.println("loading images from disk");
+                transferImage(inputNode.s1out);
+            }
         }
 
         boolean flag=true;
@@ -27,12 +31,16 @@ public class Compute {
         }
 
         for(OutputNode outputNode: canvas.listOfOutputNodes){
-            if(outputNode.in1!=null)System.out.println("output ready");
+            if(outputNode.in1!=null) System.out.println("output ready");
         }
     }
 
-    private void transferImage(Socket s){
-        if(s.nextSocket==null)return;
+    private static void transferImage(Socket s){
+        if(s.nextSocket==null)
+        {
+            System.out.println("transfer failed");
+            return;
+        }
 
         BufferedImage img=null;
         if(s.id.equals("out1")){

@@ -70,7 +70,6 @@ public class Canvas extends ScrollPane {
         contextMenu.getItems().addAll(menuItem1,menuItem2,menuItem3);
         this.setContextMenu(contextMenu);
 
-    //    this.addLink(node1,node2,node1.s7,node2.s2);
     }
 
     public void addInputNode(){

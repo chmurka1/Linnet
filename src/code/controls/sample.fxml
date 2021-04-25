@@ -1,0 +1,21 @@
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import code.controls.Controller?>
+<?import code.controls.Canvas?>
+<fx:root type="javafx.scene.layout.GridPane" xmlns:fx="http://javafx.com/fxml" hgap="10" vgap="10">
+    <VBox>
+        <MenuBar>
+            <Menu text="File">
+                <MenuItem fx:id="saveOption" text="Compute output"/>
+            </Menu>
+        </MenuBar>
+        <HBox>
+            <Canvas fx:id="canvas"/>
+            <ScrollPane prefWidth="1000">
+                <Pane>
+                </Pane>
+            </ScrollPane>
+        </HBox>
+    </VBox>
+</fx:root>

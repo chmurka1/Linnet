@@ -2,22 +2,15 @@ package code.controls;
 
 import code.filters.EmptyFilter;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Cursor;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
 
 public class NodeControl extends AbstractNode {
-    @FXML
-    private Label title;
 
     @FXML
     public Socket s1in;
@@ -44,14 +37,11 @@ public class NodeControl extends AbstractNode {
         String[] listOfFilters ={"filter1","filter2","filter3"};
         ComboBox<String> comboBox= new ComboBox<>(FXCollections.observableArrayList(listOfFilters));
         comboBox.setOnAction(
-                new EventHandler<ActionEvent>(){
-                    @Override
-                    public void handle(final ActionEvent e){
-                        NodeControl.this.filter=new EmptyFilter();
-                        //TODO
-                        //set filter to appropriate type
-                        //comboBox.getValue()
-                    }
+                e -> {
+                    NodeControl.this.filter = new EmptyFilter();
+                    //TODO
+                    //set filter to appropriate type
+                    //comboBox.getValue()
                 }
         );
         topPane.getChildren().add(comboBox);
