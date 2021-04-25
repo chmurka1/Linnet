@@ -6,6 +6,7 @@ package code.controls;
         import javafx.fxml.FXMLLoader;
         import javafx.scene.control.Button;
         import javafx.scene.control.Label;
+        import javafx.scene.layout.Pane;
         import javafx.stage.FileChooser;
 
         import java.io.File;
@@ -14,7 +15,7 @@ package code.controls;
 
 public class InputNode extends AbstractNode {
     @FXML
-    private Label title;
+    private Pane titlePane;
 
     @FXML
     public Socket s1out;
@@ -40,11 +41,14 @@ public class InputNode extends AbstractNode {
                     if(file!=null){
                         try{
                             out1= FileRead.read(file);
-                            System.out.println(out1.getColorModel());
+                        //    System.out.println(out1.getColorModel());
+                            titlePane.setStyle("-fx-background-color: #90ee90;");
                         }catch (FileFormatException exc){
                             System.out.println("not an image");
+                            titlePane.setStyle("-fx-background-color: #ff0000;");
                         }catch (FileNotFoundException exc){
                             System.out.println("cannot read");
+                            titlePane.setStyle("-fx-background-color: #ff0000;");
                         }
                     }
                 });

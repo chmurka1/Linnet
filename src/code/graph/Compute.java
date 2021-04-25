@@ -35,6 +35,7 @@ public class Compute {
 
         for(OutputNode outputNode: canvas.listOfOutputNodes){
             if(outputNode.in1!=null) System.out.println("output ready");
+            outputNode.colorTitlePane();
         }
     }
 

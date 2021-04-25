@@ -4,6 +4,7 @@ import code.files.FileWrite;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -11,6 +12,8 @@ import java.io.IOException;
 
 public class OutputNode extends AbstractNode {
 
+    @FXML
+    Pane titlePane;
     @FXML
     Socket s1in;
     @FXML
@@ -43,5 +46,9 @@ public class OutputNode extends AbstractNode {
                         }
                     }
                 });
+    }
+
+    public void colorTitlePane(){
+        titlePane.setStyle("-fx-background-color: #ffd700;");
     }
 }
