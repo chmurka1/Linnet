@@ -20,6 +20,7 @@
             <right>
                 <VBox alignment="CENTER" style="-fx-padding: 10px; -fx-spacing: 5px;">
                     <HBox><Button fx:id="button" text="Select path"/></HBox>
+                    <HBox><Button fx:id="view" text="View"/></HBox>
                 </VBox>
             </right>
         </BorderPane>

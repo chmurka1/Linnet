@@ -18,6 +18,8 @@ import java.util.List;
 
 public class Canvas extends ScrollPane {
 
+    Controller controller;
+
     @FXML
     Pane pane;
 
