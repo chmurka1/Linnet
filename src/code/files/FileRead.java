@@ -10,7 +10,7 @@ public class FileRead {
 
     public static BufferedImage read(File file)
     throws FileNotFoundException, FileFormatException{
-        BufferedImage img = null;
+        BufferedImage img;
 
         try {
             img = ImageIO.read(file);

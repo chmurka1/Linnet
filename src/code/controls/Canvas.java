@@ -26,7 +26,7 @@ public class Canvas extends ScrollPane {
     public List<NodeControl> listOfNodeControls=new LinkedList<>();
     public List<Link> listOfLinks=new LinkedList<>();
 
-    Socket clickedSocket;
+    public Socket clickedSocket;
 
     public Canvas() {
         super();
@@ -72,32 +72,42 @@ public class Canvas extends ScrollPane {
 
     }
 
+    public void removeInputNode(InputNode inputNode){
+        pane.getChildren().remove(inputNode);
+    }
     public void addInputNode(){
         InputNode tempNode=new InputNode(this);
         listOfInputNodes.add(tempNode);
         pane.getChildren().add(tempNode);
     }
 
+    public void removeOutputNode(OutputNode outputNode){
+        pane.getChildren().remove(outputNode);
+    }
     public void addOutputNode(){
         OutputNode tempNode=new OutputNode(this);
         listOfOutputNodes.add(tempNode);
         pane.getChildren().add(tempNode);
     }
 
+    public void removeNodeControl(NodeControl node){
+        pane.getChildren().remove(node);
+    }
     public void addNodeControl(){
         NodeControl tempNode=new NodeControl(this);
         listOfNodeControls.add(tempNode);
         pane.getChildren().add(tempNode);
     }
 
-    public void removeLink(Link link) {
-        this.pane.getChildren().remove(link);
-    }
 
     public void addLink(AbstractNode sourceNode, AbstractNode targetNode, Socket s, Socket t) {
+        t.prevSocket=s;
         s.nextSocket=t;
         Link tempLink=new Link(this,sourceNode,targetNode,s,t);
         listOfLinks.add(tempLink);
         this.pane.getChildren().add(tempLink);
+    }
+    public void removeLink(Link link) {
+        this.pane.getChildren().remove(link);
     }
 }

@@ -13,7 +13,9 @@ public class Controller extends GridPane {
     Canvas canvas;
 
     @FXML
-    MenuItem saveOption;
+    MenuItem computeOutput;
+    @FXML
+    MenuItem clearCanvas;
 
     public Controller() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sample.fxml"));
@@ -21,8 +23,12 @@ public class Controller extends GridPane {
         fxmlLoader.setController(this);
         try { fxmlLoader.load(); } catch (IOException exception) { throw new RuntimeException(exception); }
 
-        saveOption.setOnAction( e-> {
+        computeOutput.setOnAction( e-> {
             Compute.compute(canvas);
+        });
+
+        clearCanvas.setOnAction( e-> {
+            Compute.fullClear(canvas);
         });
     }
 }

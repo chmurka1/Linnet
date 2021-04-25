@@ -4,14 +4,18 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.binding.ObjectBinding;
 import javafx.geometry.Bounds;
 import javafx.scene.Cursor;
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 
 public class Link extends Line {
 
     Canvas canvas;
-    private void removeLinkFromCanvas() {
-            canvas.removeLink(this);
+    Socket sourceSocket;
+    Socket targetSocket;
+
+    public void removeLinkFromCanvas() {
+        sourceSocket.nextSocket=null;
+        targetSocket.prevSocket=null;
+        canvas.removeLink(this);
     }
 
     final private ObjectBinding<Bounds> canvasSourceBoundsBinding;
@@ -20,6 +24,8 @@ public class Link extends Line {
     public Link(Canvas canvas, AbstractNode sourceNode, AbstractNode targetNode, Socket source, Socket target)   {
         super();
         this.canvas = canvas;
+        this.sourceSocket=source;
+        this.targetSocket=target;
         canvasSourceBoundsBinding = Bindings.createObjectBinding(() -> {
                     Bounds localBound = source.getBoundsInLocal();
                     Bounds sceneBound = source.localToScene(localBound);

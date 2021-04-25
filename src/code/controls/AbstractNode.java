@@ -1,12 +1,10 @@
 package code.controls;
 
-import code.filters.EmptyFilter;
 import code.filters.Filter;
 import javafx.scene.Cursor;
 import javafx.scene.layout.AnchorPane;
 
 import java.awt.image.BufferedImage;
-import java.nio.Buffer;
 
 public abstract class AbstractNode extends AnchorPane {
 

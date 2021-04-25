@@ -7,7 +7,8 @@
     <VBox>
         <MenuBar>
             <Menu text="File">
-                <MenuItem fx:id="saveOption" text="Compute output"/>
+                <MenuItem fx:id="computeOutput" text="Compute output"/>
+                <MenuItem fx:id="clearCanvas" text="Clear canvas"/>
             </Menu>
         </MenuBar>
         <HBox>

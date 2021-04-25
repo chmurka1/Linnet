@@ -1,17 +1,10 @@
 package code.controls;
-import code.files.FileFormatException;
-import code.files.FileRead;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Circle;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Socket extends VBox {
@@ -24,6 +17,7 @@ public class Socket extends VBox {
     public String id;
     //socket that this socket is connected to
     public Socket nextSocket;
+    public Socket prevSocket;
 
     public Socket() {
         super();
@@ -40,21 +34,32 @@ public class Socket extends VBox {
                         "-fx-max-height: 10px;"
         );
 
+        /*  clicking the same node resets clicked socked
+            at first you can only click output socked
+            clicked output socket only accepts input socked
+            clicking clicked socket does nothing
+        */
         button.setOnAction(
-                new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(final ActionEvent e) {
-                        if(node.canvas.clickedSocket==null){
-                            node.canvas.clickedSocket=Socket.this;
-                        }
-                        else if(node.canvas.clickedSocket.node==Socket.this.node){
-                            node.canvas.clickedSocket=null;
-                        }
-                        else{
-                            node.canvas.addLink(node.canvas.clickedSocket.node,Socket.this.node,
-                                    node.canvas.clickedSocket,Socket.this);
-                            node.canvas.clickedSocket=null;
-                        }
+                e -> {
+                    if(Socket.this.id.equals("in1")||Socket.this.id.equals("in2")){
+                        if(Socket.this.prevSocket!=null)return;
+                    }
+                    if(Socket.this.id.equals("out1")||Socket.this.id.equals("out2")){
+                        if(Socket.this.nextSocket!=null)return;
+                    }
+
+                    if(node.canvas.clickedSocket==null){
+                        if(Socket.this.id.equals("in1")||Socket.this.id.equals("in2"))return;
+                        node.canvas.clickedSocket=Socket.this;
+                    }
+                    else if(node.canvas.clickedSocket.node==Socket.this.node){
+                        node.canvas.clickedSocket=null;
+                    }
+                    else{
+                        if(Socket.this.id.equals("out1")||Socket.this.id.equals("out2"))return;
+                        node.canvas.addLink(node.canvas.clickedSocket.node,Socket.this.node,
+                                node.canvas.clickedSocket,Socket.this);
+                        node.canvas.clickedSocket=null;
                     }
                 });
 
