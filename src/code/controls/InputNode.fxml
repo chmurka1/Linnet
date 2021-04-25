@@ -19,7 +19,7 @@
             </left>
             <right>
                 <VBox alignment="CENTER" style="-fx-padding: 10px; -fx-spacing: 5px;">
-                    <HBox><Label text="Out"/><Socket fx:id="s1"/></HBox>
+                    <HBox><Label text="Out"/><Socket fx:id="s1out"/></HBox>
                 </VBox>
             </right>
         </BorderPane>

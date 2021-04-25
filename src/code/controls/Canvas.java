@@ -96,6 +96,7 @@ public class Canvas extends ScrollPane {
     }
 
     public void addLink(AbstractNode sourceNode, AbstractNode targetNode, Socket s, Socket t) {
+        s.nextSocket=t;
         Link tempLink=new Link(this,sourceNode,targetNode,s,t);
         listOfLinks.add(tempLink);
         this.pane.getChildren().add(tempLink);

@@ -13,9 +13,11 @@ public abstract class AbstractNode extends AnchorPane {
     double relativeX;
     double relativeY;
 
+
+    BufferedImage in1;
+    BufferedImage in2;
     BufferedImage out1;
     BufferedImage out2;
-    BufferedImage out3;
 
     //some filter type
 

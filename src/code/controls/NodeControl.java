@@ -18,19 +18,13 @@ public class NodeControl extends AbstractNode {
     private Label title;
 
     @FXML
-    Socket s1;
+    Socket s1in;
     @FXML
-    Socket s2;
+    Socket s2in;
     @FXML
-    Socket s3;
+    Socket s1out;
     @FXML
-    Socket s4;
-    @FXML
-    Socket s5;
-    @FXML
-    Socket s6;
-    @FXML
-    Socket s7;
+    Socket s2out;
     @FXML
     Pane topPane;
 
@@ -40,11 +34,13 @@ public class NodeControl extends AbstractNode {
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         try { fxmlLoader.load(); } catch (IOException exception) { throw new RuntimeException(exception); }
-        s1.node=this; s2.node=this; s3.node=this; s4.node=this;
-        s5.node=this; s6.node=this; s7.node=this;
+        s1in.node=this; s2in.node=this;
+        s1in.id="in1"; s2in.id="in2";
+        s1out.node=this; s2out.node=this;
+        s1out.id="out1"; s2out.id="out2";
 
-        String listOfFilters[]={"filter1","filter2","filter3"};
-        ComboBox comboBox= new ComboBox(FXCollections.observableArrayList(listOfFilters));
+        String[] listOfFilters ={"filter1","filter2","filter3"};
+        ComboBox<String> comboBox= new ComboBox<>(FXCollections.observableArrayList(listOfFilters));
         comboBox.setOnAction(
                 new EventHandler<ActionEvent>(){
                     @Override

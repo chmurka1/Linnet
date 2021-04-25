@@ -22,7 +22,7 @@ public class InputNode extends AbstractNode {
     private Label title;
 
     @FXML
-    Socket s1;
+    Socket s1out;
 
     @FXML
     Button button;
@@ -37,7 +37,7 @@ public class InputNode extends AbstractNode {
         fxmlLoader.setController(this);
         try { fxmlLoader.load(); } catch (IOException exception) { throw new RuntimeException(exception); }
 
-        s1.node=this;
+        s1out.node=this; s1out.id="out1";
 
         button.setOnAction(
                 new EventHandler<ActionEvent>() {

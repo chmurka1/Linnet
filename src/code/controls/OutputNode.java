@@ -23,13 +23,11 @@ public class OutputNode extends AbstractNode {
     private Label title;
 
     @FXML
-    Socket s1;
+    Socket s1in;
     @FXML
     Button button;
 
     final FileChooser fileChooser = new FileChooser();
-
-    BufferedImage img=null;
 
     public OutputNode(Canvas canvas) {
         super(canvas);
@@ -38,20 +36,20 @@ public class OutputNode extends AbstractNode {
         fxmlLoader.setController(this);
         try { fxmlLoader.load(); } catch (IOException exception) { throw new RuntimeException(exception); }
 
-        s1.node=this;
+        s1in.node=this; s1in.id="in1";
 
         button.setOnAction(
                 new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(final ActionEvent e) {
-                        if(img==null){
+                        if(in1==null){
                             System.out.println("no input");
                         }
                         //later probably else
                         File file = fileChooser.showSaveDialog(null);
                         if(file!=null){
                             try{
-                                FileWrite.write(img,"jpg",file);
+                                FileWrite.write(in1,"jpg",file);
                                 //maybe later allow to choose file format
                             }catch (IOException exc){
                                 System.out.println("cannot write");
