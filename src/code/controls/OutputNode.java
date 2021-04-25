@@ -19,7 +19,6 @@ public class OutputNode extends AbstractNode {
     Socket s1in;
     @FXML
     Button button;
-
     @FXML
     Button view;
 
@@ -63,5 +62,9 @@ public class OutputNode extends AbstractNode {
 
     public void colorTitlePane(){
         titlePane.setStyle("-fx-background-color: #ffd700;");
+    }
+
+    public void uncolorTitlePane(){
+        titlePane.setStyle("-fx-background-color: #fff8dc;");
     }
 }

@@ -5,7 +5,6 @@ package code.controls;
         import javafx.fxml.FXML;
         import javafx.fxml.FXMLLoader;
         import javafx.scene.control.Button;
-        import javafx.scene.control.Label;
         import javafx.scene.layout.Pane;
         import javafx.stage.FileChooser;
 
@@ -15,13 +14,13 @@ package code.controls;
 
 public class InputNode extends AbstractNode {
     @FXML
-    private Pane titlePane;
-
+    Pane titlePane;
     @FXML
     public Socket s1out;
-
     @FXML
     Button button;
+    @FXML
+    Button view;
 
     final FileChooser fileChooser = new FileChooser();
 
@@ -51,6 +50,14 @@ public class InputNode extends AbstractNode {
                             titlePane.setStyle("-fx-background-color: #ff0000;");
                         }
                     }
+                });
+
+        view.setOnAction(
+                e -> {
+                    if (out1 == null) {
+                        System.out.println("no image loaded");
+                    }
+                    this.canvas.controller.viewport.setImage(AbstractNode.convertToFxImage(this.out1));
                 });
     }
 }

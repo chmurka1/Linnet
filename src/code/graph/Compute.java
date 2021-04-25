@@ -73,6 +73,7 @@ public class Compute {
         }
         for(OutputNode outputNode:canvas.listOfOutputNodes){
             outputNode.in1=null;
+            outputNode.uncolorTitlePane();
         }
     }
 

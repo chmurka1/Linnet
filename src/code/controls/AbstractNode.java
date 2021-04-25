@@ -29,6 +29,8 @@ public abstract class AbstractNode extends AnchorPane {
     public AbstractNode(Canvas canvas){
         super();
         this.canvas=canvas;
+        this.setLayoutX(canvas.mouseX);
+        this.setLayoutY(canvas.mouseY);
         this.setOnMousePressed(me -> {
             this.relativeX = this.getLayoutX() - me.getSceneX();
             this.relativeY = this.getLayoutY() - me.getSceneY();
@@ -45,7 +47,7 @@ public abstract class AbstractNode extends AnchorPane {
     public static Image convertToFxImage(BufferedImage image) {
         WritableImage wr = null;
         if (image != null) {
-            System.out.println("JESTEM");
+        //    System.out.println("JESTEM");
             wr = new WritableImage(image.getWidth(), image.getHeight());
             PixelWriter pw = wr.getPixelWriter();
             for (int x = 0; x < image.getWidth(); x++) {

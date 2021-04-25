@@ -1,12 +1,7 @@
 package code.controls;
 
-
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
@@ -30,6 +25,9 @@ public class Canvas extends ScrollPane {
 
     public Socket clickedSocket;
 
+    public double mouseX;
+    public double mouseY;
+
     public Canvas() {
         super();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Canvas.fxml"));
@@ -44,33 +42,23 @@ public class Canvas extends ScrollPane {
         ContextMenu contextMenu = new ContextMenu();
         MenuItem menuItem1 = new MenuItem("add input node");
         menuItem1.setOnAction(
-                new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent actionEvent) {
-                        addInputNode();
-                    }
-                }
+                actionEvent -> addInputNode()
         );
         MenuItem menuItem2 = new MenuItem("add node control");
         menuItem2.setOnAction(
-                new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent actionEvent) {
-                        addNodeControl();
-                    }
-                }
+                actionEvent -> addNodeControl()
         );
         MenuItem menuItem3 = new MenuItem("add output node");
         menuItem3.setOnAction(
-                new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent actionEvent) {
-                        addOutputNode();
-                    }
-                }
+                actionEvent -> addOutputNode()
         );
         contextMenu.getItems().addAll(menuItem1,menuItem2,menuItem3);
         this.setContextMenu(contextMenu);
+
+        this.setOnMouseClicked(me-> {
+            this.mouseX = me.getSceneX();
+            this.mouseY = me.getSceneY();
+        });
 
     }
 

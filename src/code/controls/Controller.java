@@ -29,12 +29,8 @@ public class Controller extends GridPane {
 
         canvas.controller = this;
 
-        computeOutput.setOnAction( e-> {
-            Compute.compute(canvas);
-        });
+        computeOutput.setOnAction( e-> Compute.compute(canvas));
 
-        clearCanvas.setOnAction( e-> {
-            Compute.fullClear(canvas);
-        });
+        clearCanvas.setOnAction( e-> Compute.fullClear(canvas));
     }
 }

@@ -14,7 +14,7 @@
         <BorderPane>
             <left>
                 <VBox alignment="CENTER" style="-fx-padding: 10px; -fx-spacing: 5px;">
-                    <HBox><Socket fx:id="s1in"/><Label text="In"/></HBox>
+                    <HBox><Socket fx:id="s1in"/><Label text="in"/></HBox>
                 </VBox>
             </left>
             <right>
