@@ -15,9 +15,9 @@ public class FiltersOfColor {
         }
         @Override
         public Color apply(Color color) {
-            int red = Math.max(Math.min(color.getRed()+value, 255),0);
-            int green = Math.max(Math.min(color.getGreen()+value, 255),0);
-            int blue = Math.max(Math.min(color.getBlue()+value, 255),0);
+            int red = Math.max(Math.min(color.getRed()+value/3, 255),0);
+            int green = Math.max(Math.min(color.getGreen()+value/3, 255),0);
+            int blue = Math.max(Math.min(color.getBlue()+value/3, 255),0);
             return new Color(red,green,blue);
         }
     }
