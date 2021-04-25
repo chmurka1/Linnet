@@ -19,11 +19,11 @@ public class Socket extends VBox {
     @FXML
     Button button;
     //parent node
-    AbstractNode node;
+    public AbstractNode node;
     //in1, in2 for input, out1, out2 for output
-    String id;
+    public String id;
     //socket that this socket is connected to
-    Socket nextSocket;
+    public Socket nextSocket;
 
     public Socket() {
         super();

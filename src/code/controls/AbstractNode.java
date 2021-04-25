@@ -1,5 +1,7 @@
 package code.controls;
 
+import code.filters.EmptyFilter;
+import code.filters.Filter;
 import javafx.scene.Cursor;
 import javafx.scene.layout.AnchorPane;
 
@@ -14,12 +16,13 @@ public abstract class AbstractNode extends AnchorPane {
     double relativeY;
 
 
-    BufferedImage in1;
-    BufferedImage in2;
-    BufferedImage out1;
-    BufferedImage out2;
+    public BufferedImage in1;
+    public BufferedImage in2;
+    public BufferedImage out1;
+    public BufferedImage out2;
 
-    //some filter type
+    public Filter filter;
+    public boolean isFilterApplied=false;
 
     public AbstractNode(Canvas canvas){
         super();

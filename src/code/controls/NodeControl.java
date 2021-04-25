@@ -1,5 +1,6 @@
 package code.controls;
 
+import code.filters.EmptyFilter;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,18 +14,19 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
+
 public class NodeControl extends AbstractNode {
     @FXML
     private Label title;
 
     @FXML
-    Socket s1in;
+    public Socket s1in;
     @FXML
-    Socket s2in;
+    public Socket s2in;
     @FXML
-    Socket s1out;
+    public Socket s1out;
     @FXML
-    Socket s2out;
+    public Socket s2out;
     @FXML
     Pane topPane;
 
@@ -45,6 +47,7 @@ public class NodeControl extends AbstractNode {
                 new EventHandler<ActionEvent>(){
                     @Override
                     public void handle(final ActionEvent e){
+                        NodeControl.this.filter=new EmptyFilter();
                         //TODO
                         //set filter to appropriate type
                         //comboBox.getValue()

@@ -22,7 +22,7 @@ public class InputNode extends AbstractNode {
     private Label title;
 
     @FXML
-    Socket s1out;
+    public Socket s1out;
 
     @FXML
     Button button;

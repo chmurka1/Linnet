@@ -21,10 +21,10 @@ public class Canvas extends ScrollPane {
     @FXML
     Pane pane;
 
-    List<InputNode> listOfInputNodes=new LinkedList<>();
-    List<OutputNode> listOfOutputNodes=new LinkedList<>();
-    List<NodeControl> listOfNodeControls=new LinkedList<>();
-    List<Link> listOfLinks=new LinkedList<>();
+    public List<InputNode> listOfInputNodes=new LinkedList<>();
+    public List<OutputNode> listOfOutputNodes=new LinkedList<>();
+    public List<NodeControl> listOfNodeControls=new LinkedList<>();
+    public List<Link> listOfLinks=new LinkedList<>();
 
     Socket clickedSocket;
 
