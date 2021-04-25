@@ -3,6 +3,7 @@
 
 <?import code.controls.Controller?>
 <?import code.controls.Canvas?>
+<?import javafx.scene.image.ImageView?>
 <fx:root type="javafx.scene.layout.GridPane" xmlns:fx="http://javafx.com/fxml" hgap="10" vgap="10">
     <VBox>
         <MenuBar>
@@ -14,7 +15,8 @@
         <HBox>
             <Canvas fx:id="canvas"/>
             <ScrollPane prefWidth="1000">
-                <Pane>
+                <Pane maxWidth="1000">
+                    <ImageView fx:id="viewport" fitWidth="800" preserveRatio="true"/>
                 </Pane>
             </ScrollPane>
         </HBox>

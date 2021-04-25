@@ -26,13 +26,13 @@ public class Socket extends VBox {
         fxmlLoader.setController(this);
         try { fxmlLoader.load(); } catch (IOException exception) { throw new RuntimeException(exception); }
 
-        button.setStyle(
+        /*button.setStyle(
                 "-fx-background-radius: 10em; " +
                         "-fx-min-width: 10px; " +
                         "-fx-min-height: 10px; " +
                         "-fx-max-width: 10px; " +
                         "-fx-max-height: 10px;"
-        );
+        );*/
 
         /*  clicking the same node resets clicked socked
             at first you can only click output socked

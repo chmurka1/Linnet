@@ -11,7 +11,7 @@ public class Main extends Application {
     public void start(Stage primaryStage){
         Controller controller = new Controller();
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(controller, 300, 275));
+        primaryStage.setScene(new Scene(controller, 2000, 1000));
         primaryStage.show();
     }
 

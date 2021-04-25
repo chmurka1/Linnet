@@ -1,6 +1,7 @@
 package code.controls;
 
 import code.files.FileWrite;
+import code.graph.Compute;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -18,6 +19,9 @@ public class OutputNode extends AbstractNode {
     Socket s1in;
     @FXML
     Button button;
+
+    @FXML
+    Button view;
 
     final FileChooser fileChooser = new FileChooser();
 
@@ -45,6 +49,15 @@ public class OutputNode extends AbstractNode {
                             System.out.println("cannot write");
                         }
                     }
+                });
+
+        view.setOnAction(
+                e -> {
+                    Compute.compute(canvas);
+                    if (in1 == null) {
+                        System.out.println("no input");
+                    }
+                    this.canvas.controller.viewport.setImage(AbstractNode.convertToFxImage(this.in1));
                 });
     }
 
