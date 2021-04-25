@@ -6,18 +6,17 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.function.Function;
 
+import static code.filters.Extractors.brightnessExtractor;
 import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
-public class FilterTypeAdjustor implements Filter{
-    /** takes pixel (x,y) from input to determine (x,y) in output */
-
-    Function<Color,Color> colorFunction;
-    FilterTypeAdjustor(Function<Color,Color> colorFunction){
-        this.colorFunction = colorFunction;
-    }
+public class BrightnessAdjustor implements Filter{
 
     @Override
     public void apply(NodeControl node) {
+
+        int initialValue = brightnessExtractor.apply(node.in1);
+        int targetValue = brightnessExtractor.apply(node.in2);
+        Function<Color,Color> colorFunction = new FiltersOfColor.AdjustBrightness(targetValue - initialValue);
 
         int width = node.in1.getWidth();
         int height = node.in1.getHeight();
