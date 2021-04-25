@@ -4,7 +4,6 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.binding.ObjectBinding;
 import javafx.geometry.Bounds;
 import javafx.scene.Cursor;
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 
 public class Link extends Line {

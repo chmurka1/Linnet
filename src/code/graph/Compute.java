@@ -45,7 +45,7 @@ public class Compute {
             return;
         }
 
-        BufferedImage img=null;
+        BufferedImage img;
         if(s.id.equals("out1")){
             img=s.node.out1;
         }
