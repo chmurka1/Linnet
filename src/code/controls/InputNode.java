@@ -56,7 +56,8 @@ public class InputNode extends AbstractNode {
                     if (output.getContent() == null) {
                         System.out.println("no image loaded");
                     }
-                    canvas.controller.viewport.setImage(AbstractNode.convertToFxImage(output.getContent()));
+                    ViewportWindow.showImage(AbstractNode.convertToFxImage(output.getContent()));
+                //    canvas.controller.viewport.setImage(AbstractNode.convertToFxImage(output.getContent()));
                 });
 
         buttons.getChildren().add(button);
