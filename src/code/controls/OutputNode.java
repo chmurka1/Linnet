@@ -57,7 +57,8 @@ public class OutputNode extends AbstractNode {
                     if (input.getContent() == null) {
                         System.out.println("no input");
                     }
-                    this.canvas.controller.viewport.setImage(AbstractNode.convertToFxImage(this.input.getContent()));
+                    ViewportWindow.showImage(AbstractNode.convertToFxImage(this.input.getContent()));
+                //    this.canvas.controller.viewport.setImage(AbstractNode.convertToFxImage(this.input.getContent()));
                 });
     }
 
@@ -70,7 +71,7 @@ public class OutputNode extends AbstractNode {
         if ( input.getContent() == null ) {
             System.out.println("no input");
         }
-        this.canvas.controller.viewport.setImage(AbstractNode.convertToFxImage(this.input.getContent()));
+      //  this.canvas.controller.viewport.setImage(AbstractNode.convertToFxImage(this.input.getContent()));
     }
 
     @Override
