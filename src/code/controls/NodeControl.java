@@ -50,7 +50,7 @@ public class NodeControl extends AbstractNode {
         this.filter = new EmptyFilter();
 
         String[] listOfFilters ={"empty filter","brighten image","darken image","transfer brightness",
-                                    "black and white","blend pictures","more colorful"};
+                                    "black and white","blend pictures","more colorful","sharpen","contrast"};
         ComboBox<String> comboBox= new ComboBox<>(FXCollections.observableArrayList(listOfFilters));
         comboBox.setOnAction(
                 e -> {
@@ -80,6 +80,12 @@ public class NodeControl extends AbstractNode {
                     }
                     if(comboBox.getValue().equals("more colorful")){
                         NodeControl.this.filter = Filters.saturate;
+                    }
+                    if(comboBox.getValue().equals("sharpen")){
+                        NodeControl.this.filter = Filters.sharp;
+                    }
+                    if(comboBox.getValue().equals("contrast")){
+                        NodeControl.this.filter = Filters.contrast;
                     }
                 }
         );
