@@ -7,11 +7,6 @@ import java.util.function.Function;
 
 public class FiltersOfColor {
 
-    public static Function<Color,Color> toGrey = (Color color) -> {
-        int i = (color.getRed() + color.getGreen() + color.getBlue())/3;
-        return new Color(i,i,i);
-    };
-
     public static BiFunction<Color,Color,Color> colorBlend = (Color dominant, Color recessive) -> {
 
         double ratio = (double)(dominant.getRed() + dominant.getGreen() + dominant.getBlue()) / 765;
@@ -22,13 +17,6 @@ public class FiltersOfColor {
         int blue = (int)(dominant.getBlue() * ratio + recessive.getBlue() * (1-ratio));
 
         return new Color(red,green,blue);
-    };
-    public static Function<Color, Color> toColors = (Color color) -> {
-        int i = (color.getRed() + color.getGreen() + color.getBlue()) / 3;
-        int red = Math.max(Math.min(2 * color.getRed() - i, 255), 0);
-        int green = Math.max(Math.min(2 * color.getGreen() - i, 255), 0);
-        int blue = Math.max(Math.min(2 * color.getBlue() - i, 255), 0);
-        return new Color(red, green, blue);
     };
 
     public static class AdjustBrightness implements Function<Color,Color>{

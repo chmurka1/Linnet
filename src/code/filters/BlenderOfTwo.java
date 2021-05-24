@@ -14,33 +14,33 @@ public class BlenderOfTwo implements Filter{
 
         BiFunction<Color,Color,Color> colorFunction = FiltersOfColor.colorBlend;
 
-        int width = node.in1.getWidth();
-        int height = node.in1.getHeight();
+        int width = node.input1.getContent().getWidth();
+        int height = node.input1.getContent().getHeight();
 
         // ignore alpha for now ?
 
-        node.out1 = new BufferedImage(width,height,TYPE_INT_RGB);
+        node.output1.setContent(new BufferedImage(width,height,TYPE_INT_RGB));
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                Color pixelInput1Color = new Color(node.in1.getRGB(x,y));
-                Color pixelInput2Color = new Color(node.in2.getRGB(x,y));
+                Color pixelInput1Color = new Color(node.input1.getContent().getRGB(x,y));
+                Color pixelInput2Color = new Color(node.input2.getContent().getRGB(x,y));
                 Color pixelOutputColor = colorFunction.apply(pixelInput1Color,pixelInput2Color);
 
-                node.out1.setRGB(x,y,pixelOutputColor.getRGB());
+                node.output1.getContent().setRGB(x,y,pixelOutputColor.getRGB());
             }
         }
     }
 
     @Override
     public boolean checkInput(NodeControl node) {
-        if(node.in1 == null || node.in2 == null){
+        if(node.input1.getContent() == null || node.input2.getContent() == null){
             return false;
         }
-        if(node.in1.getWidth() != node.in2.getWidth()){
+        if(node.input1.getContent().getWidth() != node.input2.getContent().getWidth()){
             System.out.println("width not compatible");
             return false;
         }
-        if(node.in1.getHeight() != node.in2.getHeight()){
+        if(node.input1.getContent().getHeight() != node.input2.getContent().getHeight()){
             System.out.println("height not compatible");
             return false;
         }

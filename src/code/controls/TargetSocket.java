@@ -41,7 +41,5 @@ public class TargetSocket extends Socket {
 }
 
     @Override
-    public void unbindAll() {
-        this.link.remove();
-    }
+    public void unbindAll() { if( link != null ) this.link.remove(); }
 }

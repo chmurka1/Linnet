@@ -52,7 +52,9 @@ public class Canvas extends ScrollPane {
         menuItem4.setOnAction(actionEvent -> addSeparatorNode());
         MenuItem menuItem5 = new MenuItem("add combinator node");
         menuItem5.setOnAction(actionEvent -> addCombinatorNode());
-        contextMenu.getItems().addAll(menuItem1,menuItem2,menuItem3,menuItem4,menuItem5);
+        MenuItem menuItem6 = new MenuItem("add filter node");
+        menuItem6.setOnAction(actionEvent -> addFilterNode());
+        contextMenu.getItems().addAll(menuItem1,menuItem2,menuItem3,menuItem4,menuItem5,menuItem6);
         this.setContextMenu(contextMenu);
 
         this.setOnMouseClicked(me-> {
@@ -94,6 +96,12 @@ public class Canvas extends ScrollPane {
 
     public void addCombinatorNode(){
         CombinatorNode tempNode = new CombinatorNode(this);
+        nodes.add(tempNode);
+        pane.getChildren().add(tempNode);
+    }
+
+    public void addFilterNode(){
+        FilterNode tempNode = new FilterNode(this);
         nodes.add(tempNode);
         pane.getChildren().add(tempNode);
     }

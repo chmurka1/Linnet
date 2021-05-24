@@ -19,24 +19,25 @@ public class FilterType1 implements Filter{
     @Override
     public void apply(NodeControl node) {
 
-        int width = node.in1.getWidth();
-        int height = node.in1.getHeight();
+        int width = node.input1.getContent().getWidth();
+        int height = node.input1.getContent().getHeight();
 
         // ignore alpha for now ?
 
-        node.out1 = new BufferedImage(width,height,TYPE_INT_RGB);
+        BufferedImage out = new BufferedImage(width,height,TYPE_INT_RGB);
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                Color pixelInputColor = new Color(node.in1.getRGB(x,y));
+                Color pixelInputColor = new Color(node.input1.getContent().getRGB(x,y));
                 Color pixelOutputColor = colorFunction.apply(pixelInputColor);
 
-                node.out1.setRGB(x,y,pixelOutputColor.getRGB());
+                out.setRGB(x,y,pixelOutputColor.getRGB());
             }
         }
+        node.output1.setContent(out);
     }
 
     @Override
     public boolean checkInput(NodeControl node) {
-        return node.in1!=null;
+        return node.input1.getContent()!=null;
     }
 }

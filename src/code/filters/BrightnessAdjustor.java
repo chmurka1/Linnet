@@ -14,28 +14,28 @@ public class BrightnessAdjustor implements Filter{
     @Override
     public void apply(NodeControl node) {
 
-        int initialValue = brightnessExtractor.apply(node.in1);
-        int targetValue = brightnessExtractor.apply(node.in2);
+        int initialValue = brightnessExtractor.apply(node.input1.getContent());
+        int targetValue = brightnessExtractor.apply(node.input2.getContent());
         Function<Color,Color> colorFunction = new FiltersOfColor.AdjustBrightness(targetValue - initialValue);
 
-        int width = node.in1.getWidth();
-        int height = node.in1.getHeight();
+        int width = node.input1.getContent().getWidth();
+        int height = node.input1.getContent().getHeight();
 
         // ignore alpha for now ?
 
-        node.out1 = new BufferedImage(width,height,TYPE_INT_RGB);
+        node.output1.setContent(new BufferedImage(width,height,TYPE_INT_RGB));
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                Color pixelInputColor = new Color(node.in1.getRGB(x,y));
+                Color pixelInputColor = new Color(node.input1.getContent().getRGB(x,y));
                 Color pixelOutputColor = colorFunction.apply(pixelInputColor);
 
-                node.out1.setRGB(x,y,pixelOutputColor.getRGB());
+                node.output1.getContent().setRGB(x,y,pixelOutputColor.getRGB());
             }
         }
     }
 
     @Override
     public boolean checkInput(NodeControl node) {
-        return node.in1!=null && node.in2!=null;
+        return node.input1.getContent()!=null && node.input2.getContent()!=null;
     }
 }

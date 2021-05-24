@@ -5,11 +5,11 @@ import code.controls.NodeControl;
 public class EmptyFilter implements Filter{
     @Override
     public void apply(NodeControl node) {
-        node.out1=node.in1;
+        node.output1.setContent(node.input1.getContent());
     }
 
     @Override
     public boolean checkInput(NodeControl node) {
-        return (node.in1!=null);
+        return ( node.input1.getContent() != null );
     }
 }
