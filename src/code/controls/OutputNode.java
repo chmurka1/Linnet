@@ -16,7 +16,7 @@ public class OutputNode extends AbstractNode {
     @FXML
     Pane titlePane;
     @FXML
-    public TargetSocket s1in;
+    public TargetSocket input;
     @FXML
     Button button;
     @FXML
@@ -31,8 +31,8 @@ public class OutputNode extends AbstractNode {
         fxmlLoader.setController(this);
         try { fxmlLoader.load(); } catch (IOException exception) { throw new RuntimeException(exception); }
 
-        s1in.node = this;
-        s1in.setName("in1");
+        input.node = this;
+        input.setName("in1");
 
         button.setOnAction(
                 e -> {
@@ -54,10 +54,10 @@ public class OutputNode extends AbstractNode {
         view.setOnAction(
                 e -> {
                     Compute.compute(canvas);
-                    if (s1in.getContent() == null) {
+                    if (input.getContent() == null) {
                         System.out.println("no input");
                     }
-                    this.canvas.controller.viewport.setImage(AbstractNode.convertToFxImage(this.s1in.getContent()));
+                    this.canvas.controller.viewport.setImage(AbstractNode.convertToFxImage(this.input.getContent()));
                 });
     }
 
@@ -65,7 +65,17 @@ public class OutputNode extends AbstractNode {
         titlePane.setStyle("-fx-background-color: #ffd700;");
     }
 
-    public void uncolorTitlePane(){
+    @Override
+    public void compute() {
+        if ( input.getContent() == null ) {
+            System.out.println("no input");
+        }
+        this.canvas.controller.viewport.setImage(AbstractNode.convertToFxImage(this.input.getContent()));
+    }
+
+    @Override
+    public void clear() {
+        ready = false;
         titlePane.setStyle("-fx-background-color: #fff8dc;");
     }
 }

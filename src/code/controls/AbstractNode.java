@@ -16,11 +16,11 @@ import java.awt.image.BufferedImage;
  * must be attached to some canvas
  */
 public abstract class AbstractNode extends AnchorPane {
-
     public Canvas canvas;
+    public boolean ready = false;
 
-    double relativeX;
-    double relativeY;
+    private double relativeX;
+    private double relativeY;
 
 
     public BufferedImage in1;
@@ -29,11 +29,10 @@ public abstract class AbstractNode extends AnchorPane {
     public BufferedImage out2;
 
     public Filter filter;
-    public boolean isFilterApplied=false;
 
     public AbstractNode(Canvas canvas){
         super();
-        this.canvas=canvas;
+        this.canvas = canvas;
         this.setLayoutX(canvas.mouseX);
         this.setLayoutY(canvas.mouseY);
         this.setOnMousePressed(me -> {
@@ -48,6 +47,17 @@ public abstract class AbstractNode extends AnchorPane {
         this.setOnMouseEntered( me -> this.setCursor(Cursor.HAND));
         this.setOnMouseReleased( me -> this.setCursor(Cursor.HAND));
     }
+
+    /***
+     * Computes the output -- it is not implemented lazily,
+     * responsibility for calling it effectively is shifted to a caller
+     */
+    public abstract void compute();
+
+    /***
+     * Clears all the data from the node -- it is effectively reset to the state before computation
+     */
+    public abstract void clear();
 
     public static Image convertToFxImage(BufferedImage image) {
         WritableImage wr = null;

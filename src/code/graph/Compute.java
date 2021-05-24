@@ -1,34 +1,29 @@
 package code.graph;
 
 import code.controls.*;
+import code.controls.InputNode;
 
 public class Compute {
     public static void compute(Canvas canvas){
         innerClear(canvas);
 
         for(InputNode inputNode : canvas.listOfInputNodes)
-            if(inputNode.s1out.getContent()!=null) System.out.println("loading images from disk");
+            if(!inputNode.ready ) System.out.println("loading images from disk");
 
 
         boolean flag=true;
         while(flag){
             flag=false;
 
-            for(NodeControl node : canvas.listOfNodeControls)   {
-                if(node.isFilterApplied)    continue;
-
-                node.load();
-                if(node.filter.checkInput(node)){
-                    node.filter.apply(node);
-                    node.transfer();
-                    node.isFilterApplied=true;
-                    flag=true;
-                }
+            for(AbstractNode node : canvas.nodes)   {
+                if( node.ready )    continue;
+                try { node.compute(); flag = true; }
+                catch (RuntimeException r ) { flag = false; }
             }
         }
 
         for(OutputNode outputNode: canvas.listOfOutputNodes){
-            if(outputNode.s1in.getContent() != null) {
+            if(outputNode.input.getContent() != null) {
                 System.out.println("output ready");
                 outputNode.colorTitlePane();
             }
@@ -37,14 +32,11 @@ public class Compute {
 
     private static void innerClear(Canvas canvas){
         canvas.clickedSocket=null;
-        for(NodeControl node:canvas.listOfNodeControls){
-            node.isFilterApplied=false;
-            node.s1in.clear(); node.s2in.clear();
-            node.s1out.clear(); node.s2out.clear();
+        for(AbstractNode node : canvas.nodes ){
+            node.clear();
         }
         for(OutputNode outputNode:canvas.listOfOutputNodes){
-            //outputNode.clear();
-            outputNode.uncolorTitlePane();
+            outputNode.clear();
         }
     }
 
@@ -61,10 +53,10 @@ public class Compute {
             canvas.removeOutputNode(outputNode);
         }
         canvas.listOfOutputNodes.clear();
-        for(NodeControl node: canvas.listOfNodeControls){
-            canvas.removeNodeControl(node);
+        for(AbstractNode node: canvas.nodes){
+            canvas.removeNode(node);
         }
-        canvas.listOfNodeControls.clear();
+        canvas.nodes.clear();
 
         canvas.clickedSocket=null;
     }

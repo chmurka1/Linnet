@@ -1,5 +1,8 @@
 package code.controls;
 
+        import code.controls.AbstractNode;
+        import code.controls.Canvas;
+        import code.controls.SourceSocket;
         import code.files.FileFormatException;
         import code.files.FileRead;
         import javafx.fxml.FXML;
@@ -39,14 +42,17 @@ public class InputNode extends AbstractNode {
                     File file = fileChooser.showOpenDialog(null);
                     if(file!=null){
                         try{
+                            ready = true;
                             out1= FileRead.read(file);
                             s1out.setContent(out1);
                         //    System.out.println(out1.getColorModel());
                             titlePane.setStyle("-fx-background-color: #90ee90;");
                         }catch (FileFormatException exc){
+                            clear();
                             System.out.println("not an image");
                             titlePane.setStyle("-fx-background-color: #ff0000;");
                         }catch (FileNotFoundException exc){
+                            clear();
                             System.out.println("cannot read");
                             titlePane.setStyle("-fx-background-color: #ff0000;");
                         }
@@ -60,5 +66,18 @@ public class InputNode extends AbstractNode {
                     }
                     this.canvas.controller.viewport.setImage(AbstractNode.convertToFxImage(this.out1));
                 });
+    }
+
+    @Override
+    public void compute() {
+        //do nothing
+    }
+
+    @Override
+    public void clear() {
+        ready = false;
+        out1 = null;
+        s1out.setContent(null);
+        titlePane.setStyle("-fx-background-color: #e0ffff");
     }
 }

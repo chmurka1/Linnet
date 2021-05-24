@@ -20,8 +20,8 @@ public class Canvas extends ScrollPane {
 
     public List<InputNode> listOfInputNodes=new LinkedList<>();
     public List<OutputNode> listOfOutputNodes=new LinkedList<>();
-    public List<NodeControl> listOfNodeControls=new LinkedList<>();
-    public List<Link> listOfLinks=new LinkedList<>();
+    public List<AbstractNode> nodes = new LinkedList<>();
+    public List<Link> listOfLinks = new LinkedList<>();
 
     public Socket clickedSocket;
 
@@ -41,18 +41,18 @@ public class Canvas extends ScrollPane {
 
         ContextMenu contextMenu = new ContextMenu();
         MenuItem menuItem1 = new MenuItem("add input node");
-        menuItem1.setOnAction(
-                actionEvent -> addInputNode()
-        );
+        menuItem1.setOnAction(actionEvent -> addInputNode());
         MenuItem menuItem2 = new MenuItem("add node control");
         menuItem2.setOnAction(
                 actionEvent -> addNodeControl()
         );
         MenuItem menuItem3 = new MenuItem("add output node");
-        menuItem3.setOnAction(
-                actionEvent -> addOutputNode()
-        );
-        contextMenu.getItems().addAll(menuItem1,menuItem2,menuItem3);
+        menuItem3.setOnAction(actionEvent -> addOutputNode());
+        MenuItem menuItem4 = new MenuItem("add separator node");
+        menuItem4.setOnAction(actionEvent -> addSeparatorNode());
+        MenuItem menuItem5 = new MenuItem("add combinator node");
+        menuItem5.setOnAction(actionEvent -> addCombinatorNode());
+        contextMenu.getItems().addAll(menuItem1,menuItem2,menuItem3,menuItem4,menuItem5);
         this.setContextMenu(contextMenu);
 
         this.setOnMouseClicked(me-> {
@@ -80,15 +80,28 @@ public class Canvas extends ScrollPane {
         pane.getChildren().add(tempNode);
     }
 
-    public void removeNodeControl(NodeControl node){
-        pane.getChildren().remove(node);
-    }
     public void addNodeControl(){
         NodeControl tempNode=new NodeControl(this);
-        listOfNodeControls.add(tempNode);
+        nodes.add(tempNode);
         pane.getChildren().add(tempNode);
     }
 
+    public void addSeparatorNode(){
+        SeparatorNode tempNode = new SeparatorNode(this);
+        nodes.add(tempNode);
+        pane.getChildren().add(tempNode);
+    }
+
+    public void addCombinatorNode(){
+        CombinatorNode tempNode = new CombinatorNode(this);
+        nodes.add(tempNode);
+        pane.getChildren().add(tempNode);
+    }
+
+    public void removeNode( AbstractNode node ){
+        pane.getChildren().remove(node);
+        nodes.remove(node);
+    }
 
     public void addLink(Socket s, Socket t) {
         try {

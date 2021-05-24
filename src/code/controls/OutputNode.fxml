@@ -10,7 +10,7 @@
         <BorderPane>
             <left>
                 <VBox style="-fx-padding: 10px; -fx-spacing: 5px;"> <!--alignment="TOP_LEFT"-->
-                    <TargetSocket fx:id="s1in"/>
+                    <TargetSocket fx:id="input"/>
                 </VBox>
             </left>
             <right>

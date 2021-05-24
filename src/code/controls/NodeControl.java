@@ -95,4 +95,23 @@ public class NodeControl extends AbstractNode {
         s1out.setContent(out1);
         s2out.setContent(out2);
     }
+
+    @Override
+    public void compute() {
+        if( ready ) return;
+        load();
+        if(filter.checkInput(this)){
+            filter.apply(this);
+            transfer();
+            ready = true;
+        }
+        else throw new RuntimeException();
+    }
+
+    @Override
+    public void clear() {
+        ready=false;
+        s1in.clear(); s2in.clear();
+        s1out.clear(); s2out.clear();
+    }
 }

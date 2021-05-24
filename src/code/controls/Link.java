@@ -41,16 +41,16 @@ public class Link extends Line {
         this.source.bind(this);
         this.target.bind(this);
         canvasSourceBoundsBinding = Bindings.createObjectBinding(() -> {
-                    Bounds localBound = source.getBoundsInLocal();
-                    Bounds sceneBound = source.localToScene(localBound);
+                    Bounds localBound = source.button.getBoundsInLocal();
+                    Bounds sceneBound = source.button.localToScene(localBound);
                     return source.node.sceneToLocal(sceneBound);
-                }, source.boundsInLocalProperty(), source.localToSceneTransformProperty(),
+                }, source.button.boundsInLocalProperty(), source.button.localToSceneTransformProperty(),
                 source.node.localToSceneTransformProperty());
         canvasTargetBoundsBinding = Bindings.createObjectBinding(() -> {
-                    Bounds localBound = target.getBoundsInLocal();
-                    Bounds sceneBound = target.localToScene(localBound);
+                    Bounds localBound = target.button.getBoundsInLocal();
+                    Bounds sceneBound = target.button.localToScene(localBound);
                     return target.node.sceneToLocal(sceneBound);
-                }, target.boundsInLocalProperty(), target.localToSceneTransformProperty(),
+                }, target.button.boundsInLocalProperty(), target.button.localToSceneTransformProperty(),
                 target.node.localToSceneTransformProperty());
         this.setStrokeWidth(3.0);
         this.startXProperty().bind(
@@ -79,6 +79,7 @@ public class Link extends Line {
 
     public void remove() {
         source.unbind(this);
+        target.node.ready = false;
         target.unbind(this);
         canvas.removeLink(this);
     }

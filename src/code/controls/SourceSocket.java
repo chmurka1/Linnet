@@ -49,6 +49,7 @@ public class SourceSocket extends Socket {
 
     public void setContent( BufferedImage buffer ) {
         this.content = buffer;
+        for( Link l : links )   l.target.node.ready = false;
     }
 
     @Override
