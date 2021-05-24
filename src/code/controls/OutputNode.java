@@ -12,45 +12,38 @@ import java.io.File;
 import java.io.IOException;
 
 public class OutputNode extends AbstractNode {
-
-    @FXML
-    Pane titlePane;
-    @FXML
-    public TargetSocket input;
-    @FXML
     Button button;
-    @FXML
     Button view;
+    public TargetSocket input;
 
     final FileChooser fileChooser = new FileChooser();
 
     public OutputNode(Canvas canvas) {
         super(canvas);
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("OutputNode.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        try { fxmlLoader.load(); } catch (IOException exception) { throw new RuntimeException(exception); }
+        input = new TargetSocket(this);
+        input.setName("Input");
+        addInputSocket(input);
 
-        input.node = this;
-        input.setName("in1");
-
+        button  = new Button();
+        button.setText("Save");
         button.setOnAction(
                 e -> {
-                    if (in1 == null) {
+                    if (input.getContent() == null) {
                         System.out.println("no input");
                     }
                     //later probably else
                     File file = fileChooser.showSaveDialog(null);
                     if (file != null) {
                         try {
-                            FileWrite.write(in1, "jpg", file);
+                            FileWrite.write(input.getContent(), "jpg", file);
                             //maybe later allow to choose file format
                         } catch (IOException exc) {
                             System.out.println("cannot write");
                         }
                     }
                 });
-
+        view = new Button();
+        view.setText("View");
         view.setOnAction(
                 e -> {
                     Compute.compute(canvas);
@@ -60,10 +53,14 @@ public class OutputNode extends AbstractNode {
                     ViewportWindow.showImage(AbstractNode.convertToFxImage(this.input.getContent()));
                 //    this.canvas.controller.viewport.setImage(AbstractNode.convertToFxImage(this.input.getContent()));
                 });
+        buttons.getChildren().add(button);
+        buttons.getChildren().add(view);
+
+        title.setText("Image output");
     }
 
     public void colorTitlePane(){
-        titlePane.setStyle("-fx-background-color: #ffd700;");
+        topPane.setStyle("-fx-background-color: #ffd700;");
     }
 
     @Override
@@ -77,6 +74,6 @@ public class OutputNode extends AbstractNode {
     @Override
     public void clear() {
         ready = false;
-        titlePane.setStyle("-fx-background-color: #fff8dc;");
+        topPane.setStyle("-fx-background-color: #fff8dc;");
     }
 }

@@ -17,11 +17,6 @@ import static java.lang.Math.min;
  * Standard node for splitting image into separate components -- e. g. red ,green and blue channels in RGB model
  */
 public class SeparatorNode extends AbstractNode {
-    @FXML
-    public VBox inputs;
-    @FXML
-    public VBox outputs;
-
     public TargetSocket input;
     public SourceSocket outputX;
     public SourceSocket outputY;
@@ -34,22 +29,18 @@ public class SeparatorNode extends AbstractNode {
 
     public SeparatorNode(Canvas canvas) {
         super(canvas);
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("abstractNode.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        try { fxmlLoader.load(); } catch (IOException exception) { throw new RuntimeException(exception); }
         input = new TargetSocket(this);
-        input.setName("in1");
-        inputs.getChildren().add(input);
+        input.setName("Combined");
+        addInputSocket(input);
         outputX = new SourceSocket(this);
         outputY = new SourceSocket(this);
         outputZ = new SourceSocket(this);
         outputX.setName("X");
         outputY.setName("Y");
         outputZ.setName("Z");
-        outputs.getChildren().add(outputX);
-        outputs.getChildren().add(outputY);
-        outputs.getChildren().add(outputZ);
+        addOutputSocket(outputX);
+        addOutputSocket(outputY);
+        addOutputSocket(outputZ);
 
         String[] listOfFilters ={"RGB","HSV"};
         ComboBox<String> comboBox= new ComboBox<>(FXCollections.observableArrayList(listOfFilters));
@@ -68,6 +59,8 @@ public class SeparatorNode extends AbstractNode {
                     }
                 });
         topPane.getChildren().add(comboBox);
+
+        title.setText("Separate");
     }
 
     @Override
@@ -77,15 +70,6 @@ public class SeparatorNode extends AbstractNode {
         outputX.setContent(c.X);
         outputY.setContent(c.Y);
         outputZ.setContent(c.Z);
-    }
-
-    @Override
-    public void clear() {
-        ready = false;
-        input.clear();
-        outputX.clear();
-        outputY.clear();
-        outputZ.clear();
     }
 
     public static class Components { public BufferedImage X, Y, Z; }

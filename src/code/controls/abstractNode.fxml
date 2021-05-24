@@ -1,27 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import code.controls.Socket?>
-
-<?import code.controls.TargetSocket?>
-<?import code.controls.SourceSocket?>
 <fx:root type="javafx.scene.layout.AnchorPane" xmlns:fx="http://javafx.com/fxml">
     <VBox style="-fx-background-color: #DDD;">
-        <Pane fx:id="topPane" style="-fx-background-color: #CCC;"></Pane>
+        <VBox fx:id="topPane" style="-fx-background-color: #CCC;">
+            <BorderPane>
+                <left><Label fx:id="title" style="-fx-padding: 5px;"/></left>
+                <right><Label fx:id="close" text="X" style="-fx-padding: 5px;"/></right>
+            </BorderPane>
+        </VBox>
         <BorderPane>
-            <left>
-                <VBox fx:id="inputs" style="-fx-padding: 10px; -fx-spacing: 5px;"> <!--alignment="TOP_LEFT"-->
-                </VBox>
-            </left>
-            <right>
-                <VBox fx:id="outputs" alignment="TOP_RIGHT" style="-fx-padding: 10px; -fx-spacing: 5px;">
-                </VBox>
-            </right>
+            <left><VBox fx:id="inputs" style="-fx-padding: 10px; -fx-spacing: 5px;"/> <!--alignment="TOP_LEFT"--></left>
+            <center><VBox fx:id="buttons" alignment="TOP_CENTER" style="-fx-padding: 5px; -fx-spacing: 5px;"/></center>
+            <right><VBox fx:id="outputs" alignment="TOP_RIGHT" style="-fx-padding: 10px; -fx-spacing: 5px;"/></right>
         </BorderPane>
     </VBox>
 </fx:root>

@@ -12,7 +12,7 @@ import java.io.IOException;
 /***
  * Abstract class which provides basic socket interface
  * socket is a gadget which gives access to cached content
- * must be attached to a node
+ * it must be attached to a node
  */
 public abstract class Socket extends VBox {
     @FXML

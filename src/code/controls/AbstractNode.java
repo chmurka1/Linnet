@@ -1,14 +1,21 @@
 package code.controls;
 
 import code.filters.Filter;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.ArrayList;
 
 /***
  * Abstract class serving as a blackbox for transforming given input into output
@@ -16,36 +23,37 @@ import java.awt.image.BufferedImage;
  * must be attached to some canvas
  */
 public abstract class AbstractNode extends AnchorPane {
+    @FXML VBox buttons;
+    @FXML private VBox inputs;
+    @FXML private VBox outputs;
+    @FXML Pane topPane;
+    @FXML public Label title;
+    @FXML Label close;
+
     public Canvas canvas;
     public boolean ready = false;
 
     private double relativeX;
     private double relativeY;
-
-
-    public BufferedImage in1;
-    public BufferedImage in2;
-    public BufferedImage out1;
-    public BufferedImage out2;
+    private final ArrayList<TargetSocket> ins = new ArrayList<>();
+    private final ArrayList<SourceSocket> outs = new ArrayList<>();
 
     public Filter filter;
 
-    public AbstractNode(Canvas canvas){
+    public AbstractNode(Canvas can){
         super();
-        this.canvas = canvas;
-        this.setLayoutX(canvas.mouseX);
-        this.setLayoutY(canvas.mouseY);
-        this.setOnMousePressed(me -> {
-            this.relativeX = this.getLayoutX() - me.getSceneX();
-            this.relativeY = this.getLayoutY() - me.getSceneY();
-            this.setCursor(Cursor.MOVE);
-        });
-        this.setOnMouseDragged( me -> {
-            this.setLayoutX(me.getSceneX()+relativeX);
-            this.setLayoutY(me.getSceneY()+relativeY);
-        });
-        this.setOnMouseEntered( me -> this.setCursor(Cursor.HAND));
-        this.setOnMouseReleased( me -> this.setCursor(Cursor.HAND));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("abstractNode.fxml"));
+        fxmlLoader.setRoot(this);
+        fxmlLoader.setController(this);
+        try { fxmlLoader.load(); } catch (IOException exception) { throw new RuntimeException(exception); }
+        canvas = can;
+        setLayoutX(canvas.mouseX);
+        setLayoutY(canvas.mouseY);
+        setOnMousePressed(me -> { relativeX = getLayoutX() - me.getSceneX();relativeY = getLayoutY() - me.getSceneY(); setCursor(Cursor.MOVE); });
+        setOnMouseDragged( me -> { setLayoutX(me.getSceneX()+relativeX);setLayoutY(me.getSceneY()+relativeY); });
+        setOnMouseEntered( me -> setCursor(Cursor.HAND));
+        setOnMouseReleased( me -> setCursor(Cursor.HAND));
+        close.setOnMousePressed( me -> remove() );
     }
 
     /***
@@ -54,10 +62,27 @@ public abstract class AbstractNode extends AnchorPane {
      */
     public abstract void compute();
 
-    /***
-     * Clears all the data from the node -- it is effectively reset to the state before computation
-     */
-    public abstract void clear();
+    public void clear() {
+        ready = false;
+        for( TargetSocket s : ins ) s.clear();
+        for( SourceSocket t : outs ) t.clear();
+    }
+
+    public void remove()    {
+        for( TargetSocket s : ins ) s.unbindAll();
+        for( SourceSocket t : outs ) t.unbindAll();
+        canvas.removeNode(this);
+    }
+
+    public final void addInputSocket( TargetSocket t ) {
+        ins.add(t);
+        inputs.getChildren().add(t);
+    }
+
+    public final void addOutputSocket( SourceSocket t ) {
+        outs.add(t);
+        outputs.getChildren().add(t);
+    }
 
     public static Image convertToFxImage(BufferedImage image) {
         WritableImage wr = null;

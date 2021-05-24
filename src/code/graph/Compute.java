@@ -5,10 +5,10 @@ import code.controls.InputNode;
 
 public class Compute {
     public static void compute(Canvas canvas){
-        innerClear(canvas);
+        //innerClear(canvas);
 
         for(InputNode inputNode : canvas.listOfInputNodes)
-            if(!inputNode.ready ) System.out.println("loading images from disk");
+            if( !inputNode.ready ) System.out.println("loading images from disk");
 
 
         boolean flag=true;
@@ -17,6 +17,7 @@ public class Compute {
 
             for(AbstractNode node : canvas.nodes)   {
                 if( node.ready )    continue;
+                System.out.println(node.title.getText());
                 try { node.compute(); flag = true; }
                 catch (RuntimeException r ) { flag = false; }
             }

@@ -31,22 +31,18 @@ public class CombinatorNode extends AbstractNode {
 
     public CombinatorNode(Canvas canvas) {
         super(canvas);
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("abstractNode.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        try { fxmlLoader.load(); } catch (IOException exception) { throw new RuntimeException(exception); }
         inputX = new TargetSocket(this);
         inputY = new TargetSocket(this);
         inputZ = new TargetSocket(this);
         inputX.setName("X");
         inputY.setName("Y");
         inputZ.setName("Z");
-        inputs.getChildren().add(inputX);
-        inputs.getChildren().add(inputY);
-        inputs.getChildren().add(inputZ);
+        addInputSocket(inputX);
+        addInputSocket(inputY);
+        addInputSocket(inputZ);
         output = new SourceSocket(this);
-        output.setName("X");
-        outputs.getChildren().add(output);
+        output.setName("Combined");
+        addOutputSocket(output);
 
         String[] listOfFilters ={"RGB","HSV"};
         ComboBox<String> comboBox= new ComboBox<>(FXCollections.observableArrayList(listOfFilters));
@@ -65,21 +61,14 @@ public class CombinatorNode extends AbstractNode {
             }
         });
         topPane.getChildren().add(comboBox);
+
+        title.setText("Combine");
     }
 
     @Override
     public void compute() {
         ready = true;
         output.setContent(combinator.combine(inputX.getContent(),inputY.getContent(),inputZ.getContent()));
-    }
-
-    @Override
-    public void clear() {
-        ready = false;
-        inputX.clear();
-        inputY.clear();
-        inputZ.clear();
-        output.clear();
     }
 
     /***
@@ -109,15 +98,16 @@ public class CombinatorNode extends AbstractNode {
         int H = (((h & 0x00ff0000) >> 16) + ((h & 0x0000ff00) >> 8) +  (h & 0x000000ff))/3;
         int S = (((s & 0x00ff0000) >> 16) + ((s & 0x0000ff00) >> 8) +  (s & 0x000000ff))/3;
         int V = (((v & 0x00ff0000) >> 16) + ((v & 0x0000ff00) >> 8) +  (v & 0x000000ff))/3;
+        if( V == 0 ) return 0x00000000;
         int c = (V*S)/255;
-        double x = H/32.5;
+        double x = H/42.5;
         while( x >= 2 ) x = x - 2; x = x - 1; if( x < 0 ) x = -x;
         x = c*(1 - x);
         int m = V - c;
         int r = 0;
         int g = 0;
         int b = 0;
-        if( H < 32.5 ) { r = c; g = h; b = 0; }
+        if( H < 42.5 ) { r = c; g = (int)x; b = 0; }
         if( 42.5 <= H && H < 85 ) { r = (int)x; g = c; b = 0; }
         if( 85 <= H && H < 127.5 ) { r = 0; g = c; b = (int)x; }
         if( 127.5 <= H && H < 170 ) { r = 0; g = (int)x; b = c; }
