@@ -5,10 +5,7 @@ import code.filters.BrightnessAdjustor;
 import code.filters.EmptyFilter;
 import code.filters.Filters;
 import javafx.collections.FXCollections;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
-
-import java.io.IOException;
 
 
 public class NodeControl extends AbstractNode {
@@ -35,7 +32,8 @@ public class NodeControl extends AbstractNode {
 
         this.filter = new EmptyFilter();
 
-        String[] listOfFilters ={"empty filter","brighten image","darken image","transfer brightness","blend pictures"};
+        String[] listOfFilters ={"empty filter","brighten image","darken image","transfer brightness","blend pictures","sharpen","contrast"};
+
         ComboBox<String> comboBox= new ComboBox<>(FXCollections.observableArrayList(listOfFilters));
         comboBox.setOnAction(
                 e -> {
@@ -59,6 +57,12 @@ public class NodeControl extends AbstractNode {
                         //      if pixel of foreground is bright, output pixel will be almost the foreground one
                         //      if foreground pixel is dark output pixel will be almost the background one
                         //      otherwise output pixel is sth in between the foreground one and background one
+                    }
+                    if(comboBox.getValue().equals("sharpen")){
+                        NodeControl.this.filter = Filters.sharp;
+                    }
+                    if(comboBox.getValue().equals("contrast")){
+                        NodeControl.this.filter = Filters.contrast;
                     }
                 }
         );
