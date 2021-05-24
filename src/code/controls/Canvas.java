@@ -90,14 +90,18 @@ public class Canvas extends ScrollPane {
     }
 
 
-    public void addLink(AbstractNode sourceNode, AbstractNode targetNode, Socket s, Socket t) {
-        t.prevSocket=s;
-        s.nextSocket=t;
-        Link tempLink=new Link(this,sourceNode,targetNode,s,t);
-        listOfLinks.add(tempLink);
-        this.pane.getChildren().add(tempLink);
+    public void addLink(Socket s, Socket t) {
+        try {
+            Link tempLink = new Link(s, t);
+            this.listOfLinks.add(tempLink);
+            this.pane.getChildren().add(tempLink);
+        }
+        catch( Exception e ) {
+            System.out.println(e.getMessage());
+        }
     }
-    public void removeLink(Link link) {
+
+    public void removeLink( Link link ) {
         this.pane.getChildren().remove(link);
     }
 }

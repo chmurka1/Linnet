@@ -16,7 +16,7 @@ public class InputNode extends AbstractNode {
     @FXML
     Pane titlePane;
     @FXML
-    public Socket s1out;
+    public SourceSocket s1out;
     @FXML
     Button button;
     @FXML
@@ -32,7 +32,7 @@ public class InputNode extends AbstractNode {
         fxmlLoader.setController(this);
         try { fxmlLoader.load(); } catch (IOException exception) { throw new RuntimeException(exception); }
 
-        s1out.node=this; s1out.id="out1";
+        s1out.node=this; s1out.setName("out1");
 
         button.setOnAction(
                 e -> {
@@ -40,6 +40,7 @@ public class InputNode extends AbstractNode {
                     if(file!=null){
                         try{
                             out1= FileRead.read(file);
+                            s1out.setContent(out1);
                         //    System.out.println(out1.getColorModel());
                             titlePane.setStyle("-fx-background-color: #90ee90;");
                         }catch (FileFormatException exc){

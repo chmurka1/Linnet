@@ -5,8 +5,7 @@
 
 <fx:root type="javafx.scene.layout.VBox" xmlns:fx="http://javafx.com/fxml" alignment="CENTER" >
     <HBox alignment="CENTER">
+        <Label fx:id="label"/>
         <Button fx:id="button" style="-fx-background-radius: 10em; -fx-min-width: 10px; -fx-min-height: 10px; -fx-max-width: 10px; -fx-max-height: 10px;"/>
     </HBox>
 </fx:root>
-
-

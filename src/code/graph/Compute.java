@@ -2,31 +2,25 @@ package code.graph;
 
 import code.controls.*;
 
-import java.awt.image.BufferedImage;
-
 public class Compute {
     public static void compute(Canvas canvas){
         innerClear(canvas);
 
-        for(InputNode inputNode:canvas.listOfInputNodes){
-            if(inputNode.out1!=null)
-            {
-            //    System.out.println("loading images from disk");
-                transferImage(inputNode.s1out);
-            }
-        }
+        for(InputNode inputNode : canvas.listOfInputNodes)
+            if(inputNode.s1out.getContent()!=null) System.out.println("loading images from disk");
+
 
         boolean flag=true;
         while(flag){
             flag=false;
 
-            for(NodeControl node:canvas.listOfNodeControls){
-                if(node.isFilterApplied)continue;
+            for(NodeControl node : canvas.listOfNodeControls)   {
+                if(node.isFilterApplied)    continue;
 
+                node.load();
                 if(node.filter.checkInput(node)){
                     node.filter.apply(node);
-                    if(node.out1!=null)transferImage(node.s1out);
-                    if(node.out2!=null)transferImage(node.s2out);
+                    node.transfer();
                     node.isFilterApplied=true;
                     flag=true;
                 }
@@ -34,33 +28,10 @@ public class Compute {
         }
 
         for(OutputNode outputNode: canvas.listOfOutputNodes){
-            if(outputNode.in1!=null) {
+            if(outputNode.s1in.getContent() != null) {
                 System.out.println("output ready");
                 outputNode.colorTitlePane();
             }
-        }
-    }
-
-    private static void transferImage(Socket s){
-        if(s.nextSocket==null)
-        {
-            System.out.println("transfer failed");
-            return;
-        }
-
-        BufferedImage img;
-        if(s.id.equals("out1")){
-            img=s.node.out1;
-        }
-        else{
-            img=s.node.out2;
-        }
-
-        if(s.nextSocket.id.equals("in1")){
-            s.nextSocket.node.in1=img;
-        }
-        else{
-            s.nextSocket.node.in2=img;
         }
     }
 
@@ -68,18 +39,18 @@ public class Compute {
         canvas.clickedSocket=null;
         for(NodeControl node:canvas.listOfNodeControls){
             node.isFilterApplied=false;
-            node.in1=null; node.in2=null;
-            node.out1=null; node.out2=null;
+            node.s1in.clear(); node.s2in.clear();
+            node.s1out.clear(); node.s2out.clear();
         }
         for(OutputNode outputNode:canvas.listOfOutputNodes){
-            outputNode.in1=null;
+            //outputNode.clear();
             outputNode.uncolorTitlePane();
         }
     }
 
     public static void fullClear(Canvas canvas){
         for(Link link:canvas.listOfLinks){
-            link.removeLinkFromCanvas();
+            link.remove();
         }
         canvas.listOfLinks.clear();
         for(InputNode inputNode:canvas.listOfInputNodes){

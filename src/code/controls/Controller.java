@@ -22,7 +22,7 @@ public class Controller extends GridPane {
     ImageView viewport;
 
     public Controller() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sample.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("layout.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         try { fxmlLoader.load(); } catch (IOException exception) { throw new RuntimeException(exception); }

@@ -16,7 +16,7 @@ public class OutputNode extends AbstractNode {
     @FXML
     Pane titlePane;
     @FXML
-    Socket s1in;
+    public TargetSocket s1in;
     @FXML
     Button button;
     @FXML
@@ -31,7 +31,8 @@ public class OutputNode extends AbstractNode {
         fxmlLoader.setController(this);
         try { fxmlLoader.load(); } catch (IOException exception) { throw new RuntimeException(exception); }
 
-        s1in.node=this; s1in.id="in1";
+        s1in.node = this;
+        s1in.setName("in1");
 
         button.setOnAction(
                 e -> {
@@ -53,10 +54,10 @@ public class OutputNode extends AbstractNode {
         view.setOnAction(
                 e -> {
                     Compute.compute(canvas);
-                    if (in1 == null) {
+                    if (s1in.getContent() == null) {
                         System.out.println("no input");
                     }
-                    this.canvas.controller.viewport.setImage(AbstractNode.convertToFxImage(this.in1));
+                    this.canvas.controller.viewport.setImage(AbstractNode.convertToFxImage(this.s1in.getContent()));
                 });
     }
 

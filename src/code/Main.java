@@ -10,11 +10,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage){
         Controller controller = new Controller();
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Linnet");
         primaryStage.setScene(new Scene(controller, 800, 500));
         primaryStage.show();
     }
-
 
     public static void main(String[] args) {
         launch(args);

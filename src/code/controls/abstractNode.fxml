@@ -15,18 +15,13 @@
         <Pane fx:id="topPane" style="-fx-background-color: #CCC;"></Pane>
         <BorderPane>
             <left>
-                <VBox style="-fx-padding: 10px; -fx-spacing: 5px;"> <!--alignment="TOP_LEFT"-->
-                    <TargetSocket fx:id="s1in"/>
-                    <TargetSocket fx:id="s2in"/>
+                <VBox fx:id="inputs" style="-fx-padding: 10px; -fx-spacing: 5px;"> <!--alignment="TOP_LEFT"-->
                 </VBox>
             </left>
             <right>
-                <VBox alignment="TOP_RIGHT" style="-fx-padding: 10px; -fx-spacing: 5px;">
-                    <SourceSocket fx:id="s1out"/>
-                    <SourceSocket fx:id="s2out"/>
+                <VBox fx:id="outputs" alignment="TOP_RIGHT" style="-fx-padding: 10px; -fx-spacing: 5px;">
                 </VBox>
             </right>
         </BorderPane>
     </VBox>
 </fx:root>
-
