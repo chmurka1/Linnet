@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class OutputNode extends AbstractNode {
-    TargetSocket input;
+    public TargetSocket input;
     private final FileChooser fileChooser = new FileChooser();
 
     public OutputNode(Canvas canvas) {

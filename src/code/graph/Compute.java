@@ -67,9 +67,4 @@ public class Compute {
 
         canvas.clickedSocket=null;
     }
-
-    private static ArrayList<AbstractNode> toposort (Canvas canvas) {
-        //To be implemented...
-        return null;
-    }
 }
