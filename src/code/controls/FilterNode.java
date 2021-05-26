@@ -1,5 +1,6 @@
 package code.controls;
 
+import code.filters.Filters;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,10 +40,10 @@ public class FilterNode extends AbstractNode {
                 ;
             }
             if(comboBox.getValue().equals("brighten image")){
-                ;
+
             }
             if(comboBox.getValue().equals("darken image")){
-                ;
+            //    FilterNode.this.filter= Filters.darkenImage;
             }
             if(comboBox.getValue().equals("black and white")) filter = blackAndWhite;
             if(comboBox.getValue().equals("more colorful")) filter = saturate;
@@ -56,6 +57,11 @@ public class FilterNode extends AbstractNode {
     public void compute() {
         ready = true;
         output.setContent(filter.filter(input.getContent()));
+    }
+
+    @Override
+    public boolean checkInput(){
+        return input.getContent()!=null;
     }
 
     public interface Filter {

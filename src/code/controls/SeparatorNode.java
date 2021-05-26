@@ -72,6 +72,11 @@ public class SeparatorNode extends AbstractNode {
         outputZ.setContent(c.Z);
     }
 
+    @Override
+    public boolean checkInput(){
+        return input.getContent()!=null;
+    }
+
     public static class Components { public BufferedImage X, Y, Z; }
 
     /***

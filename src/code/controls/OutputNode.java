@@ -68,7 +68,11 @@ public class OutputNode extends AbstractNode {
         if ( input.getContent() == null ) {
             System.out.println("no input");
         }
-      //  this.canvas.controller.viewport.setImage(AbstractNode.convertToFxImage(this.input.getContent()));
+    }
+
+    @Override()
+    public boolean checkInput(){
+        return input.getContent()!=null;
     }
 
     @Override

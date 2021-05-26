@@ -62,6 +62,8 @@ public abstract class AbstractNode extends AnchorPane {
      */
     public abstract void compute();
 
+    public abstract boolean checkInput();
+
     public void clear() {
         ready = false;
         for( TargetSocket s : ins ) s.clear();

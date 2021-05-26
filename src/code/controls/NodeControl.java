@@ -13,7 +13,7 @@ public class NodeControl extends AbstractNode {
     public TargetSocket input1;
     public TargetSocket input2;
     public SourceSocket output1;
-    public SourceSocket output2;
+    //public SourceSocket output2;
 
     public NodeControl(Canvas canvas) {
         super(canvas);
@@ -24,11 +24,11 @@ public class NodeControl extends AbstractNode {
         addInputSocket(input1);
         addInputSocket(input2);
         output1 = new SourceSocket(this);
-        output2 = new SourceSocket(this);
+        //output2 = new SourceSocket(this);
         output1.setName("out1");
-        output2.setName("out2");
+        //output2.setName("out2");
         addOutputSocket(output1);
-        addOutputSocket(output2);
+        //addOutputSocket(output2);
 
         this.filter = new EmptyFilter();
 
@@ -73,12 +73,17 @@ public class NodeControl extends AbstractNode {
 
     @Override
     public void compute() {
-        if( ready ) return;
-        if(filter.checkInput(this)){
+    //    if( ready ) return;
+    //    if(filter.checkInput(this)){
             filter.apply(this);
             ready = true;
-        }
-        else throw new RuntimeException();
+    //    }
+    //    else throw new RuntimeException();
+    }
+
+    @Override
+    public boolean checkInput(){
+        return filter.checkInput(this);
     }
 
 }

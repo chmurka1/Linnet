@@ -57,7 +57,6 @@ public class InputNode extends AbstractNode {
                         System.out.println("no image loaded");
                     }
                     ViewportWindow.showImage(AbstractNode.convertToFxImage(output.getContent()));
-                //    canvas.controller.viewport.setImage(AbstractNode.convertToFxImage(output.getContent()));
                 });
 
         buttons.getChildren().add(button);
@@ -69,6 +68,12 @@ public class InputNode extends AbstractNode {
     @Override
     public void compute() {
         //do nothing
+    }
+
+    @Override
+    public boolean checkInput(){
+        //do nothing
+        return true;
     }
 
     @Override

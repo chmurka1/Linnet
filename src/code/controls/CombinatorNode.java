@@ -71,6 +71,11 @@ public class CombinatorNode extends AbstractNode {
         output.setContent(combinator.combine(inputX.getContent(),inputY.getContent(),inputZ.getContent()));
     }
 
+    @Override
+    public boolean checkInput(){
+        return inputX.getContent()!=null && inputY.getContent()!=null && inputZ.getContent()!=null;
+    }
+
     /***
      * Abstract interface for splitting image into components
      */
