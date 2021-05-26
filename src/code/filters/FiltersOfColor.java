@@ -77,8 +77,8 @@ public class FiltersOfColor {
     };
     public static BiFunction<Color,Integer,Color> saturateParam = (Color color,Integer coefficient) -> {
 
-        float factor = (float)(coefficient+128)/128;
-        System.out.println(factor);
+        float factor = (float)(coefficient)/128;
+
         int red = color.getRed();
         int green = color.getGreen();
         int blue = color.getBlue();
