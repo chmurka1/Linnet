@@ -48,6 +48,9 @@ public abstract class AbstractNode extends AnchorPane {
     final ArrayList<AbstractNode> consumers = new ArrayList<>();
 
     public Filter filter;
+    public TargetSocket input1;
+    public SourceSocket output1;
+    public TargetSocket input2;
 
     /***
      * Constructs canvas in a given context

@@ -1,6 +1,6 @@
 package code.filters;
 
-import code.controls.NodeControl;
+import code.controls.AbstractNode;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -12,7 +12,7 @@ import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 public class BrightnessAdjustor implements Filter{
 
     @Override
-    public void apply(NodeControl node) {
+    public void apply(AbstractNode node) {
 
         int initialValue = brightnessExtractor.apply(node.input1.getContent());
         int targetValue = brightnessExtractor.apply(node.input2.getContent());
@@ -35,7 +35,7 @@ public class BrightnessAdjustor implements Filter{
     }
 
     @Override
-    public boolean checkInput(NodeControl node) {
+    public boolean checkInput(AbstractNode node) {
         return node.input1.getContent()!=null && node.input2.getContent()!=null;
     }
 }

@@ -1,6 +1,6 @@
 package code.filters;
 
-import code.controls.NodeControl;
+import code.controls.AbstractNode;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -10,7 +10,7 @@ import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
 public class BlenderOfTwo implements Filter{
     @Override
-    public void apply(NodeControl node) {
+    public void apply(AbstractNode node) {
 
         BiFunction<Color,Color,Color> colorFunction = FiltersOfColor.colorBlend;
 
@@ -32,7 +32,7 @@ public class BlenderOfTwo implements Filter{
     }
 
     @Override
-    public boolean checkInput(NodeControl node) {
+    public boolean checkInput(AbstractNode node) {
         if(node.input1.getContent() == null || node.input2.getContent() == null){
             return false;
         }

@@ -39,10 +39,8 @@ public class Canvas extends ScrollPane {
         ContextMenu contextMenu = new ContextMenu();
         MenuItem menuItem1 = new MenuItem("add input node");
         menuItem1.setOnAction(actionEvent -> addInputNode());
-        MenuItem menuItem2 = new MenuItem("add node control");
-        menuItem2.setOnAction(
-                actionEvent -> addNodeControl()
-        );
+        MenuItem menuItem2 = new MenuItem("add merge node");
+        menuItem2.setOnAction(actionEvent -> addMergeNode());
         MenuItem menuItem3 = new MenuItem("add output node");
         menuItem3.setOnAction(actionEvent -> addOutputNode());
         MenuItem menuItem4 = new MenuItem("add separator node");
@@ -79,8 +77,8 @@ public class Canvas extends ScrollPane {
         pane.getChildren().add(tempNode);
     }
 
-    public void addNodeControl(){
-        NodeControl tempNode=new NodeControl(this);
+    public void addMergeNode(){
+        MergeNode tempNode=new MergeNode(this);
         nodes.add(tempNode);
         pane.getChildren().add(tempNode);
     }

@@ -1,12 +1,12 @@
 package code.filters;
 
-import code.controls.NodeControl;
+import code.controls.AbstractNode;
 
 public interface Filter {
 
     //applies filter to node
-    void apply(NodeControl node);
+    void apply(AbstractNode node);
 
     //check if input is ready to apply filter
-    boolean checkInput(NodeControl node);
+    boolean checkInput(AbstractNode node);
 }
