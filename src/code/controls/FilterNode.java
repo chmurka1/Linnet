@@ -3,6 +3,7 @@ package code.controls;
 import code.filters.HorizontalBlur;
 import code.filters.Filter;
 import code.filters.Filters;
+import code.filters.TrimTop;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -27,7 +28,7 @@ public class FilterNode extends AbstractNode {
         output1.setName("Output");
         addOutputSocket(output1);
 
-        String[] listOfFilters ={"empty filter","brighten image","darken image", "black and white","more colorful","sharpen","contrast","saturate","horizontal blur"};
+        String[] listOfFilters ={"empty filter","brighten image","darken image", "black and white","more colorful","sharpen","contrast","saturate","horizontal blur","trim top"};
         ComboBox<String> comboBox= new ComboBox<>(FXCollections.observableArrayList(listOfFilters));
         comboBox.setOnAction(e -> {
             if(comboBox.getValue().equals("empty filter")){
@@ -62,11 +63,15 @@ public class FilterNode extends AbstractNode {
             }
             //advised range: 5-10% of image width
             if(comboBox.getValue().equals("horizontal blur")){
-                int coefficient = 100;
+                int coefficient = 100;//in pixels
                 //coefficient = ...
 
                 filter = new HorizontalBlur(coefficient);
-
+            }
+            if(comboBox.getValue().equals("trim top")){
+                int coefficient = 10;//in %
+                //coefficient = ...
+                filter = new TrimTop(coefficient);
             }
         });
         topPane.getChildren().add(comboBox);
