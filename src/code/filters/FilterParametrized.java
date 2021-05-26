@@ -20,7 +20,7 @@ public class FilterParametrized implements Filter{
 
     @Override
     public void apply(AbstractNode node) {
-
+        long start = System.currentTimeMillis();
         int width = node.input1.getContent().getWidth();
         int height = node.input1.getContent().getHeight();
 
@@ -33,6 +33,7 @@ public class FilterParametrized implements Filter{
                 node.output1.getContent().setRGB(x,y,pixelOutputColor.getRGB());
             }
         }
+        System.out.println(this.getClass() + " " + (System.currentTimeMillis()-start));
     }
 
     @Override

@@ -21,7 +21,7 @@ public class FilterParametrized3x3 implements Filter {
 
     @Override
     public void apply(AbstractNode node) {
-
+        long start = System.currentTimeMillis();
         int width = node.input1.getContent().getWidth();
         int height = node.input1.getContent().getHeight();
 
@@ -72,6 +72,7 @@ public class FilterParametrized3x3 implements Filter {
             upRow = curRow;
             curRow = downRow;
             downRow = null;
+            System.out.println(this.getClass() + " " + (System.currentTimeMillis()-start));
         }
     }
 

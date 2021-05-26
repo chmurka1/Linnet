@@ -8,6 +8,10 @@ import java.util.function.Function;
 
 public class FiltersOfColor {
 
+    public static int toRange(int var) {
+        return Math.min(Math.max(var,0),255);
+    }
+
     public static BiFunction<Color,Color,Color> colorBlend = (Color dominant, Color recessive) -> {
 
         double ratio = (double)(dominant.getRed() + dominant.getGreen() + dominant.getBlue()) / 765;
@@ -16,7 +20,6 @@ public class FiltersOfColor {
         int red = (int)(dominant.getRed() * ratio + recessive.getRed() * (1-ratio));
         int green = (int)(dominant.getGreen() * ratio + recessive.getGreen() * (1-ratio));
         int blue = (int)(dominant.getBlue() * ratio + recessive.getBlue() * (1-ratio));
-
         return new Color(red,green,blue);
     };
 
@@ -36,27 +39,56 @@ public class FiltersOfColor {
         }
     }
 
-    public static BiFunction<ArrayList<Color>,Integer,Color> sharpen = (ArrayList<Color> matrix, Integer coefficient) -> {
-        int co = (int)(double) coefficient;
-        int red = - co*matrix.get(1).getRed() - co*matrix.get(3).getRed() + (1+4*co) * matrix.get(4).getRed() - co*matrix.get(5).getRed() - co*matrix.get(7).getRed();
-        int green = - co*matrix.get(1).getGreen() - co*matrix.get(3).getGreen() + (1+4*co) * matrix.get(4).getGreen() - co*matrix.get(5).getGreen() - co*matrix.get(7).getGreen();
-        int blue = - co*matrix.get(1).getBlue() - co*matrix.get(3).getBlue() + (1+4*co) * matrix.get(4).getBlue() - co*matrix.get(5).getBlue() - co*matrix.get(7).getBlue();
-        red = Math.min(Math.max(red,0),255);
-        green = Math.min(Math.max(green,0),255);
-        blue = Math.min(Math.max(blue,0),255);
+    public static BiFunction<ArrayList<Color>,Integer,Color> sharpenParam = (ArrayList<Color> matrix, Integer coefficient) -> {
+        float co = (float)coefficient/128;
+
+        int red = (int) (- co*matrix.get(1).getRed() - co*matrix.get(3).getRed() + (1+4*co) * matrix.get(4).getRed() - co*matrix.get(5).getRed() - co*matrix.get(7).getRed());
+        int green = (int) (- co*matrix.get(1).getGreen() - co*matrix.get(3).getGreen() + (1+4*co) * matrix.get(4).getGreen() - co*matrix.get(5).getGreen() - co*matrix.get(7).getGreen());
+        int blue = (int) (- co*matrix.get(1).getBlue() - co*matrix.get(3).getBlue() + (1+4*co) * matrix.get(4).getBlue() - co*matrix.get(5).getBlue() - co*matrix.get(7).getBlue());
+        red = toRange(red);
+        green = toRange(green);
+        blue = toRange(blue);
         return new Color(red,green,blue);
     };
-    public static BiFunction<Color,Integer,Color> contrast = (Color color,Integer coefficient) -> {
+//    public static BiFunction<ArrayList<Color>,Integer,Color> boxBlur = (ArrayList<Color> matrix, Integer coefficient) -> {
+//
+//        int red = (matrix.get(0).getRed() + matrix.get(1).getRed() + matrix.get(2).getRed() + matrix.get(3).getRed() + matrix.get(4).getRed() + matrix.get(5).getRed() + matrix.get(6).getRed() + matrix.get(7).getRed() + matrix.get(8).getRed() + 4)/9;
+//        int green = (matrix.get(0).getGreen() + matrix.get(1).getGreen() + matrix.get(2).getGreen() + matrix.get(3).getGreen() + matrix.get(4).getGreen() + matrix.get(5).getGreen() + matrix.get(6).getGreen() + matrix.get(7).getGreen() + matrix.get(8).getGreen() + 4)/9;
+//        int blue = (matrix.get(0).getBlue() + matrix.get(1).getBlue() + matrix.get(2).getBlue() + matrix.get(3).getBlue() + matrix.get(4).getBlue() + matrix.get(5).getBlue() + matrix.get(6).getBlue() + matrix.get(7).getBlue() + matrix.get(8).getBlue() + 4)/9;
+//
+//        red = toRange(red);
+//        green = toRange(green);
+//        blue = toRange(blue);
+//        return new Color(red,green,blue);
+//    };
+    public static BiFunction<Color,Integer,Color> contrastParam = (Color color,Integer coefficient) -> {
+
+        float factor =  (259 * (coefficient + 255)) / (255 * (259 - coefficient));
+
+        int red = (int)(factor*(color.getRed() - 128)) + 128;
+        int green = (int)(factor*(color.getGreen() - 128)) + 128;
+        int blue = (int)(factor*(color.getBlue() - 128)) + 128;
+
+        red = Math.min(255,Math.max(0,red));
+        green = Math.min(255,Math.max(0,green));
+        blue = Math.min(255,Math.max(0,blue));
+
+        return new Color(red,green,blue);
+    };
+    public static BiFunction<Color,Integer,Color> saturateParam = (Color color,Integer coefficient) -> {
+
+        float factor = (float)(coefficient+128)/128;
+        System.out.println(factor);
         int red = color.getRed();
         int green = color.getGreen();
         int blue = color.getBlue();
 
-        int brightnessDif = (((red + green + blue)/3 - 128) * coefficient) >> 4;
-        red = Math.min(255,Math.max(0,red + brightnessDif));
-        green = Math.min(255,Math.max(0,green + brightnessDif));
-        blue = Math.min(255,Math.max(0,blue + brightnessDif));
+        int avg = (red+green+blue)/3;
 
-        return new Color(red,green,blue);
+        red += (int)((red - avg) * factor);
+        green += (int)((green - avg) * factor);
+        blue += (int)((blue - avg) * factor);
+
+        return new Color(toRange(red),toRange(green),toRange(blue));
     };
-
 }

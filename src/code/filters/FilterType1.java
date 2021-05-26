@@ -18,7 +18,7 @@ public class FilterType1 implements Filter{
 
     @Override
     public void apply(AbstractNode node) {
-
+        long start = System.currentTimeMillis();
         int width = node.input1.getContent().getWidth();
         int height = node.input1.getContent().getHeight();
 
@@ -34,6 +34,7 @@ public class FilterType1 implements Filter{
             }
         }
         node.output1.setContent(out);
+        System.out.println(this.getClass() + " " + (System.currentTimeMillis()-start));
     }
 
     @Override

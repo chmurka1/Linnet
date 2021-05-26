@@ -1,18 +1,12 @@
 package code.controls;
 
-import code.filters.EmptyFilter;
-import code.filters.Filters;
+import code.filters.HorizontalBlur;
 import code.filters.Filter;
+import code.filters.Filters;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Pane;
-
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.function.Function;
 
 /***
  * Standard node for applying a simple filter on an image
@@ -33,7 +27,7 @@ public class FilterNode extends AbstractNode {
         output1.setName("Output");
         addOutputSocket(output1);
 
-        String[] listOfFilters ={"empty filter","brighten image","darken image", "black and white","more colorful","sharpen","contrast"};
+        String[] listOfFilters ={"empty filter","brighten image","darken image", "black and white","more colorful","sharpen","contrast","saturate","horizontal blur"};
         ComboBox<String> comboBox= new ComboBox<>(FXCollections.observableArrayList(listOfFilters));
         comboBox.setOnAction(e -> {
             if(comboBox.getValue().equals("empty filter")){
@@ -47,11 +41,32 @@ public class FilterNode extends AbstractNode {
             }
             if(comboBox.getValue().equals("black and white")){}// filter = blackAndWhite;
             if(comboBox.getValue().equals("more colorful")){}// filter = saturate;
+
+            // advised range from -32 to +256
             if(comboBox.getValue().equals("sharpen")){
-                filter = Filters.sharp;
+                int coefficient = -32;
+                //coefficient = ...
+                filter = Filters.sharpen(coefficient);
             }
+            // advised range from -128 to +128
             if(comboBox.getValue().equals("contrast")){
-                filter = Filters.contrast;
+                int coefficient = 128;
+                //coefficient = ...
+                filter = Filters.contrast(coefficient);
+            }
+            // advised range from -128 to +128
+            if(comboBox.getValue().equals("saturate")){
+                int coefficient = 128;
+                //coefficient = ...
+                filter = Filters.saturate(coefficient);
+            }
+            //advised range: 5-10% of image width
+            if(comboBox.getValue().equals("horizontal blur")){
+                int coefficient = 100;
+                //coefficient = ...
+
+                filter = new HorizontalBlur(coefficient);
+
             }
         });
         topPane.getChildren().add(comboBox);
