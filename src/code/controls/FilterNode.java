@@ -5,7 +5,9 @@ import code.filters.Filter;
 import code.filters.Filters;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
 /***
@@ -18,6 +20,10 @@ public class FilterNode extends AbstractNode {
     @FXML
     Pane topPane;
 
+    boolean isExtended;
+    TextField textField;
+    Button setButton;
+
     public FilterNode(Canvas canvas) {
         super(canvas);
         input1 = new TargetSocket(this);
@@ -27,16 +33,24 @@ public class FilterNode extends AbstractNode {
         output1.setName("Output");
         addOutputSocket(output1);
 
-        String[] listOfFilters ={"empty filter","brighten image","darken image", "black and white","more colorful","sharpen","contrast","saturate","horizontal blur"};
+        isExtended=false;
+        textField=new TextField();
+        setButton=new Button("Set");
+
+        String[] listOfFilters ={"empty filter","brighten image","darken image",
+                "black and white","more colorful","sharpen","contrast","saturate","horizontal blur"};
         ComboBox<String> comboBox= new ComboBox<>(FXCollections.observableArrayList(listOfFilters));
         comboBox.setOnAction(e -> {
             if(comboBox.getValue().equals("empty filter")){
+                shrink();
                 filter=Filters.empty;
             }
             if(comboBox.getValue().equals("brighten image")){
+                shrink();
                 filter=Filters.brightenImage;
             }
             if(comboBox.getValue().equals("darken image")){
+                shrink();
                 filter= Filters.darkenImage;
             }
             if(comboBox.getValue().equals("black and white")){}// filter = blackAndWhite;
@@ -44,29 +58,23 @@ public class FilterNode extends AbstractNode {
 
             // advised range from -32 to +256
             if(comboBox.getValue().equals("sharpen")){
-                int coefficient = -32;
-                //coefficient = ...
-                filter = Filters.sharpen(coefficient);
+                extend();
+                setButton.setOnAction(ee -> filter = Filters.sharpen(getCoefficient()) );
             }
             // advised range from -128 to +128
             if(comboBox.getValue().equals("contrast")){
-                int coefficient = 128;
-                //coefficient = ...
-                filter = Filters.contrast(coefficient);
+                extend();
+                setButton.setOnAction(ee -> filter = Filters.contrast(getCoefficient()) );
             }
             // advised range from -128 to +128
             if(comboBox.getValue().equals("saturate")){
-                int coefficient = 128;
-                //coefficient = ...
-                filter = Filters.saturate(coefficient);
+                extend();
+                setButton.setOnAction(ee -> filter = Filters.saturate(getCoefficient()) );
             }
             //advised range: 5-10% of image width
             if(comboBox.getValue().equals("horizontal blur")){
-                int coefficient = 100;
-                //coefficient = ...
-
-                filter = new HorizontalBlur(coefficient);
-
+                extend();
+                setButton.setOnAction(ee -> filter = new HorizontalBlur(getCoefficient()) );
             }
         });
         topPane.getChildren().add(comboBox);
@@ -83,6 +91,32 @@ public class FilterNode extends AbstractNode {
     @Override
     public boolean checkInput(){
         return input1.getContent()!=null;
+    }
+
+    private void extend(){
+        if(!isExtended) {
+            topPane.getChildren().add(textField);
+            topPane.getChildren().add(setButton);
+            isExtended = true;
+        }
+    }
+
+    private void shrink(){
+        if(isExtended){
+            topPane.getChildren().remove(textField);
+            topPane.getChildren().remove(setButton);
+        }
+    }
+
+    private int getCoefficient(){
+        CharSequence seq=textField.getCharacters();
+        int coefficient=0;
+        try{
+            coefficient=Integer.parseInt(seq.toString());
+        }catch (NumberFormatException exc){
+            System.out.println("not a number");
+        }
+        return coefficient;
     }
 
     /*public interface Filter {
