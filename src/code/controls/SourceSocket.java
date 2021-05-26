@@ -43,8 +43,7 @@ public class SourceSocket extends Socket {
 
     @Override
     public void unbindAll() {
-        for( Link link : this.links )
-            link.remove();
+        while( !links.isEmpty()) links.get(0).remove();
     }
 
     public void setContent( BufferedImage buffer ) {

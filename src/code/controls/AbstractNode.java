@@ -23,9 +23,16 @@ import java.util.ArrayList;
  * must be attached to some canvas
  */
 public abstract class AbstractNode extends AnchorPane {
+    /***
+     * Box to be used in inherited classes for storing custom controls added by programmer
+     * Note that inputs and outputs boxes are designed only to store sockets!
+     */
     @FXML VBox buttons;
+
     @FXML private VBox inputs;
     @FXML private VBox outputs;
+
+
     @FXML Pane topPane;
     @FXML public Label title;
     @FXML Label close;
@@ -37,10 +44,16 @@ public abstract class AbstractNode extends AnchorPane {
     private double relativeY;
     private final ArrayList<TargetSocket> ins = new ArrayList<>();
     private final ArrayList<SourceSocket> outs = new ArrayList<>();
+    final ArrayList<AbstractNode> dependencies = new ArrayList<>();
+    final ArrayList<AbstractNode> consumers = new ArrayList<>();
 
     public Filter filter;
 
-    public AbstractNode(Canvas can){
+    /***
+     * Constructs canvas in a given context
+     * @param can parent canvas
+     */
+    AbstractNode(Canvas can){
         super();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("abstractNode.fxml"));
         fxmlLoader.setRoot(this);
@@ -62,6 +75,9 @@ public abstract class AbstractNode extends AnchorPane {
      */
     public abstract void compute();
 
+    /***
+     * Checks if input is ready
+     */
     public abstract boolean checkInput();
 
     public void clear() {
@@ -70,20 +86,33 @@ public abstract class AbstractNode extends AnchorPane {
         for( SourceSocket t : outs ) t.clear();
     }
 
-    public void remove()    {
+    /***
+     * Safely deletes node from a canvas along with all its dependencies
+     */
+    public final void remove()    {
         for( TargetSocket s : ins ) s.unbindAll();
         for( SourceSocket t : outs ) t.unbindAll();
         canvas.removeNode(this);
     }
 
+    /***
+     * Adds new input socket
+     * it should be used instead of inputs.addChildren().add(), as it makes data in array consistent
+     * @param t node to be added
+     */
     public final void addInputSocket( TargetSocket t ) {
         ins.add(t);
         inputs.getChildren().add(t);
     }
 
-    public final void addOutputSocket( SourceSocket t ) {
-        outs.add(t);
-        outputs.getChildren().add(t);
+    /***
+     * Adds new output socket
+     * it should be used instead of outputs.addChildren().add(), as it makes data in array consistent
+     * @param s node to be added
+     */
+    public final void addOutputSocket( SourceSocket s ) {
+        outs.add(s);
+        outputs.getChildren().add(s);
     }
 
     public static Image convertToFxImage(BufferedImage image) {
@@ -99,4 +128,16 @@ public abstract class AbstractNode extends AnchorPane {
         }
         return new ImageView(wr).getImage();
     }
+
+    /***
+     * Returns a list of all dependencies of the node
+     * The order of dependencies is not specified
+     */
+    public ArrayList<AbstractNode> getDependencies() { return dependencies; }
+
+    /***
+     * Returns a list of all dependencies of the node
+     * The order of dependencies is not specified
+     */
+    public ArrayList<AbstractNode> getConsumers() { return consumers; }
 }

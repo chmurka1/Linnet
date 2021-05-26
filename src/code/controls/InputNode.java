@@ -2,16 +2,11 @@ package code.controls;
 
  import code.files.FileFormatException;
  import code.files.FileRead;
- import javafx.fxml.FXML;
- import javafx.fxml.FXMLLoader;
  import javafx.scene.control.Button;
- import javafx.scene.control.Label;
- import javafx.scene.layout.Pane;
  import javafx.stage.FileChooser;
 
  import java.io.File;
  import java.io.FileNotFoundException;
- import java.io.IOException;
 
 public class InputNode extends AbstractNode {
     public SourceSocket output;
@@ -19,7 +14,6 @@ public class InputNode extends AbstractNode {
     Button view;
 
     final FileChooser fileChooser = new FileChooser();
-
 
     public InputNode(Canvas canvas) {
         super(canvas);
@@ -63,6 +57,7 @@ public class InputNode extends AbstractNode {
         buttons.getChildren().add(view);
 
         title.setText("Image input");
+        topPane.setStyle("-fx-background-color: #e0ffff");
     }
 
     @Override

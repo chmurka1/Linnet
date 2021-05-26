@@ -17,6 +17,8 @@ public class Compute {
 
             for(AbstractNode node : canvas.nodes)   {
                 if( node.ready )    continue;
+                //try { node.compute(); flag = true; }
+                //catch (RuntimeException r ) { flag = false; }
                 if(node.checkInput()){
                     node.compute();
                     flag=true;
@@ -64,5 +66,10 @@ public class Compute {
         canvas.nodes.clear();
 
         canvas.clickedSocket=null;
+    }
+
+    private static ArrayList<AbstractNode> toposort (Canvas canvas) {
+        //To be implemented...
+        return null;
     }
 }

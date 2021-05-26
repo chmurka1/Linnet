@@ -1,33 +1,19 @@
 package code.controls;
 
 import javafx.collections.FXCollections;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 /***
  * Standard node for combining separated channels into one image -- e. g. red, green and blue channels in RGB model
  */
 public class CombinatorNode extends AbstractNode {
-    @FXML
-    public VBox inputs;
-    @FXML
-    public VBox outputs;
-
-    public TargetSocket inputX;
-    public TargetSocket inputY;
-    public TargetSocket inputZ;
+    TargetSocket inputX;
+    TargetSocket inputY;
+    TargetSocket inputZ;
     public SourceSocket output;
 
     Combinator combinator;
-
-    @FXML
-    Pane topPane;
 
     public CombinatorNode(Canvas canvas) {
         super(canvas);
@@ -82,11 +68,8 @@ public class CombinatorNode extends AbstractNode {
     public interface Combinator {
         default BufferedImage combine( BufferedImage X, BufferedImage Y, BufferedImage Z) {
             BufferedImage res = new BufferedImage(X.getWidth(),X.getHeight(),X.getType());
-            for (int y = 0; y < X.getHeight(); y++) {
-                for (int x = 0; x < X.getWidth(); x++) {
+            for (int y = 0; y < X.getHeight(); y++) for (int x = 0; x < X.getWidth(); x++)
                     res.setRGB(x,y,get(X.getRGB(x,y),Y.getRGB(x,y),Z.getRGB(x,y)));
-                }
-            }
             return res;
         }
         int get(int x, int y, int z);

@@ -1,14 +1,8 @@
 package code.controls;
 
 import javafx.collections.FXCollections;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -23,9 +17,6 @@ public class SeparatorNode extends AbstractNode {
     public SourceSocket outputZ;
 
     Separator separator;
-
-    @FXML
-    Pane topPane;
 
     public SeparatorNode(Canvas canvas) {
         super(canvas);

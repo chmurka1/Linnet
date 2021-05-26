@@ -32,12 +32,14 @@ public class Link extends Line {
         if( socket1 instanceof SourceSocket && socket2 instanceof TargetSocket ) {
             this.source = (SourceSocket) socket1; this.target = (TargetSocket) socket2;
         }
-        else if ( socket2 instanceof SourceSocket && socket1 instanceof TargetSocket ) {
-            this.source = (SourceSocket) socket2; this.target = (TargetSocket) socket1;
+        else {
+            if ( socket2 instanceof SourceSocket && socket1 instanceof TargetSocket ) {
+                this.source = (SourceSocket) socket2; this.target = (TargetSocket) socket1;
+            }
+            else throw new Exception("Linking is only possible for one source and one target");
         }
-        else throw new Exception("Linking is only possible for one source and one target");
-
         this.canvas = socket1.node.canvas;
+
         this.source.bind(this);
         this.target.bind(this);
         canvasSourceBoundsBinding = Bindings.createObjectBinding(() -> {
@@ -75,6 +77,9 @@ public class Link extends Line {
                                 canvasTargetBoundsBinding)));
         this.setOnMousePressed( me -> remove() );
         this.setOnMouseEntered( me -> this.setCursor(Cursor.HAND));
+
+        source.node.consumers.add(target.node);
+        target.node.dependencies.add(source.node);
     }
 
     public void remove() {

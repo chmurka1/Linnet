@@ -12,14 +12,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Canvas extends ScrollPane {
-
     Controller controller;
+    @FXML Pane pane;
 
-    @FXML
-    Pane pane;
-
-    public List<InputNode> listOfInputNodes=new LinkedList<>();
-    public List<OutputNode> listOfOutputNodes=new LinkedList<>();
+    public List<InputNode> listOfInputNodes = new LinkedList<>();
+    public List<OutputNode> listOfOutputNodes = new LinkedList<>();
     public List<AbstractNode> nodes = new LinkedList<>();
     public List<Link> listOfLinks = new LinkedList<>();
 

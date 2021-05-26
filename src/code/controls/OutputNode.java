@@ -2,21 +2,15 @@ package code.controls;
 
 import code.files.FileWrite;
 import code.graph.Compute;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.io.IOException;
 
 public class OutputNode extends AbstractNode {
-    Button button;
-    Button view;
-    public TargetSocket input;
-
-    final FileChooser fileChooser = new FileChooser();
+    TargetSocket input;
+    private final FileChooser fileChooser = new FileChooser();
 
     public OutputNode(Canvas canvas) {
         super(canvas);
@@ -24,7 +18,7 @@ public class OutputNode extends AbstractNode {
         input.setName("Input");
         addInputSocket(input);
 
-        button  = new Button();
+        Button button = new Button();
         button.setText("Save");
         button.setOnAction(
                 e -> {
@@ -42,7 +36,7 @@ public class OutputNode extends AbstractNode {
                         }
                     }
                 });
-        view = new Button();
+        Button view = new Button();
         view.setText("View");
         view.setOnAction(
                 e -> {
@@ -57,6 +51,7 @@ public class OutputNode extends AbstractNode {
         buttons.getChildren().add(view);
 
         title.setText("Image output");
+        topPane.setStyle("-fx-background-color: #fff8dc;");
     }
 
     public void colorTitlePane(){
@@ -65,6 +60,10 @@ public class OutputNode extends AbstractNode {
 
     @Override
     public void compute() {
+        if(input.getContent() != null) {
+            System.out.println("output ready");
+            colorTitlePane();
+        }
         if ( input.getContent() == null ) {
             System.out.println("no input");
         }
