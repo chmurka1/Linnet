@@ -63,7 +63,7 @@ public class FiltersOfColor {
 //    };
     public static BiFunction<Color,Integer,Color> contrastParam = (Color color,Integer coefficient) -> {
 
-        float factor =  (259 * (coefficient + 255)) / (255 * (259 - coefficient));
+        float factor =  (float)(259 * (coefficient + 255)) / (255 * (259 - coefficient));
 
         int red = (int)(factor*(color.getRed() - 128)) + 128;
         int green = (int)(factor*(color.getGreen() - 128)) + 128;
