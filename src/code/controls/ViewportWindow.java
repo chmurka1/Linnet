@@ -1,5 +1,6 @@
 package code.controls;
 
+import code.Main;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
@@ -17,8 +18,12 @@ public class ViewportWindow {
         imageview.setFitWidth(1000);
         imageview.setFitHeight(600);
         pane.getChildren().add(imageview);
+
+        Image icon = new Image(Main.class.getResource("images/linnet64.png").toExternalForm());
+
         Stage stage=new Stage();
         stage.setScene(new Scene(pane));
+        stage.getIcons().add(icon);
         stage.show();
 
     }

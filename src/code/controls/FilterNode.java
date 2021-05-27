@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
 /***
@@ -24,6 +25,7 @@ public class FilterNode extends AbstractNode {
     boolean isExtended;
     TextField textField;
     Button setButton;
+    GridPane gridPane;
 
     public FilterNode(Canvas canvas) {
         super(canvas);
@@ -36,10 +38,14 @@ public class FilterNode extends AbstractNode {
 
         isExtended=false;
         textField=new TextField();
+        textField.setMaxWidth(100);
         setButton=new Button("Set");
+        gridPane=new GridPane();
+        gridPane.add(textField,0,0);
+        gridPane.add(setButton,1,0);
 
         String[] listOfFilters ={"empty filter","brighten image","darken image", "black and white",
-                "more colorful","sharpen","contrast","saturate","horizontal blur","trim top"};
+                "sharpen","contrast","saturate","horizontal blur","trim top"};
         ComboBox<String> comboBox= new ComboBox<>(FXCollections.observableArrayList(listOfFilters));
         comboBox.setOnAction(e -> {
             if(comboBox.getValue().equals("empty filter")){
@@ -58,11 +64,6 @@ public class FilterNode extends AbstractNode {
                 shrink();
                 filter = Filters.saturate(-100);
             }
-            if(comboBox.getValue().equals("more colorful")){
-                shrink();
-                filter = Filters.saturate(100);
-            }
-
             // advised range from -100 to 100
             if(comboBox.getValue().equals("sharpen")){
                 extend();
@@ -107,17 +108,16 @@ public class FilterNode extends AbstractNode {
     }
 
     private void extend(){
+        textField.clear();
         if(!isExtended) {
-            topPane.getChildren().add(textField);
-            topPane.getChildren().add(setButton);
+            topPane.getChildren().add(gridPane);
             isExtended = true;
         }
     }
 
     private void shrink(){
         if(isExtended){
-            topPane.getChildren().remove(textField);
-            topPane.getChildren().remove(setButton);
+            topPane.getChildren().remove(gridPane);
             isExtended=false;
         }
     }
