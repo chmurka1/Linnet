@@ -57,22 +57,23 @@ public class FilterNode extends AbstractNode {
             if(comboBox.getValue().equals("black and white")){}// filter = blackAndWhite;
             if(comboBox.getValue().equals("more colorful")){}// filter = saturate;
 
-            // advised range from -32 to +256
+            // advised range from -100 to 100
             if(comboBox.getValue().equals("sharpen")){
                 extend();
                 setButton.setOnAction(ee -> filter = Filters.sharpen(getCoefficient()) );
             }
-            // advised range from -128 to +128
+            // advised range from -100 to +100
             if(comboBox.getValue().equals("contrast")){
                 extend();
                 setButton.setOnAction(ee -> filter = Filters.contrast(getCoefficient()) );
             }
-            // advised range from -128 to +128
+            // advised range from -100 to +100
             if(comboBox.getValue().equals("saturate")){
                 extend();
                 setButton.setOnAction(ee -> filter = Filters.saturate(getCoefficient()) );
             }
-            //advised range: 5-10% of image width
+            //coefficient in per mille
+            // advised range from -100 to +100. If negative, takes abs value
             if(comboBox.getValue().equals("horizontal blur")){
                 extend();
                 setButton.setOnAction(ee -> filter = new HorizontalBlur(getCoefficient()) );

@@ -8,17 +8,20 @@ import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
 public class HorizontalBlur implements Filter{
 
-    int size;
+    int sizeInPerMille;
+    int size;//pixels
 
     public HorizontalBlur(Integer coefficient) {
-        this.size = coefficient;
+        this.sizeInPerMille = Math.abs(coefficient);
     }
 
     @Override
     public void apply(AbstractNode node) {
+
         long start = System.currentTimeMillis();
         int width = node.input1.getContent().getWidth();
         int height = node.input1.getContent().getHeight();
+        size = width*sizeInPerMille/1000;
 
         node.output1.setContent(new BufferedImage(width,height,TYPE_INT_RGB));
 
@@ -36,7 +39,7 @@ public class HorizontalBlur implements Filter{
         }
         int div = 2*size+1;
         for (int y = 0; y < height; y++) {
-            boolean inCentre = false;
+//            boolean inCentre = false;
             int sumR = 128*size;
             int sumG = 128*size;
             int sumB = 128*size;

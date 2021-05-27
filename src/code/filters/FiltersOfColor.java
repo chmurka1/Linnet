@@ -40,7 +40,7 @@ public class FiltersOfColor {
     }
 
     public static BiFunction<ArrayList<Color>,Integer,Color> sharpenParam = (ArrayList<Color> matrix, Integer coefficient) -> {
-        float co = (float)coefficient/128;
+        float co = (float)coefficient/32;
 
         int red = (int) (- co*matrix.get(1).getRed() - co*matrix.get(3).getRed() + (1+4*co) * matrix.get(4).getRed() - co*matrix.get(5).getRed() - co*matrix.get(7).getRed());
         int green = (int) (- co*matrix.get(1).getGreen() - co*matrix.get(3).getGreen() + (1+4*co) * matrix.get(4).getGreen() - co*matrix.get(5).getGreen() - co*matrix.get(7).getGreen());
@@ -77,7 +77,7 @@ public class FiltersOfColor {
     };
     public static BiFunction<Color,Integer,Color> saturateParam = (Color color,Integer coefficient) -> {
 
-        float factor = (float)(coefficient)/128;
+        int maxEffect = 100;
 
         int red = color.getRed();
         int green = color.getGreen();
@@ -85,9 +85,9 @@ public class FiltersOfColor {
 
         int avg = (red+green+blue)/3;
 
-        red += (int)((red - avg) * factor);
-        green += (int)((green - avg) * factor);
-        blue += (int)((blue - avg) * factor);
+        red += (red - avg) * coefficient/maxEffect;
+        green += (green - avg) * coefficient/maxEffect;
+        blue += (blue - avg) * coefficient/maxEffect;
 
         return new Color(toRange(red),toRange(green),toRange(blue));
     };

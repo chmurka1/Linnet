@@ -29,7 +29,6 @@ public class FilterParametrized3x3 implements Filter {
         ArrayList<Color> upRow = null;
         ArrayList<Color> curRow = null;
         ArrayList<Color> downRow;
-//        System.out.println("Hi");
 
         for (int y = 0; y < height; y++) {
             downRow = new ArrayList<>(width);
@@ -71,9 +70,9 @@ public class FilterParametrized3x3 implements Filter {
             }
             upRow = curRow;
             curRow = downRow;
-            downRow = null;
-            System.out.println(this.getClass() + " " + (System.currentTimeMillis()-start));
+//            downRow = null;
         }
+        System.out.println(this.getClass() + " " + (System.currentTimeMillis()-start));
     }
 
     @Override
