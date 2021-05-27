@@ -54,8 +54,14 @@ public class FilterNode extends AbstractNode {
                 shrink();
                 filter= Filters.darkenImage;
             }
-            if(comboBox.getValue().equals("black and white")){}// filter = blackAndWhite;
-            if(comboBox.getValue().equals("more colorful")){}// filter = saturate;
+            if(comboBox.getValue().equals("black and white")){
+                shrink();
+                filter = Filters.saturate(-100);
+            }
+            if(comboBox.getValue().equals("more colorful")){
+                shrink();
+                filter = Filters.saturate(100);
+            }
 
             // advised range from -100 to 100
             if(comboBox.getValue().equals("sharpen")){

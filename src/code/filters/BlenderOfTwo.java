@@ -11,7 +11,7 @@ import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 public class BlenderOfTwo implements Filter{
     @Override
     public void apply(AbstractNode node) {
-
+        long start = System.currentTimeMillis();
         BiFunction<Color,Color,Color> colorFunction = FiltersOfColor.colorBlend;
 
         int width = node.input1.getContent().getWidth();
@@ -29,6 +29,7 @@ public class BlenderOfTwo implements Filter{
                 node.output1.getContent().setRGB(x,y,pixelOutputColor.getRGB());
             }
         }
+        System.out.println(this.getClass() + " " + (System.currentTimeMillis()-start));
     }
 
     @Override

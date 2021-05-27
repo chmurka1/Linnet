@@ -16,11 +16,10 @@ public class FiltersOfColor {
 
         double ratio = (double)(dominant.getRed() + dominant.getGreen() + dominant.getBlue()) / 765;
 
-        //TODO not sure if it is safe : can it be out 0-255 range ?
         int red = (int)(dominant.getRed() * ratio + recessive.getRed() * (1-ratio));
         int green = (int)(dominant.getGreen() * ratio + recessive.getGreen() * (1-ratio));
         int blue = (int)(dominant.getBlue() * ratio + recessive.getBlue() * (1-ratio));
-        return new Color(red,green,blue);
+        return new Color(toRange(red),toRange(green),toRange(blue));
     };
 
     public static class AdjustBrightness implements Function<Color,Color>{
