@@ -14,7 +14,7 @@ import javafx.scene.layout.Pane;
  */
 public class FilterNode extends AbstractNode {
 
-    Filter filter;
+    Filter filter = new EmptyFilter();
 
     @FXML
     Pane topPane;
@@ -42,7 +42,7 @@ public class FilterNode extends AbstractNode {
         gridPane.add(setButton,1,0);
 
         String[] listOfFilters ={"empty filter","brighten image","darken image", "black and white",
-                "sharpen","contrast","saturate","horizontal blur","vertical blur","trim top"};
+                "sharpen","contrast","saturate","horizontal blur","vertical blur","gaussian blur","trim top"};
 
         ComboBox<String> comboBox= new ComboBox<>(FXCollections.observableArrayList(listOfFilters));
         comboBox.setOnAction(e -> {
@@ -91,6 +91,10 @@ public class FilterNode extends AbstractNode {
             if(comboBox.getValue().equals("trim top")){
                 extend();
                 setButton.setOnAction(ee -> filter = new TrimTop(getCoefficient()) );
+            }
+            if(comboBox.getValue().equals("gaussian blur")){
+                extend();
+                setButton.setOnAction(ee -> filter = new GaussianBlur(getCoefficient()) );
             }
         });
         topPane.getChildren().add(comboBox);

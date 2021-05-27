@@ -17,15 +17,10 @@ public class Compute {
 
             for(AbstractNode node : canvas.nodes)   {
                 if( node.ready )    continue;
-                //try { node.compute(); flag = true; }
-                //catch (RuntimeException r ) { flag = false; }
                 if(node.checkInput()){
                     node.compute();
                     flag=true;
                 }
-            //    System.out.println(node.title.getText());
-            //    try { node.compute(); flag = true; }
-            //    catch (RuntimeException r ) { flag = false; }
             }
         }
 

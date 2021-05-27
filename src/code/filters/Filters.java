@@ -18,9 +18,9 @@ public class Filters {
         return new code.filters.FilterParametrized(FiltersOfColor.saturateParam,coefficient);
     }
 
-//    public static Filter boxBlur(int coefficient) {
-//        return new code.filters.FilterParametrized3x3(FiltersOfColor.boxBlur,coefficient);
-//    }
+    //public static Filter boxBlur(int coefficient) {
+    //    return new code.filters.FilterParametrized3x3(FiltersOfColor.boxBlur,coefficient);
+    //}
 
     public static Filter empty = new EmptyFilter();
 }
