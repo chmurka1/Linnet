@@ -1,9 +1,6 @@
 package code.controls;
 
-import code.filters.HorizontalBlur;
-import code.filters.Filter;
-import code.filters.Filters;
-import code.filters.TrimTop;
+import code.filters.*;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -39,7 +36,7 @@ public class FilterNode extends AbstractNode {
         setButton=new Button("Set");
 
         String[] listOfFilters ={"empty filter","brighten image","darken image", "black and white",
-                "more colorful","sharpen","contrast","saturate","horizontal blur","trim top"};
+                "more colorful","sharpen","contrast","saturate","horizontal blur","vertical blur","trim top"};
         ComboBox<String> comboBox= new ComboBox<>(FXCollections.observableArrayList(listOfFilters));
         comboBox.setOnAction(e -> {
             if(comboBox.getValue().equals("empty filter")){
@@ -83,6 +80,10 @@ public class FilterNode extends AbstractNode {
             if(comboBox.getValue().equals("horizontal blur")){
                 extend();
                 setButton.setOnAction(ee -> filter = new HorizontalBlur(getCoefficient()) );
+            }
+            if(comboBox.getValue().equals("vertical blur")){
+                extend();
+                setButton.setOnAction(ee -> filter = new VertBlur(getCoefficient()) );
             }
             //coefficient in %
             if(comboBox.getValue().equals("trim top")){
