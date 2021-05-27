@@ -112,6 +112,7 @@ public class FilterNode extends AbstractNode {
         if(isExtended){
             topPane.getChildren().remove(textField);
             topPane.getChildren().remove(setButton);
+            isExtended=false;
         }
     }
 

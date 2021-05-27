@@ -39,16 +39,16 @@ public class Canvas extends ScrollPane {
         ContextMenu contextMenu = new ContextMenu();
         MenuItem menuItem1 = new MenuItem("add input node");
         menuItem1.setOnAction(actionEvent -> addInputNode());
-        MenuItem menuItem2 = new MenuItem("add merge node");
-        menuItem2.setOnAction(actionEvent -> addMergeNode());
-        MenuItem menuItem3 = new MenuItem("add output node");
-        menuItem3.setOnAction(actionEvent -> addOutputNode());
-        MenuItem menuItem4 = new MenuItem("add separator node");
-        menuItem4.setOnAction(actionEvent -> addSeparatorNode());
-        MenuItem menuItem5 = new MenuItem("add combinator node");
-        menuItem5.setOnAction(actionEvent -> addCombinatorNode());
-        MenuItem menuItem6 = new MenuItem("add filter node");
-        menuItem6.setOnAction(actionEvent -> addFilterNode());
+        MenuItem menuItem4 = new MenuItem("add merge node");
+        menuItem4.setOnAction(actionEvent -> addMergeNode());
+        MenuItem menuItem2 = new MenuItem("add output node");
+        menuItem2.setOnAction(actionEvent -> addOutputNode());
+        MenuItem menuItem5 = new MenuItem("add separator node");
+        menuItem5.setOnAction(actionEvent -> addSeparatorNode());
+        MenuItem menuItem6 = new MenuItem("add combinator node");
+        menuItem6.setOnAction(actionEvent -> addCombinatorNode());
+        MenuItem menuItem3 = new MenuItem("add filter node");
+        menuItem3.setOnAction(actionEvent -> addFilterNode());
         contextMenu.getItems().addAll(menuItem1,menuItem2,menuItem3,menuItem4,menuItem5,menuItem6);
         this.setContextMenu(contextMenu);
 
