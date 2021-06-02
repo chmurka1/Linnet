@@ -49,7 +49,9 @@ public class Canvas extends ScrollPane {
         menuItem6.setOnAction(actionEvent -> addCombinatorNode());
         MenuItem menuItem3 = new MenuItem("add filter node");
         menuItem3.setOnAction(actionEvent -> addFilterNode());
-        contextMenu.getItems().addAll(menuItem1,menuItem2,menuItem3,menuItem4,menuItem5,menuItem6);
+        MenuItem menuItem7 = new MenuItem("add generator node");
+        menuItem7.setOnAction(actionEvent -> addGeneratorNode());
+        contextMenu.getItems().addAll(menuItem1,menuItem2,menuItem3,menuItem4,menuItem5,menuItem6,menuItem7);
         this.setContextMenu(contextMenu);
 
         this.setOnMouseClicked(me-> {
@@ -61,6 +63,7 @@ public class Canvas extends ScrollPane {
 
     public void removeInputNode(InputNode inputNode){
         pane.getChildren().remove(inputNode);
+        listOfInputNodes.remove(inputNode);
     }
     public void addInputNode(){
         InputNode tempNode=new InputNode(this);
@@ -70,6 +73,7 @@ public class Canvas extends ScrollPane {
 
     public void removeOutputNode(OutputNode outputNode){
         pane.getChildren().remove(outputNode);
+        listOfOutputNodes.remove(outputNode);
     }
     public void addOutputNode(){
         OutputNode tempNode=new OutputNode(this);
@@ -97,6 +101,12 @@ public class Canvas extends ScrollPane {
 
     public void addFilterNode(){
         FilterNode tempNode = new FilterNode(this);
+        nodes.add(tempNode);
+        pane.getChildren().add(tempNode);
+    }
+
+    public void addGeneratorNode(){
+        GeneratorNode tempNode = new GeneratorNode(this);
         nodes.add(tempNode);
         pane.getChildren().add(tempNode);
     }
