@@ -19,7 +19,7 @@ public abstract class Socket extends VBox {
     Button button;
 
     @FXML
-    Label label;
+    public Label label;
 
     public AbstractNode node;
 

@@ -12,12 +12,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Canvas extends ScrollPane {
+    int counter = 0;
     Controller controller;
     @FXML Pane pane;
 
     public List<InputNode> listOfInputNodes = new LinkedList<>();
     public List<OutputNode> listOfOutputNodes = new LinkedList<>();
-    public List<AbstractNode> nodes = new LinkedList<>();
+    public List<AbstractNode> listOfNodes = new LinkedList<>();
     public List<Link> listOfLinks = new LinkedList<>();
 
     public Socket clickedSocket;
@@ -67,6 +68,8 @@ public class Canvas extends ScrollPane {
     }
     public void addInputNode(){
         InputNode tempNode=new InputNode(this);
+        counter++;
+        tempNode.id = counter;
         listOfInputNodes.add(tempNode);
         pane.getChildren().add(tempNode);
     }
@@ -77,43 +80,55 @@ public class Canvas extends ScrollPane {
     }
     public void addOutputNode(){
         OutputNode tempNode=new OutputNode(this);
+        counter++;
+        tempNode.id = counter;
         listOfOutputNodes.add(tempNode);
         pane.getChildren().add(tempNode);
     }
 
     public void addMergeNode(){
         MergeNode tempNode=new MergeNode(this);
-        nodes.add(tempNode);
+        counter++;
+        tempNode.id = counter;
+        listOfNodes.add(tempNode);
         pane.getChildren().add(tempNode);
     }
 
     public void addSeparatorNode(){
         SeparatorNode tempNode = new SeparatorNode(this);
-        nodes.add(tempNode);
+        counter++;
+        tempNode.id = counter;
+        listOfNodes.add(tempNode);
         pane.getChildren().add(tempNode);
     }
 
     public void addCombinatorNode(){
         CombinatorNode tempNode = new CombinatorNode(this);
-        nodes.add(tempNode);
+        counter++;
+        tempNode.id = counter;
+        listOfNodes.add(tempNode);
         pane.getChildren().add(tempNode);
     }
 
     public void addFilterNode(){
         FilterNode tempNode = new FilterNode(this);
-        nodes.add(tempNode);
+        counter++;
+        tempNode.id = counter;
+        listOfNodes.add(tempNode);
         pane.getChildren().add(tempNode);
     }
 
     public void addGeneratorNode(){
         GeneratorNode tempNode = new GeneratorNode(this);
-        nodes.add(tempNode);
+        counter++;
+        tempNode.id = counter;
+        listOfNodes.add(tempNode);
         pane.getChildren().add(tempNode);
     }
 
     public void removeNode( AbstractNode node ){
         pane.getChildren().remove(node);
-        nodes.remove(node);
+        listOfNodes.remove(node);
     }
 
     public void addLink(Socket s, Socket t) {
@@ -128,6 +143,7 @@ public class Canvas extends ScrollPane {
     }
 
     public void removeLink( Link link ) {
-        this.pane.getChildren().remove(link);
+        pane.getChildren().remove(link);
+        listOfLinks.remove(link);
     }
 }

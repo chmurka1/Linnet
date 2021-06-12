@@ -32,6 +32,7 @@ public abstract class AbstractNode extends AnchorPane {
     @FXML private VBox inputs;
     @FXML private VBox outputs;
 
+    public int id;
 
     @FXML Pane topPane;
     @FXML public Label title;
@@ -54,6 +55,7 @@ public abstract class AbstractNode extends AnchorPane {
 
     /***
      * Constructs canvas in a given context
+     * In implementation, it ought to be called before specialized initialization
      * @param can parent canvas
      */
     AbstractNode(Canvas can){
@@ -143,4 +145,34 @@ public abstract class AbstractNode extends AnchorPane {
      * The order of dependencies is not specified
      */
     public ArrayList<AbstractNode> getConsumers() { return consumers; }
+
+
+    /***
+     * Set position of a node
+     */
+    public void setPosition( double x, double y)
+    {
+        setLayoutX(x);
+        setLayoutY(y);
+    }
+
+    /***
+     * Get X position of a node
+     */
+    public double getXPosition()   {   return getLayoutX(); }
+
+    /***
+     * Get Y position of a node
+     */
+    public double getYPosition()    {   return getLayoutY();    }
+
+    /***
+     * Get socket of a node with given name
+     */
+    public Socket getSocketByName( String name )
+    {
+        for( TargetSocket in : ins )    if( in.label.getText() == name ) return in;
+        for( SourceSocket out : outs )  if( out.label.getText() == name ) return out;
+        return null;
+    }
 }

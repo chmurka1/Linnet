@@ -10,8 +10,6 @@ import java.awt.image.BufferedImage;
 public class TargetSocket extends Socket {
     Link link;
 
-    public TargetSocket() { this(null); }
-
     public TargetSocket( AbstractNode node )
     {
         super(node,"targetSocket.fxml");

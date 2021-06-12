@@ -15,7 +15,7 @@ public class Compute {
         while(flag){
             flag=false;
 
-            for(AbstractNode node : canvas.nodes)   {
+            for(AbstractNode node : canvas.listOfNodes)   {
                 if( node.ready )    continue;
                 if(node.checkInput()){
                     node.compute();
@@ -34,7 +34,7 @@ public class Compute {
 
     private static void innerClear(Canvas canvas){
         canvas.clickedSocket=null;
-        for(AbstractNode node : canvas.nodes ){
+        for(AbstractNode node : canvas.listOfNodes){
             node.clear();
         }
         for(OutputNode outputNode:canvas.listOfOutputNodes){
@@ -55,10 +55,10 @@ public class Compute {
             canvas.removeOutputNode(outputNode);
         }
         canvas.listOfOutputNodes.clear();
-        for(AbstractNode node: canvas.nodes){
+        for(AbstractNode node: canvas.listOfNodes){
             canvas.removeNode(node);
         }
-        canvas.nodes.clear();
+        canvas.listOfNodes.clear();
 
         canvas.clickedSocket=null;
     }

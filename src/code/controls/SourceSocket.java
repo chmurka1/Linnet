@@ -12,10 +12,6 @@ public class SourceSocket extends Socket {
     private BufferedImage content;
     ArrayList<Link> links = new ArrayList<>();
 
-    public SourceSocket() {
-        this(null);
-    }
-
     public SourceSocket( AbstractNode node ) {
         super(node,"sourceSocket.fxml");
     }
