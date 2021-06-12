@@ -48,6 +48,10 @@ public class DescriptionWindow {
         filterNodeItem.getChildren().add(gaussianBlurItem);
         TreeItem<String> trimTopItem = new TreeItem<> ("trim top");
         filterNodeItem.getChildren().add(trimTopItem);
+        TreeItem<String> setWidthItem = new TreeItem<> ("set width");
+        filterNodeItem.getChildren().add(trimTopItem);
+        TreeItem<String> setHeightItem = new TreeItem<> ("set height");
+        filterNodeItem.getChildren().add(trimTopItem);
 
         //mergeNode
         TreeItem<String> transferBrightnessItem = new TreeItem<> ("transfer brightness");
@@ -58,7 +62,7 @@ public class DescriptionWindow {
         mergeNodeItem.getChildren().add(blendByDarknessItem);
         TreeItem<String> blendBySaturationItem = new TreeItem<> ("blend by saturation");
         mergeNodeItem.getChildren().add(blendBySaturationItem);
-        TreeItem<String> ignoreGreenItem = new TreeItem<> ("ignore green");
+        TreeItem<String> ignoreGreenItem = new TreeItem<> ("green screen");
         mergeNodeItem.getChildren().add(ignoreGreenItem);
 
         //separatorNode
@@ -139,6 +143,23 @@ public class DescriptionWindow {
                     textArea.setText("Erases top part of an image and stretches the rest. " +
                             "Takes one parameter which tells how many percents of image will be trimmed.");
                 }
+                if(item.getValue().equals("trim top")){
+                    textArea.setText("Erases top part of an image and stretches the rest. " +
+                            "Takes one parameter which tells how many percents of image will be trimmed.");
+                }
+                if(item.getValue().equals("trim top")){
+                    textArea.setText("Erases top part of an image and stretches the rest. " +
+                            "Takes one parameter which tells how many percents of image will be trimmed.");
+                }
+                if(item.getValue().equals("set width")){
+                    textArea.setText("sets new width of image" +
+                            "Takes one parameter which tells new width in pixels.");
+                }
+                if(item.getValue().equals("set height")){
+                    textArea.setText("sets new width of image" +
+                            "Takes one parameter which tells new height in pixels.");
+                }
+
 
                 //mergeNode
                 if(item.getValue().equals("transfer brightness")){
@@ -162,10 +183,10 @@ public class DescriptionWindow {
                             "if foreground pixel is lowly saturated then output pixel will be almost the background one, " +
                             "otherwise output pixel is in between the foreground one and background one.");
                 }
-                if(item.getValue().equals("ignore green")){
+                if(item.getValue().equals("green screen")){
                     textArea.setText("Blends images with the following rules, first image is foreground, second one is background: " +
-                            "if pixel of foreground is green then output pixel will be almost the background one, " +
-                            "otherwise output pixel will be almost the background one.");
+                            "if pixel of foreground is close to green and is highly saturated then output pixel will be almost the background one, " +
+                            "otherwise output pixel will be almost the foreground one.");
                 }
 
                 //separatorNode

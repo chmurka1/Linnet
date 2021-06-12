@@ -42,7 +42,7 @@ public class FilterNode extends AbstractNode {
         gridPane.add(setButton,1,0);
 
         String[] listOfFilters ={"empty filter","brighten image","darken image", "black and white",
-                "sharpen","contrast","saturate","horizontal blur","vertical blur","gaussian blur","trim top"};
+                "sharpen","contrast","saturate","horizontal blur","vertical blur","gaussian blur","trim top","set new width","set new height"};
 
         ComboBox<String> comboBox= new ComboBox<>(FXCollections.observableArrayList(listOfFilters));
         comboBox.setOnAction(e -> {
@@ -95,6 +95,14 @@ public class FilterNode extends AbstractNode {
             if(comboBox.getValue().equals("gaussian blur")){
                 extend();
                 setButton.setOnAction(ee -> filter = new GaussianBlur(getCoefficient()) );
+            }
+            if(comboBox.getValue().equals("set new width")){
+                extend();
+                setButton.setOnAction(ee -> filter = new ResizeWidth(getCoefficient()) );
+            }
+            if(comboBox.getValue().equals("set new height")){
+                extend();
+                setButton.setOnAction(ee -> filter = new ResizeWidth(getCoefficient()) );
             }
         });
         topPane.getChildren().add(comboBox);

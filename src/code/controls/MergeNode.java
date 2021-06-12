@@ -27,7 +27,7 @@ public class MergeNode extends AbstractNode {
 
         this.filter = new EmptyFilter();
 
-        String[] listOfFilters ={"transfer brightness","blend by brightness","blend by darkness","blend by saturation","ignore green"};
+        String[] listOfFilters ={"transfer brightness","blend by brightness","blend by darkness","blend by saturation","green screen"};
 
         ComboBox<String> comboBox= new ComboBox<>(FXCollections.observableArrayList(listOfFilters));
         comboBox.setOnAction(
@@ -50,7 +50,7 @@ public class MergeNode extends AbstractNode {
                     if(comboBox.getValue().equals("blend by saturation")){
                         filter = new BlenderOfTwo(BlendingRatioFunctions.blendBySaturation);
                     }
-                    if(comboBox.getValue().equals("ignore green")){
+                    if(comboBox.getValue().equals("green screen")){
                         filter = new BlenderOfTwo(BlendingRatioFunctions.greenScreen);
                     }
                 }

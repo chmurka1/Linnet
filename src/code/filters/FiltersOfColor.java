@@ -12,6 +12,10 @@ public class FiltersOfColor {
         return Math.min(Math.max(var,0),255);
     }
 
+    public static double toRange(double var) {
+        return Math.min(Math.max(var,0),1);
+    }
+
     public static class ColorBlend implements BiFunction<Color,Color,Color> {
         Function<Color,Double> blendBy;
         ColorBlend(Function<Color,Double> blendBy) {
