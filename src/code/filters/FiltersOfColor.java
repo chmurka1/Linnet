@@ -12,15 +12,22 @@ public class FiltersOfColor {
         return Math.min(Math.max(var,0),255);
     }
 
-    public static BiFunction<Color,Color,Color> colorBlend = (Color dominant, Color recessive) -> {
+    public static class ColorBlend implements BiFunction<Color,Color,Color> {
+        Function<Color,Double> blendBy;
+        ColorBlend(Function<Color,Double> blendBy) {
+            this.blendBy = blendBy;
+        }
 
-        double ratio = (double)(dominant.getRed() + dominant.getGreen() + dominant.getBlue()) / 765;
+        @Override
+        public java.awt.Color apply(Color dominant, Color recessive) {
+            double ratio = blendBy.apply(dominant);
 
-        int red = (int)(dominant.getRed() * ratio + recessive.getRed() * (1-ratio));
-        int green = (int)(dominant.getGreen() * ratio + recessive.getGreen() * (1-ratio));
-        int blue = (int)(dominant.getBlue() * ratio + recessive.getBlue() * (1-ratio));
-        return new Color(toRange(red),toRange(green),toRange(blue));
-    };
+            int red = (int)(dominant.getRed() * ratio + recessive.getRed() * (1-ratio));
+            int green = (int)(dominant.getGreen() * ratio + recessive.getGreen() * (1-ratio));
+            int blue = (int)(dominant.getBlue() * ratio + recessive.getBlue() * (1-ratio));
+            return new Color(toRange(red),toRange(green),toRange(blue));
+        }
+    }
 
     public static class AdjustBrightness implements Function<Color,Color>{
 

@@ -5,14 +5,22 @@ import code.controls.AbstractNode;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 
 import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
 public class BlenderOfTwo implements Filter{
+
+    Function<Color,Double> blendBy;
+
+    public BlenderOfTwo(Function<Color, Double> colorFunction){
+        this.blendBy = colorFunction;
+    }
+
     @Override
     public void apply(AbstractNode node) {
         long start = System.currentTimeMillis();
-        BiFunction<Color,Color,Color> colorFunction = FiltersOfColor.colorBlend;
+        BiFunction<Color,Color,Color> colorFunction = new FiltersOfColor.ColorBlend(blendBy);
 
         int width = node.input1.getContent().getWidth();
         int height = node.input1.getContent().getHeight();

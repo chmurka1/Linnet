@@ -1,6 +1,7 @@
 package code.controls;
 
 import code.filters.BlenderOfTwo;
+import code.filters.BlendingRatioFunctions;
 import code.filters.BrightnessAdjustor;
 import code.filters.EmptyFilter;
 import javafx.collections.FXCollections;
@@ -26,7 +27,7 @@ public class MergeNode extends AbstractNode {
 
         this.filter = new EmptyFilter();
 
-        String[] listOfFilters ={"transfer brightness","blend pictures"};
+        String[] listOfFilters ={"transfer brightness","blend by brightness","blend by darkness","blend by saturation","ignore green"};
 
         ComboBox<String> comboBox= new ComboBox<>(FXCollections.observableArrayList(listOfFilters));
         comboBox.setOnAction(
@@ -34,8 +35,8 @@ public class MergeNode extends AbstractNode {
                     if(comboBox.getValue().equals("transfer brightness")){
                         filter = new BrightnessAdjustor();
                     }
-                    if(comboBox.getValue().equals("blend pictures")){
-                        filter = new BlenderOfTwo();
+                    if(comboBox.getValue().equals("blend by brightness")){
+                        filter = new BlenderOfTwo(BlendingRatioFunctions.blendByBrightness);
                         // the pictures from input must have the same height and width
 
                         // takes first picture as foreground,
@@ -43,7 +44,15 @@ public class MergeNode extends AbstractNode {
                         //      if foreground pixel is dark output pixel will be almost the background one
                         //      otherwise output pixel is sth in between the foreground one and background one
                     }
-
+                    if(comboBox.getValue().equals("blend by darkness")){
+                        filter = new BlenderOfTwo(BlendingRatioFunctions.blendByDarkness);
+                    }
+                    if(comboBox.getValue().equals("blend by saturation")){
+                        filter = new BlenderOfTwo(BlendingRatioFunctions.blendBySaturation);
+                    }
+                    if(comboBox.getValue().equals("ignore green")){
+                        filter = new BlenderOfTwo(BlendingRatioFunctions.greenScreen);
+                    }
                 }
         );
         topPane.getChildren().add(comboBox);
