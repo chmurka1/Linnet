@@ -8,6 +8,9 @@
                 <MenuItem fx:id="computeOutput" text="Compute output"/>
                 <MenuItem fx:id="clearCanvas" text="Clear canvas"/>
             </Menu>
+            <Menu text="Help">
+                <MenuItem fx:id="descriptions" text="Filters descriptions"/>
+            </Menu>
         </MenuBar>
         <HBox>
             <Canvas fx:id="canvas"/>

@@ -1,5 +1,6 @@
 package code.controls;
 
+import code.descriptions.DescriptionWindow;
 import code.graph.Compute;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +17,8 @@ public class Controller extends GridPane {
     MenuItem computeOutput;
     @FXML
     MenuItem clearCanvas;
-
+    @FXML
+    MenuItem descriptions;
 
     public Controller() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("layout.fxml"));
@@ -30,5 +32,6 @@ public class Controller extends GridPane {
 
         clearCanvas.setOnAction( e-> Compute.fullClear(canvas));
 
+        descriptions.setOnAction(e -> new DescriptionWindow().showDescriptionWindow());
     }
 }
