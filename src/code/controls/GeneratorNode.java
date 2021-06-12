@@ -15,6 +15,7 @@ public class GeneratorNode extends AbstractNode {
     Button view;
     TextField textFieldX;
     TextField textFieldY;
+    TextField textFieldColor;
     ComboBox<String> comboBox;
 
     public GeneratorNode(Canvas canvas) {
@@ -27,6 +28,13 @@ public class GeneratorNode extends AbstractNode {
 
         comboBox= new ComboBox<>(FXCollections.observableArrayList(listOfOptions));
         topPane.getChildren().add(comboBox);
+
+        GridPane colorPane=new GridPane();
+        colorPane.add(new Label("color in hex:"),0,1);
+        textFieldColor=new TextField();
+        textFieldColor.setMaxWidth(70);
+        colorPane.add(textFieldColor,1,1);
+        topPane.getChildren().add(colorPane);
 
         GridPane resolutionPane=new GridPane();
         resolutionPane.add(new Label("width:"),0,1);
@@ -42,7 +50,7 @@ public class GeneratorNode extends AbstractNode {
         setButton=new Button("Set");
         setButton.setOnAction(e ->{
             if(comboBox.getValue().equals("plain")){
-                new PlainGenerator(getX(),getY()).generate(this);
+                new PlainGenerator(getX(),getY()).generate(this, textFieldColor.getText());
             }
         });
         buttons.getChildren().add(setButton);
