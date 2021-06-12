@@ -143,14 +143,6 @@ public class DescriptionWindow {
                     textArea.setText("Erases top part of an image and stretches the rest. " +
                             "Takes one parameter which tells how many percents of image will be trimmed.");
                 }
-                if(item.getValue().equals("trim top")){
-                    textArea.setText("Erases top part of an image and stretches the rest. " +
-                            "Takes one parameter which tells how many percents of image will be trimmed.");
-                }
-                if(item.getValue().equals("trim top")){
-                    textArea.setText("Erases top part of an image and stretches the rest. " +
-                            "Takes one parameter which tells how many percents of image will be trimmed.");
-                }
                 if(item.getValue().equals("set width")){
                     textArea.setText("sets new width of image" +
                             "Takes one parameter which tells new width in pixels.");
