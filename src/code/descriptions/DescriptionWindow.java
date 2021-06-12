@@ -1,15 +1,10 @@
 package code.descriptions;
 
 import code.Main;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 
@@ -81,6 +76,10 @@ public class DescriptionWindow {
         //generatorNode
         TreeItem<String> plainItem = new TreeItem<> ("plain");
         generatorNodeItem.getChildren().add(plainItem);
+        TreeItem<String> borderItem = new TreeItem<> ("border");
+        generatorNodeItem.getChildren().add(borderItem);
+        TreeItem<String> noiseItem = new TreeItem<> ("noise");
+        generatorNodeItem.getChildren().add(noiseItem);
 
         nodesItem.getChildren().add(filterNodeItem);
         nodesItem.getChildren().add(mergeNodeItem);
@@ -112,13 +111,25 @@ public class DescriptionWindow {
                 if(item.getValue().equals("black and white")){
                     textArea.setText("Transforms image into black and white image.");
                 }
+                if(item.getValue().equals("sharpen")){
+                    textArea.setText("Sharpens an image. Takes one parameter which tells how much image will be sharpened, " +
+                            "advised range is from -200 to 200.");
+                }
+                if(item.getValue().equals("contrast")){
+                    textArea.setText("Changes contrast of an image. Takes one parameter which tells how much contrast will be changed, " +
+                            "advised range is from -100 to 200, but even much higher values produce valid images.");
+                }
+                if(item.getValue().equals("saturate")){
+                    textArea.setText("Changes saturation of an image. Takes one parameter which tells how much saturation will be changed, " +
+                            "advised range is from -100 to 200.");
+                }
                 if(item.getValue().equals("horizontal blur")){
                     textArea.setText("Blurs image horizontally. Takes one parameter which tells how much in mille " +
-                            " image will be blurred (eg. 60 blurs image in 6% range).");
+                            " image will be blurred (e.g. 60 blurs image in 6% range).");
                 }
                 if(item.getValue().equals("vertical blur")){
                     textArea.setText("Blurs image vertically. Takes one parameter which tells how much in mille " +
-                            " image will be blurred (eg. 60 blurs image in 6% range).");
+                            " image will be blurred (e.g. 60 blurs image in 6% range).");
                 }
                 if(item.getValue().equals("gaussian blur")){
                     textArea.setText("Reduces details of an image, applies gaussian blur. Takes one parameter " +
@@ -132,6 +143,29 @@ public class DescriptionWindow {
                 //mergeNode
                 if(item.getValue().equals("transfer brightness")){
                     textArea.setText("Swaps brightness between two pictures.");
+                }
+                if(item.getValue().equals("blend by brightness")){
+                    textArea.setText("Blends images with the following rules, first image is foreground, second one is background: " +
+                            "if pixel of foreground is bright then output pixel will be almost the foreground one, " +
+                            "if foreground pixel is dark then output pixel will be almost the background one, " +
+                            "otherwise output pixel is in between the foreground one and background one.");
+                }
+                if(item.getValue().equals("blend by darkness")){
+                    textArea.setText("Blends images with the following rules, first image is foreground, second one is background: " +
+                            "if pixel of foreground is dark then output pixel will be almost the foreground one, " +
+                            "if foreground pixel is bright then output pixel will be almost the background one, " +
+                            "otherwise output pixel is in between the foreground one and background one.");
+                }
+                if(item.getValue().equals("blend by saturation")){
+                    textArea.setText("Blends images with the following rules, first image is foreground, second one is background: " +
+                            "if pixel of foreground is highly saturated then output pixel will be almost the foreground one, " +
+                            "if foreground pixel is lowly saturated then output pixel will be almost the background one, " +
+                            "otherwise output pixel is in between the foreground one and background one.");
+                }
+                if(item.getValue().equals("ignore green")){
+                    textArea.setText("Blends images with the following rules, first image is foreground, second one is background: " +
+                            "if pixel of foreground is green then output pixel will be almost the background one, " +
+                            "otherwise output pixel will be almost the background one.");
                 }
 
                 //separatorNode
@@ -157,7 +191,13 @@ public class DescriptionWindow {
 
                 //generatorNode
                 if(item.getValue().equals("plain")){
-                    textArea.setText("Generates plain picture of given color and resolution.");
+                    textArea.setText("Generates plain picture of given color and resolution, e.g. #FF0000 is red.");
+                }
+                if(item.getValue().equals("border")){
+                    textArea.setText("Generates picture of given resolution with border of given color, e.g. #FF0000 is red.");
+                }
+                if(item.getValue().equals("noise")){
+                    textArea.setText("Generates picture of given resolution with noise of given color, e.g. #FF0000 is red.");
                 }
 
             }

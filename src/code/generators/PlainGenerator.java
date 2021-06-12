@@ -15,14 +15,13 @@ public class PlainGenerator implements Generator{
     }
     @Override
     public void generate(GeneratorNode node, String colorInHex) {
-        BufferedImage testImg=new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
+        BufferedImage img=new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
 
-        Graphics2D g2d = testImg.createGraphics();
-        g2d.setColor(Color.red);
+        Graphics2D g2d = img.createGraphics();
         g2d.setColor(Color.decode(colorInHex));
         g2d.fillRect(0, 0, width, height);
         g2d.dispose();
 
-        node.output.setContent(testImg);
+        node.output.setContent(img);
     }
 }

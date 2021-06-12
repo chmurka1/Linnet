@@ -1,5 +1,7 @@
 package code.controls;
 
+import code.generators.BorderGenerator;
+import code.generators.NoiseGenerator;
 import code.generators.PlainGenerator;
 import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
@@ -24,7 +26,7 @@ public class GeneratorNode extends AbstractNode {
         output.setName("Output");
         addOutputSocket(output);
 
-        String[] listOfOptions={"plain"};
+        String[] listOfOptions={"plain", "border","noise"};
 
         comboBox= new ComboBox<>(FXCollections.observableArrayList(listOfOptions));
         topPane.getChildren().add(comboBox);
@@ -51,6 +53,12 @@ public class GeneratorNode extends AbstractNode {
         setButton.setOnAction(e ->{
             if(comboBox.getValue().equals("plain")){
                 new PlainGenerator(getX(),getY()).generate(this, textFieldColor.getText());
+            }
+            if(comboBox.getValue().equals("border")){
+                new BorderGenerator(getX(),getY()).generate(this, textFieldColor.getText());
+            }
+            if(comboBox.getValue().equals("noise")){
+                new NoiseGenerator(getX(),getY()).generate(this, textFieldColor.getText());
             }
         });
         buttons.getChildren().add(setButton);
