@@ -37,12 +37,14 @@ public class GaussianBlur implements Filter{
             div += coeffs[i];
             r++;
         }
-        for (int i = 0; i < coeffs.length; i++) coeffs[i] /= div;
 
         BufferedImage res = new BufferedImage(width,height,TYPE_INT_RGB);
 
+        int [][] inputmap =  new int [width][height];
         int [][] subres = new int [width][height];
 
+        for( int i = 0; i < width; i++ ) for( int j = 0; j < height; j++ )
+            inputmap[i][j] = input.getRGB(i,j);
         double R, G, B, Div;
         for( int i = 0; i < width; i++ )
             for( int j = 0; j < height; j++ ) {
@@ -51,9 +53,9 @@ public class GaussianBlur implements Filter{
                 B = 0;
                 Div = 0;
                 for( int x = i - size; x <= i+size; x++ ) if( x >= 0 && x < width ) {
-                    R += (coeffs[x-i+size])*((input.getRGB(x,j) & ( 0x00ff0000 )) >> 16);
-                    G += (coeffs[x-i+size])*((input.getRGB(x,j) & ( 0x0000ff00 )) >> 8);
-                    B += (coeffs[x-i+size])*(input.getRGB(x,j) & ( 0x000000ff ));
+                    R += (coeffs[x-i+size])*((inputmap[x][j] & ( 0x00ff0000 )) >> 16);
+                    G += (coeffs[x-i+size])*((inputmap[x][j] & ( 0x0000ff00 )) >> 8);
+                    B += (coeffs[x-i+size])*(inputmap[x][j] & ( 0x000000ff ));
                     Div += coeffs[x-i+size];
                 }
                 R = R / Div;
@@ -61,7 +63,7 @@ public class GaussianBlur implements Filter{
                 B = B / Div;
                 subres[i][j] = (int)R << 16 | (int)G << 8 | (int)B;
             }
-
+        System.out.println("OK");
         for( int i = 0; i < width; i++ )
             for( int j = 0; j < height; j++ ) {
                 R = 0;

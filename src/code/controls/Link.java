@@ -16,11 +16,11 @@ public class Link extends Line {
     final private Canvas canvas;
     final private ObjectBinding<Bounds> canvasSourceBoundsBinding;
     final private ObjectBinding<Bounds> canvasTargetBoundsBinding;
-    final SourceSocket source;
-    final TargetSocket target;
+    final public SourceSocket source;
+    final public TargetSocket target;
 
     /***
-     * Creates link and connects source and target sockets if they are in the same canvas but in different nodes
+     * Creates link and connects source and target sockets if they are in the same canvas but in different listOfNodes
      * Automatically determines a source and a target
      * @throws Exception info why sockets haven't been connected
      */
