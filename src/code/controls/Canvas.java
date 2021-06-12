@@ -41,17 +41,17 @@ public class Canvas extends ScrollPane {
         MenuItem menuItem1 = new MenuItem("add input node");
         menuItem1.setOnAction(actionEvent -> addInputNode());
         MenuItem menuItem4 = new MenuItem("add merge node");
-        menuItem4.setOnAction(actionEvent -> addMergeNode());
+        menuItem4.setOnAction(actionEvent -> addNode(new MergeNode(this)));
         MenuItem menuItem2 = new MenuItem("add output node");
         menuItem2.setOnAction(actionEvent -> addOutputNode());
         MenuItem menuItem5 = new MenuItem("add separator node");
-        menuItem5.setOnAction(actionEvent -> addSeparatorNode());
+        menuItem5.setOnAction(actionEvent -> addNode(new SeparatorNode(this)));
         MenuItem menuItem6 = new MenuItem("add combinator node");
-        menuItem6.setOnAction(actionEvent -> addCombinatorNode());
+        menuItem6.setOnAction(actionEvent -> addNode(new CombinatorNode(this)));
         MenuItem menuItem3 = new MenuItem("add filter node");
-        menuItem3.setOnAction(actionEvent -> addFilterNode());
+        menuItem3.setOnAction(actionEvent -> addNode(new FilterNode(this)));
         MenuItem menuItem7 = new MenuItem("add generator node");
-        menuItem7.setOnAction(actionEvent -> addGeneratorNode());
+        menuItem7.setOnAction(actionEvent -> addNode(new GeneratorNode(this)));
         contextMenu.getItems().addAll(menuItem1,menuItem2,menuItem3,menuItem4,menuItem5,menuItem6,menuItem7);
         this.setContextMenu(contextMenu);
 
@@ -61,7 +61,6 @@ public class Canvas extends ScrollPane {
         });
 
     }
-
     public void removeInputNode(InputNode inputNode){
         pane.getChildren().remove(inputNode);
         listOfInputNodes.remove(inputNode);
@@ -86,47 +85,14 @@ public class Canvas extends ScrollPane {
         pane.getChildren().add(tempNode);
     }
 
-    public void addMergeNode(){
-        MergeNode tempNode=new MergeNode(this);
+    public void addNode( AbstractNode node )    {
         counter++;
-        tempNode.id = counter;
-        listOfNodes.add(tempNode);
-        pane.getChildren().add(tempNode);
+        node.id = counter;
+        listOfNodes.add(node);
+        pane.getChildren().add(node);
     }
 
-    public void addSeparatorNode(){
-        SeparatorNode tempNode = new SeparatorNode(this);
-        counter++;
-        tempNode.id = counter;
-        listOfNodes.add(tempNode);
-        pane.getChildren().add(tempNode);
-    }
-
-    public void addCombinatorNode(){
-        CombinatorNode tempNode = new CombinatorNode(this);
-        counter++;
-        tempNode.id = counter;
-        listOfNodes.add(tempNode);
-        pane.getChildren().add(tempNode);
-    }
-
-    public void addFilterNode(){
-        FilterNode tempNode = new FilterNode(this);
-        counter++;
-        tempNode.id = counter;
-        listOfNodes.add(tempNode);
-        pane.getChildren().add(tempNode);
-    }
-
-    public void addGeneratorNode(){
-        GeneratorNode tempNode = new GeneratorNode(this);
-        counter++;
-        tempNode.id = counter;
-        listOfNodes.add(tempNode);
-        pane.getChildren().add(tempNode);
-    }
-
-    public void removeNode( AbstractNode node ){
+    public void removeNode( AbstractNode node ) {
         pane.getChildren().remove(node);
         listOfNodes.remove(node);
     }
@@ -145,5 +111,15 @@ public class Canvas extends ScrollPane {
     public void removeLink( Link link ) {
         pane.getChildren().remove(link);
         listOfLinks.remove(link);
+    }
+
+    public void clear() {
+        clickedSocket = null;
+        counter = 0;
+        listOfInputNodes.clear();
+        listOfOutputNodes.clear();
+        listOfNodes.clear();
+        listOfLinks.clear();
+        pane.getChildren().clear();
     }
 }

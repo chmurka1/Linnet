@@ -4,14 +4,9 @@ import code.filters.Filter;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.PixelWriter;
-import javafx.scene.image.WritableImage;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.*;
+import javafx.scene.image.*;
+import javafx.scene.layout.*;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -157,22 +152,24 @@ public abstract class AbstractNode extends AnchorPane {
     }
 
     /***
-     * Get X position of a node
+     * Get X position of the node
      */
     public double getXPosition()   {   return getLayoutX(); }
 
     /***
-     * Get Y position of a node
+     * Get Y position of the node
      */
     public double getYPosition()    {   return getLayoutY();    }
 
     /***
-     * Get socket of a node with given name
+     * Get socket of the node with a given name
      */
     public Socket getSocketByName( String name )
     {
-        for( TargetSocket in : ins )    if( in.label.getText() == name ) return in;
-        for( SourceSocket out : outs )  if( out.label.getText() == name ) return out;
+        System.out.println(this.getClass().getSimpleName());
+        System.out.println(name);
+        for( TargetSocket in : ins )    if(in.label.getText().equals(name)) return in;
+        for( SourceSocket out : outs )  if(out.label.getText().equals(name)) return out;
         return null;
     }
 }
