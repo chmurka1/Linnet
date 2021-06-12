@@ -49,9 +49,9 @@ public class DescriptionWindow {
         TreeItem<String> trimTopItem = new TreeItem<> ("trim top");
         filterNodeItem.getChildren().add(trimTopItem);
         TreeItem<String> setWidthItem = new TreeItem<> ("set width");
-        filterNodeItem.getChildren().add(trimTopItem);
+        filterNodeItem.getChildren().add(setWidthItem);
         TreeItem<String> setHeightItem = new TreeItem<> ("set height");
-        filterNodeItem.getChildren().add(trimTopItem);
+        filterNodeItem.getChildren().add(setHeightItem);
 
         //mergeNode
         TreeItem<String> transferBrightnessItem = new TreeItem<> ("transfer brightness");
