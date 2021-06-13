@@ -3,6 +3,7 @@ package code.controls;
 import code.generators.BorderGenerator;
 import code.generators.NoiseGenerator;
 import code.generators.PlainGenerator;
+import code.generators.VignetteGenerator;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -29,7 +30,7 @@ public class GeneratorNode extends AbstractNode {
         output.setName("Output");
         addOutputSocket(output);
 
-        String[] listOfOptions={"plain", "border","noise"};
+        String[] listOfOptions={"plain", "border","noise","vignette"};
 
         comboBox= new ComboBox<>(FXCollections.observableArrayList(listOfOptions));
         topPane.getChildren().add(comboBox);
@@ -53,17 +54,7 @@ public class GeneratorNode extends AbstractNode {
         topPane.getChildren().add(resolutionPane);
 
         setButton=new Button("Set");
-        setButton.setOnAction(e ->{
-            if(comboBox.getValue().equals("plain")){
-                new PlainGenerator(getX(),getY()).generate(this, textFieldColor.getText());
-            }
-            if(comboBox.getValue().equals("border")){
-                new BorderGenerator(getX(),getY()).generate(this, textFieldColor.getText());
-            }
-            if(comboBox.getValue().equals("noise")){
-                new NoiseGenerator(getX(),getY()).generate(this, textFieldColor.getText());
-            }
-        });
+        setButton.setOnAction(e ->setGenerator(comboBox.getValue()));
         buttons.getChildren().add(setButton);
 
         view = new Button();
@@ -148,6 +139,9 @@ public class GeneratorNode extends AbstractNode {
         }
         if (name.equals("noise")) {
             new NoiseGenerator(getX(), getY()).generate(this, textFieldColor.getText());
+        }
+        if (name.equals("vignette")) {
+            new VignetteGenerator(getX(), getY()).generate(this, textFieldColor.getText());
         }
     }
 }

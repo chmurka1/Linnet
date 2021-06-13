@@ -15,6 +15,7 @@ public class ViewportWindow {
         pane.setMaxHeight(600);
         ImageView imageview = new ImageView();
         imageview.setImage(img);
+        imageview.setPreserveRatio(true);
         imageview.setFitWidth(1000);
         imageview.setFitHeight(600);
         pane.getChildren().add(imageview);

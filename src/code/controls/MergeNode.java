@@ -1,9 +1,6 @@
 package code.controls;
 
-import code.filters.BlenderOfTwo;
-import code.filters.BlendingRatioFunctions;
-import code.filters.BrightnessAdjustor;
-import code.filters.EmptyFilter;
+import code.filters.*;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ComboBox;
 
@@ -69,7 +66,10 @@ public class MergeNode extends AbstractNode {
         BRIGHTNESS("blend by brightness"),
         DARKNESS("blend by darkness"),
         SATURATION("blend by saturation"),
-        GREENSCREEN("green screen");
+        GREENSCREEN("green screen"),
+        MULTIPLY("multiply"),
+        SUBTRACT("subtract"),
+        ADD("add");
 
         public String displayName;
         NamesOfMergeFilters(String displayName) {
@@ -98,6 +98,15 @@ public class MergeNode extends AbstractNode {
         }
         if(name.equals(NamesOfMergeFilters.GREENSCREEN.displayName)){
             filter = new BlenderOfTwo(BlendingRatioFunctions.greenScreen);
+        }
+        if(name.equals(NamesOfMergeFilters.MULTIPLY.displayName)){
+            filter = new BlenderMultiply();
+        }
+        if(name.equals(NamesOfMergeFilters.SUBTRACT.displayName)){
+            filter = new BlenderSubtract();
+        }
+        if(name.equals(NamesOfMergeFilters.ADD.displayName)){
+            filter = new BlenderAdd();
         }
     }
 }
