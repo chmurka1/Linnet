@@ -40,8 +40,6 @@ public abstract class AbstractNode extends AnchorPane {
     private double relativeY;
     private final ArrayList<TargetSocket> ins = new ArrayList<>();
     private final ArrayList<SourceSocket> outs = new ArrayList<>();
-    final ArrayList<AbstractNode> dependencies = new ArrayList<>();
-    final ArrayList<AbstractNode> consumers = new ArrayList<>();
 
     public Filter filter;
     public TargetSocket input1;
@@ -129,17 +127,6 @@ public abstract class AbstractNode extends AnchorPane {
         return new ImageView(wr).getImage();
     }
 
-    /***
-     * Returns a list of all dependencies of the node
-     * The order of dependencies is not specified
-     */
-    public ArrayList<AbstractNode> getDependencies() { return dependencies; }
-
-    /***
-     * Returns a list of all dependencies of the node
-     * The order of dependencies is not specified
-     */
-    public ArrayList<AbstractNode> getConsumers() { return consumers; }
 
 
     /***
@@ -166,8 +153,6 @@ public abstract class AbstractNode extends AnchorPane {
      */
     public Socket getSocketByName( String name )
     {
-        System.out.println(this.getClass().getSimpleName());
-        System.out.println(name);
         for( TargetSocket in : ins )    if(in.label.getText().equals(name)) return in;
         for( SourceSocket out : outs )  if(out.label.getText().equals(name)) return out;
         return null;

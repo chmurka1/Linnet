@@ -43,23 +43,6 @@ public class Compute {
     }
 
     public static void fullClear(Canvas canvas){
-        for(Link link:canvas.listOfLinks){
-            link.remove();
-        }
-        canvas.listOfLinks.clear();
-        for(InputNode inputNode:canvas.listOfInputNodes){
-            canvas.removeInputNode(inputNode);
-        }
-        canvas.listOfInputNodes.clear();
-        for(OutputNode outputNode:canvas.listOfOutputNodes){
-            canvas.removeOutputNode(outputNode);
-        }
-        canvas.listOfOutputNodes.clear();
-        for(AbstractNode node: canvas.listOfNodes){
-            canvas.removeNode(node);
-        }
-        canvas.listOfNodes.clear();
-
-        canvas.clickedSocket=null;
+        canvas.clear();
     }
 }

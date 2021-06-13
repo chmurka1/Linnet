@@ -4,11 +4,14 @@ import code.generators.BorderGenerator;
 import code.generators.NoiseGenerator;
 import code.generators.PlainGenerator;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+
+import java.io.IOException;
 
 
 public class GeneratorNode extends AbstractNode {
@@ -77,6 +80,24 @@ public class GeneratorNode extends AbstractNode {
         title.setText("Generator");
     }
 
+    public GeneratorNode(Canvas canvas, String string ) throws Exception {
+        this(canvas);
+        String [] arr = string.split("\\|");
+        textFieldColor.setText(arr[1]);
+        textFieldX.setText(arr[2]);
+        textFieldY.setText(arr[3]);
+        setGenerator(arr[0]);
+        comboBox.setValue(arr[0]);
+    }
+
+    @Override
+    public String toString() {
+        return comboBox.getValue() + "|" +
+                textFieldColor.getText() +
+                "|" + textFieldX.getText() +
+                "|" + textFieldY.getText();
+    }
+
     private int getX(){
         CharSequence seq=textFieldX.getCharacters();
         int coefficient=0;
@@ -116,5 +137,17 @@ public class GeneratorNode extends AbstractNode {
         //do nothing
     //    ready = false;
     //    output.setContent(null);
+    }
+
+    public void setGenerator( String name ) {
+        if (name.equals("plain")) {
+            new PlainGenerator(getX(), getY()).generate(this, textFieldColor.getText());
+        }
+        if (name.equals("border")) {
+            new BorderGenerator(getX(), getY()).generate(this, textFieldColor.getText());
+        }
+        if (name.equals("noise")) {
+            new NoiseGenerator(getX(), getY()).generate(this, textFieldColor.getText());
+        }
     }
 }

@@ -114,12 +114,20 @@ public class Canvas extends ScrollPane {
     }
 
     public void clear() {
-        clickedSocket = null;
+        while( !listOfLinks.isEmpty()){
+            listOfLinks.get(0).remove();
+        }
+        while( !listOfInputNodes.isEmpty()){
+            removeInputNode(listOfInputNodes.get(0));
+        }
+        while( !listOfNodes.isEmpty()){
+            removeNode(listOfNodes.get(0));
+        }
+        while( !listOfOutputNodes.isEmpty()){
+            removeOutputNode(listOfOutputNodes.get(0));
+        }
         counter = 0;
-        listOfInputNodes.clear();
-        listOfOutputNodes.clear();
-        listOfNodes.clear();
-        listOfLinks.clear();
+        clickedSocket=null;
         pane.getChildren().clear();
     }
 }

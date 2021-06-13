@@ -77,9 +77,6 @@ public class Link extends Line {
                                 canvasTargetBoundsBinding)));
         this.setOnMousePressed( me -> remove() );
         this.setOnMouseEntered( me -> this.setCursor(Cursor.HAND));
-
-        source.node.consumers.add(target.node);
-        target.node.dependencies.add(source.node);
     }
 
     public void remove() {

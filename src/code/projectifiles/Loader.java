@@ -36,7 +36,7 @@ public class Loader {
                     nodeHashMap.put(Integer.parseInt(arr[0]), canvas.listOfOutputNodes.get(canvas.listOfOutputNodes.size() - 1));
                 }
                 default -> {
-                    AbstractNode node = (AbstractNode) (Class.forName("code.controls." + arr[1]).getConstructor(Canvas.class).newInstance(canvas));
+                    AbstractNode node = (AbstractNode) (Class.forName("code.controls." + arr[1]).getConstructor(Canvas.class,String.class).newInstance(canvas,arr[3]));
                     canvas.addNode(node);
                     node.id = Integer.parseInt(arr[0]);
                     node.setPosition(Double.parseDouble(coords[0]), Double.parseDouble(coords[1]));
@@ -44,7 +44,6 @@ public class Loader {
                 }
             }
         }
-        data = reader.nextLine();
         while (reader.hasNextLine()) {
             data = reader.nextLine();
             String[] arr = data.split(":");

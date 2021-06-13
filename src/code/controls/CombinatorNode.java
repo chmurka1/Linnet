@@ -14,6 +14,7 @@ public class CombinatorNode extends AbstractNode {
     public SourceSocket output;
 
     Combinator combinator;
+    ComboBox<String> comboBox;
 
     public CombinatorNode(Canvas canvas) {
         super(canvas);
@@ -31,24 +32,22 @@ public class CombinatorNode extends AbstractNode {
         addOutputSocket(output);
 
         String[] listOfFilters ={"RGB","HSV"};
-        ComboBox<String> comboBox= new ComboBox<>(FXCollections.observableArrayList(listOfFilters));
-        comboBox.setOnAction(e -> {
-            if(comboBox.getValue().equals("RGB")){
-                combinator = RGBCombinator;
-                inputX.setName("R");
-                inputY.setName("G");
-                inputZ.setName("B");
-            }
-            if(comboBox.getValue().equals("HSV")){
-                combinator = HSVCombinator;
-                inputX.setName("H");
-                inputY.setName("S");
-                inputZ.setName("V");
-            }
-        });
+        comboBox= new ComboBox<>(FXCollections.observableArrayList(listOfFilters));
+        comboBox.setOnAction(e -> setCombinator(comboBox.getValue()));
         topPane.getChildren().add(comboBox);
 
         title.setText("Combine");
+    }
+
+    public CombinatorNode(Canvas canvas, String string ) {
+        this(canvas);
+        setCombinator(string);
+        comboBox.setValue(string);
+    }
+
+    @Override
+    public String toString() {
+        return comboBox.getValue();
     }
 
     @Override
@@ -60,6 +59,21 @@ public class CombinatorNode extends AbstractNode {
     @Override
     public boolean checkInput(){
         return inputX.getContent()!=null && inputY.getContent()!=null && inputZ.getContent()!=null;
+    }
+
+    public void setCombinator( String name ) {
+        if(name.equals("RGB")){
+            combinator = RGBCombinator;
+            inputX.setName("R");
+            inputY.setName("G");
+            inputZ.setName("B");
+        }
+        if(name.equals("HSV")){
+            combinator = HSVCombinator;
+            inputX.setName("H");
+            inputY.setName("S");
+            inputZ.setName("V");
+        }
     }
 
     /***

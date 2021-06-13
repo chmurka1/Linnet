@@ -20,7 +20,9 @@ public class Saver {
                                                             .append("\n");
         for( AbstractNode node : canvas.listOfNodes ) writer.append(String.valueOf(node.id)).append(":")
                                                             .append(node.getClass().getSimpleName()).append(":")
-                                                            .append(Double.toString(node.getXPosition())).append(",").append(Double.toString(node.getYPosition()))
+                                                            .append(Double.toString(node.getXPosition())).append(",")
+                                                            .append(Double.toString(node.getYPosition())).append(":")
+                                                            .append(node.toString())
                                                             .append("\n");
         for( OutputNode out : canvas.listOfOutputNodes )  writer.append(String.valueOf(out.id)).append(":")
                                                                 .append(out.getClass().getSimpleName()).append(":")

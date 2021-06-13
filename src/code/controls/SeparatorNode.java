@@ -17,6 +17,7 @@ public class SeparatorNode extends AbstractNode {
     public SourceSocket outputZ;
 
     Separator separator;
+    ComboBox<String> comboBox;
 
     public SeparatorNode(Canvas canvas) {
         super(canvas);
@@ -34,24 +35,22 @@ public class SeparatorNode extends AbstractNode {
         addOutputSocket(outputZ);
 
         String[] listOfFilters ={"RGB","HSV"};
-        ComboBox<String> comboBox= new ComboBox<>(FXCollections.observableArrayList(listOfFilters));
-        comboBox.setOnAction(e -> {
-                    if(comboBox.getValue().equals("RGB")){
-                        separator = RGBSeparator;
-                        outputX.setName("R");
-                        outputY.setName("G");
-                        outputZ.setName("B");
-                    }
-                    if(comboBox.getValue().equals("HSV")){
-                        separator = HSVSeparator;
-                        outputX.setName("H");
-                        outputY.setName("S");
-                        outputZ.setName("V");
-                    }
-                });
+        comboBox= new ComboBox<>(FXCollections.observableArrayList(listOfFilters));
+        comboBox.setOnAction(e -> setSeparator(comboBox.getValue()));
         topPane.getChildren().add(comboBox);
 
         title.setText("Separate");
+    }
+
+    public SeparatorNode(Canvas canvas, String string ) {
+        this(canvas);
+        setSeparator(string);
+        comboBox.setValue(string);
+    }
+
+    @Override
+    public String toString() {
+        return comboBox.getValue();
     }
 
     @Override
@@ -69,6 +68,21 @@ public class SeparatorNode extends AbstractNode {
     }
 
     public static class Components { public BufferedImage X, Y, Z; }
+
+    public void setSeparator( String name)  {
+        if(name.equals("RGB")){
+            separator = RGBSeparator;
+            outputX.setName("R");
+            outputY.setName("G");
+            outputZ.setName("B");
+        }
+        if(name.equals("HSV")){
+            separator = HSVSeparator;
+            outputX.setName("H");
+            outputY.setName("S");
+            outputZ.setName("V");
+        }
+    }
 
     /***
      * Abstract interface for splitting image into components
