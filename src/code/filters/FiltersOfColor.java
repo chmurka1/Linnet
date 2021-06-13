@@ -9,7 +9,7 @@ import java.util.function.Function;
 public class FiltersOfColor {
 
     public static class ColorBlend implements BiFunction<Color,Color,Color> {
-        Function<Color,Double> blendBy;
+        private final Function<Color,Double> blendBy;
         ColorBlend(Function<Color,Double> blendBy) {
             this.blendBy = blendBy;
         }
@@ -27,17 +27,17 @@ public class FiltersOfColor {
 
     public static class AdjustBrightness implements Function<Color,Color>{
 
-        int value;
+        private final int value;
 
         AdjustBrightness(int value){
-            this.value = value;
+            this.value = value/3;
         }
         @Override
         public Color apply(Color color) {
-            int red = Math.max(Math.min(color.getRed()+value/3, 255),0);
-            int green = Math.max(Math.min(color.getGreen()+value/3, 255),0);
-            int blue = Math.max(Math.min(color.getBlue()+value/3, 255),0);
-            return new Color(red,green,blue);
+            int red = color.getRed() + value;
+            int green = color.getGreen() + value;
+            int blue = color.getBlue() + value;
+            return new Color(RGBUtils.toRange(red), RGBUtils.toRange(green), RGBUtils.toRange(blue));
         }
     }
 
@@ -52,17 +52,7 @@ public class FiltersOfColor {
         blue = RGBUtils.toRange(blue);
         return new Color(red,green,blue);
     };
-   /* public static BiFunction<ArrayList<Color>,Integer,Color> boxBlur = (ArrayList<Color> matrix, Integer coefficient) -> {
 
-        int red = (matrix.get(0).getRed() + matrix.get(1).getRed() + matrix.get(2).getRed() + matrix.get(3).getRed() + matrix.get(4).getRed() + matrix.get(5).getRed() + matrix.get(6).getRed() + matrix.get(7).getRed() + matrix.get(8).getRed() + 4)/9;
-        int green = (matrix.get(0).getGreen() + matrix.get(1).getGreen() + matrix.get(2).getGreen() + matrix.get(3).getGreen() + matrix.get(4).getGreen() + matrix.get(5).getGreen() + matrix.get(6).getGreen() + matrix.get(7).getGreen() + matrix.get(8).getGreen() + 4)/9;
-        int blue = (matrix.get(0).getBlue() + matrix.get(1).getBlue() + matrix.get(2).getBlue() + matrix.get(3).getBlue() + matrix.get(4).getBlue() + matrix.get(5).getBlue() + matrix.get(6).getBlue() + matrix.get(7).getBlue() + matrix.get(8).getBlue() + 4)/9;
-
-        red = toRange(red);
-        green = toRange(green);
-        blue = toRange(blue);
-        return new Color(red,green,blue);
-    };*/
     public static BiFunction<Color,Integer,Color> contrastParam = (Color color,Integer coefficient) -> {
 
         float factor =  (float)(259 * (coefficient + 255)) / (255 * (259 - coefficient));
@@ -71,9 +61,9 @@ public class FiltersOfColor {
         int green = (int)(factor*(color.getGreen() - 128)) + 128;
         int blue = (int)(factor*(color.getBlue() - 128)) + 128;
 
-        red = Math.min(255,Math.max(0,red));
-        green = Math.min(255,Math.max(0,green));
-        blue = Math.min(255,Math.max(0,blue));
+        red = RGBUtils.toRange(red);
+        green = RGBUtils.toRange(green);
+        blue = RGBUtils.toRange(blue);
 
         return new Color(red,green,blue);
     };

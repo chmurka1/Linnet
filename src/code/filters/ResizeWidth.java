@@ -7,7 +7,9 @@ import java.awt.image.BufferedImage;
 import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
 public class ResizeWidth implements Filter {
-    int newWidth;
+
+    private final int newWidth;
+
     public ResizeWidth(int newWidth){
         this.newWidth = newWidth;
     }

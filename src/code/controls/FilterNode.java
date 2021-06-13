@@ -9,6 +9,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
+import java.util.Arrays;
+
 /***
  * Standard node for applying a simple filter on an image
  */
@@ -41,66 +43,67 @@ public class FilterNode extends AbstractNode {
         gridPane.add(textField,0,0);
         gridPane.add(setButton,1,0);
 
-        String[] listOfFilters ={"brighten image","darken image", "sharpen","contrast","saturate",
-                "horizontal blur","vertical blur","gaussian blur","trim top","set new width","set new height"};
+
+
+        String[] listOfFilters = Arrays.stream(NamesOfFilters.values()).map(x -> x.displayName).toArray(String[]::new);
 
         ComboBox<String> comboBox= new ComboBox<>(FXCollections.observableArrayList(listOfFilters));
         comboBox.setOnAction(e -> {
-            if(comboBox.getValue().equals("empty filter")){
+            if(comboBox.getValue().equals(NamesOfFilters.EMPTY.displayName)){
                 shrink();
                 filter=Filters.empty;
             }
-            if(comboBox.getValue().equals("brighten image")){
+            if(comboBox.getValue().equals(NamesOfFilters.BRIGHTEN.displayName)){
                 shrink();
                 filter=Filters.brightenImage;
             }
-            if(comboBox.getValue().equals("darken image")){
+            if(comboBox.getValue().equals(NamesOfFilters.DARKEN.displayName)){
                 shrink();
                 filter= Filters.darkenImage;
             }
-            if(comboBox.getValue().equals("black and white")){
+            if(comboBox.getValue().equals(NamesOfFilters.BLACKNWHITE.displayName)){
                 shrink();
                 filter = Filters.saturate(-100);
             }
             // advised range from -100 to 100
-            if(comboBox.getValue().equals("sharpen")){
+            if(comboBox.getValue().equals(NamesOfFilters.SHARPEN.displayName)){
                 extend();
                 setButton.setOnAction(ee -> filter = Filters.sharpen(getCoefficient()) );
             }
             // advised range from -100 to +100
-            if(comboBox.getValue().equals("contrast")){
+            if(comboBox.getValue().equals(NamesOfFilters.CONTRAST.displayName)){
                 extend();
                 setButton.setOnAction(ee -> filter = Filters.contrast(getCoefficient()) );
             }
             // advised range from -100 to +100
-            if(comboBox.getValue().equals("saturate")){
+            if(comboBox.getValue().equals(NamesOfFilters.SATURATION.displayName)){
                 extend();
                 setButton.setOnAction(ee -> filter = Filters.saturate(getCoefficient()) );
             }
             //coefficient in per mille
             // advised range from -100 to +100. If negative, takes abs value
-            if(comboBox.getValue().equals("horizontal blur")){
+            if(comboBox.getValue().equals(NamesOfFilters.HORIZONTAL.displayName)){
                 extend();
                 setButton.setOnAction(ee -> filter = new HorizontalBlur(getCoefficient()) );
             }
-            if(comboBox.getValue().equals("vertical blur")){
+            if(comboBox.getValue().equals(NamesOfFilters.VERTICAL.displayName)){
                 extend();
                 setButton.setOnAction(ee -> filter = new VerticalBlur(getCoefficient()) );
             }
             //coefficient in %
-            if(comboBox.getValue().equals("trim top")){
+            if(comboBox.getValue().equals(NamesOfFilters.TOP.displayName)){
                 extend();
                 setButton.setOnAction(ee -> filter = new TrimTop(getCoefficient()) );
             }
-            if(comboBox.getValue().equals("gaussian blur")){
+            if(comboBox.getValue().equals(NamesOfFilters.GAUSSIAN.displayName)){
                 extend();
                 setButton.setOnAction(ee -> filter = new GaussianBlur(getCoefficient()) );
             }
-            if(comboBox.getValue().equals("set new width")){
+            if(comboBox.getValue().equals(NamesOfFilters.WIDTH.displayName)){
                 extend();
                 setButton.setOnAction(ee -> filter = new ResizeWidth(getCoefficient()) );
             }
-            if(comboBox.getValue().equals("set new height")){
+            if(comboBox.getValue().equals(NamesOfFilters.HEIGHT.displayName)){
                 extend();
                 setButton.setOnAction(ee -> filter = new ResizeHeight(getCoefficient()) );
             }
@@ -172,4 +175,25 @@ public class FilterNode extends AbstractNode {
         int b = Math.max(Math.min(2 * (p & 0x000000ff) - i, 255), 0);
         return r << 16 | g << 8 | b;
     };*/
+
+    public enum NamesOfFilters {
+        EMPTY("empty filter"),
+        BRIGHTEN("brighten image"),
+        DARKEN("darken image"),
+        BLACKNWHITE("black and white"),
+        SHARPEN("sharpen image"),
+        CONTRAST("change contrast"),
+        SATURATION("change saturation"),
+        HORIZONTAL("horizontal blur"),
+        VERTICAL("vertical blur"),
+        GAUSSIAN("gaussian blur"),
+        TOP("trim top"),
+        WIDTH("set new width"),
+        HEIGHT("set new height");
+
+        public String displayName;
+        NamesOfFilters(String displayName) {
+            this.displayName = displayName;
+        }
+    }
 }

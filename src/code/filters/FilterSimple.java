@@ -11,7 +11,7 @@ import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 public class FilterSimple implements Filter{
     /** takes pixel (x,y) from input to determine (x,y) in output */
 
-    Function<Color,Color> colorFunction;
+    private final Function<Color,Color> colorFunction;
     FilterSimple(Function<Color,Color> colorFunction){
         this.colorFunction = colorFunction;
     }

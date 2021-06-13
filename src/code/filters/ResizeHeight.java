@@ -7,7 +7,9 @@ import java.awt.image.BufferedImage;
 import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
 public class ResizeHeight implements Filter {
-    int newHeight;
+
+    private final int newHeight;
+
     public ResizeHeight(int newHeight){
         this.newHeight = newHeight;
     }

@@ -11,7 +11,7 @@ import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
 public class BlenderOfTwo implements Filter{
 
-    Function<Color,Double> blendBy;
+    private final Function<Color,Double> blendBy;
 
     public BlenderOfTwo(Function<Color, Double> colorFunction){
         this.blendBy = colorFunction;

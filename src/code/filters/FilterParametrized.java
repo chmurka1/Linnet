@@ -11,8 +11,8 @@ import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 public class FilterParametrized implements Filter{
     /** takes pixel (x,y) from input to determine (x,y) in output */
 
-    BiFunction<Color,Integer,Color> colorFunction;
-    Integer coefficient;
+    private final BiFunction<Color,Integer,Color> colorFunction;
+    private final Integer coefficient;
     FilterParametrized(BiFunction<Color,Integer,Color> colorFunction,Integer coefficient){
         this.colorFunction = colorFunction;
         this.coefficient = coefficient;

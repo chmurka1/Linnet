@@ -11,8 +11,8 @@ import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
 public class FilterParametrized3x3 implements Filter {
 
-    BiFunction<ArrayList<Color>,Integer,Color> colorFunction;
-    Integer coefficient;
+    private final BiFunction<ArrayList<Color>,Integer,Color> colorFunction;
+    private final Integer coefficient;
 
     FilterParametrized3x3(BiFunction<ArrayList<Color>,Integer,Color> colorFunction, Integer coefficient){
         this.colorFunction = colorFunction;

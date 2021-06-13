@@ -7,7 +7,8 @@ import java.awt.image.BufferedImage;
 import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
 public class TrimTop implements Filter {
-    int coefficient;
+
+    private final int coefficient;
     public TrimTop(int coefficient) {
         this.coefficient = coefficient;
     }

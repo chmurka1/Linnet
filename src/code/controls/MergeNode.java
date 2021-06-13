@@ -7,6 +7,8 @@ import code.filters.EmptyFilter;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ComboBox;
 
+import java.util.Arrays;
+
 /***
  * Standard node for merging two images using a filter
  */
@@ -27,15 +29,15 @@ public class MergeNode extends AbstractNode {
 
         this.filter = new EmptyFilter();
 
-        String[] listOfFilters ={"transfer brightness","blend by brightness","blend by darkness","blend by saturation","green screen"};
+        String[] listOfFilters = Arrays.stream(NamesOfMergeFilters.values()).map(x -> x.displayName).toArray(String[]::new);
 
         ComboBox<String> comboBox= new ComboBox<>(FXCollections.observableArrayList(listOfFilters));
         comboBox.setOnAction(
                 e -> {
-                    if(comboBox.getValue().equals("transfer brightness")){
+                    if(comboBox.getValue().equals(NamesOfMergeFilters.TRANSFER.displayName)){
                         filter = new BrightnessAdjustor();
                     }
-                    if(comboBox.getValue().equals("blend by brightness")){
+                    if(comboBox.getValue().equals(NamesOfMergeFilters.BRIGHTNESS.displayName)){
                         filter = new BlenderOfTwo(BlendingRatioFunctions.blendByBrightness);
                         // the pictures from input must have the same height and width
 
@@ -44,13 +46,13 @@ public class MergeNode extends AbstractNode {
                         //      if foreground pixel is dark output pixel will be almost the background one
                         //      otherwise output pixel is sth in between the foreground one and background one
                     }
-                    if(comboBox.getValue().equals("blend by darkness")){
+                    if(comboBox.getValue().equals(NamesOfMergeFilters.DARKNESS.displayName)){
                         filter = new BlenderOfTwo(BlendingRatioFunctions.blendByDarkness);
                     }
-                    if(comboBox.getValue().equals("blend by saturation")){
+                    if(comboBox.getValue().equals(NamesOfMergeFilters.SATURATION.displayName)){
                         filter = new BlenderOfTwo(BlendingRatioFunctions.blendBySaturation);
                     }
-                    if(comboBox.getValue().equals("green screen")){
+                    if(comboBox.getValue().equals(NamesOfMergeFilters.GREENSCREEN.displayName)){
                         filter = new BlenderOfTwo(BlendingRatioFunctions.greenScreen);
                     }
                 }
@@ -71,4 +73,17 @@ public class MergeNode extends AbstractNode {
         return filter.checkInput(this);
     }
 
+
+    public enum NamesOfMergeFilters {
+        TRANSFER("transfer brightness"),
+        BRIGHTNESS("blend by brightness"),
+        DARKNESS("blend by darkness"),
+        SATURATION("blend by saturation"),
+        GREENSCREEN("green screen");
+
+        public String displayName;
+        NamesOfMergeFilters(String displayName) {
+            this.displayName = displayName;
+        }
+    }
 }
