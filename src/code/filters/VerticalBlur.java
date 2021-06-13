@@ -6,12 +6,12 @@ import java.awt.image.BufferedImage;
 
 import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
-public class VertBlur implements Filter{
+public class VerticalBlur implements Filter{
 
     int sizeInPerMille;
     int size;//pixels
 
-    public VertBlur(Integer coefficient) {
+    public VerticalBlur(Integer coefficient) {
         this.sizeInPerMille = Math.abs(coefficient);
     }
 
@@ -39,30 +39,30 @@ public class VertBlur implements Filter{
         }
         int div = 2*size+1;
         for (int x = 0; x < width; x++) {
-//            boolean inCentre = false;
             int sumR = 128*size;
             int sumG = 128*size;
             int sumB = 128*size;
             for(int i=0;i<=size;i++) {
-                sumR += (colors[x+size][size+i] & 0x00ff0000) >> 16;
-                sumG += (colors[x+size][size+i] & 0x0000ff00) >> 8;
-                sumB += (colors[x+size][size+i] & 0x000000ff);
+                int pixel = colors[x+size][size+i];
+
+                sumR += RGBUtils.redComponent(pixel);
+                sumG += RGBUtils.greenComponent(pixel);
+                sumB += RGBUtils.blueComponent(pixel);
             }
             int avgR = sumR/div;
             int avgG = sumG/div;
             int avgB = sumB/div;
             node.output1.getContent().setRGB(x,0,avgR << 16 | avgG << 8 | avgB);
             for (int y = 1; y < height; y++) {
+                int bottomPixel = colors[x+size][y+2*size];
+                int topPixel = colors[x+size][y-1];
 
-                sumR = sumR + ((colors[x+size][y+2*size] & 0x00ff0000) >> 16) - ((colors[x+size][y-1] & 0x00ff0000) >> 16);
-                sumG = sumG + ((colors[x+size][y+2*size] & 0x0000ff00) >> 8) - ((colors[x+size][y-1] & 0x0000ff00) >> 8);
-                sumB = sumB + (colors[x+size][y+2*size] & 0x000000ff) - (colors[x+size][y-1] & 0x000000ff);
+                sumR = sumR + RGBUtils.redComponent(bottomPixel) - RGBUtils.redComponent(topPixel);
+                sumG = sumG + RGBUtils.greenComponent(bottomPixel) - RGBUtils.greenComponent(topPixel);
+                sumB = sumB + RGBUtils.blueComponent(bottomPixel) - RGBUtils.blueComponent(topPixel);
                 avgR = sumR/div;
                 avgG = sumG/div;
                 avgB = sumB/div;
-//                if(y == 0) {
-//                    System.out.println("sum " + sumR + " avg " + "min " + ((colors[x-1][y+size] & 0x00ff0000) >> 16) + " plus " + ((colors[x+2*size][y+size] & 0x00ff0000) >> 16));
-//                }
                 node.output1.getContent().setRGB(x,y,avgR << 16 | avgG << 8 | avgB);
             }
         }

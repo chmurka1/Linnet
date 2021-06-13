@@ -25,8 +25,6 @@ public class BlenderOfTwo implements Filter{
         int width = node.input1.getContent().getWidth();
         int height = node.input1.getContent().getHeight();
 
-        // ignore alpha for now ?
-
         node.output1.setContent(new BufferedImage(width,height,TYPE_INT_RGB));
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {

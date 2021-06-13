@@ -85,7 +85,7 @@ public class FilterNode extends AbstractNode {
             }
             if(comboBox.getValue().equals("vertical blur")){
                 extend();
-                setButton.setOnAction(ee -> filter = new VertBlur(getCoefficient()) );
+                setButton.setOnAction(ee -> filter = new VerticalBlur(getCoefficient()) );
             }
             //coefficient in %
             if(comboBox.getValue().equals("trim top")){
@@ -102,7 +102,7 @@ public class FilterNode extends AbstractNode {
             }
             if(comboBox.getValue().equals("set new height")){
                 extend();
-                setButton.setOnAction(ee -> filter = new ResizeWidth(getCoefficient()) );
+                setButton.setOnAction(ee -> filter = new ResizeHeight(getCoefficient()) );
             }
         });
         topPane.getChildren().add(comboBox);

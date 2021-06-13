@@ -10,11 +10,10 @@ public class BlendingRatioFunctions {
     public static Function<Color,Double> blendByDarkness = (Color dominant) -> 1 - (double)(dominant.getRed() + dominant.getGreen() + dominant.getBlue()) / 765;
     public static Function<Color,Double> greenScreen = (Color dominant) -> {
         final int hueGreen = 85;
-//        final int maxHueDiff = 42;
         int hue = SeparatorNode.HSVSeparator.getX(dominant.getRGB()) & 0x000000ff;
         int sat = SeparatorNode.HSVSeparator.getY(dominant.getRGB()) & 0x000000ff;
         int hueDiff = Math.abs(hue - hueGreen);
-        return FiltersOfColor.toRange((double)(6 * hueDiff + (255 - sat))/255);
+        return RGBUtils.toRange((double)(6 * hueDiff + (255 - sat))/255);
     };
     public static Function<Color,Double> blendBySaturation = (Color dominant) -> {
         int red = dominant.getRed();
@@ -27,6 +26,6 @@ public class BlendingRatioFunctions {
         if(max + min == 0) {
             return 0.0;
         }
-        return (double)(max - min) / (max + min );
+        return (double)(max - min) / (max + min);
     };
 }

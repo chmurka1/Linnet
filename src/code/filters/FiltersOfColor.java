@@ -8,14 +8,6 @@ import java.util.function.Function;
 
 public class FiltersOfColor {
 
-    public static int toRange(int var) {
-        return Math.min(Math.max(var,0),255);
-    }
-
-    public static double toRange(double var) {
-        return Math.min(Math.max(var,0),1);
-    }
-
     public static class ColorBlend implements BiFunction<Color,Color,Color> {
         Function<Color,Double> blendBy;
         ColorBlend(Function<Color,Double> blendBy) {
@@ -29,7 +21,7 @@ public class FiltersOfColor {
             int red = (int)(dominant.getRed() * ratio + recessive.getRed() * (1-ratio));
             int green = (int)(dominant.getGreen() * ratio + recessive.getGreen() * (1-ratio));
             int blue = (int)(dominant.getBlue() * ratio + recessive.getBlue() * (1-ratio));
-            return new Color(toRange(red),toRange(green),toRange(blue));
+            return new Color(RGBUtils.toRange(red), RGBUtils.toRange(green), RGBUtils.toRange(blue));
         }
     }
 
@@ -55,9 +47,9 @@ public class FiltersOfColor {
         int red = (int) (- co*matrix.get(1).getRed() - co*matrix.get(3).getRed() + (1+4*co) * matrix.get(4).getRed() - co*matrix.get(5).getRed() - co*matrix.get(7).getRed());
         int green = (int) (- co*matrix.get(1).getGreen() - co*matrix.get(3).getGreen() + (1+4*co) * matrix.get(4).getGreen() - co*matrix.get(5).getGreen() - co*matrix.get(7).getGreen());
         int blue = (int) (- co*matrix.get(1).getBlue() - co*matrix.get(3).getBlue() + (1+4*co) * matrix.get(4).getBlue() - co*matrix.get(5).getBlue() - co*matrix.get(7).getBlue());
-        red = toRange(red);
-        green = toRange(green);
-        blue = toRange(blue);
+        red = RGBUtils.toRange(red);
+        green = RGBUtils.toRange(green);
+        blue = RGBUtils.toRange(blue);
         return new Color(red,green,blue);
     };
    /* public static BiFunction<ArrayList<Color>,Integer,Color> boxBlur = (ArrayList<Color> matrix, Integer coefficient) -> {
@@ -99,6 +91,6 @@ public class FiltersOfColor {
         green += (green - avg) * coefficient/maxEffect;
         blue += (blue - avg) * coefficient/maxEffect;
 
-        return new Color(toRange(red),toRange(green),toRange(blue));
+        return new Color(RGBUtils.toRange(red), RGBUtils.toRange(green), RGBUtils.toRange(blue));
     };
 }

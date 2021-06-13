@@ -70,7 +70,6 @@ public class FilterParametrized3x3 implements Filter {
             }
             upRow = curRow;
             curRow = downRow;
-//            downRow = null;
         }
         System.out.println(this.getClass() + " " + (System.currentTimeMillis()-start));
     }

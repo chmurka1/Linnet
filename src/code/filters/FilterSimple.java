@@ -8,11 +8,11 @@ import java.util.function.Function;
 
 import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
-public class FilterType1 implements Filter{
+public class FilterSimple implements Filter{
     /** takes pixel (x,y) from input to determine (x,y) in output */
 
     Function<Color,Color> colorFunction;
-    FilterType1(Function<Color,Color> colorFunction){
+    FilterSimple(Function<Color,Color> colorFunction){
         this.colorFunction = colorFunction;
     }
 

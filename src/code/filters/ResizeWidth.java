@@ -32,19 +32,24 @@ public class ResizeWidth implements Filter {
         double factor = (double)width/newWidth;
 
         BufferedImage out = new BufferedImage(newWidth,height,TYPE_INT_RGB);
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < newWidth; x++) {
-                double floor = Math.floor(factor*x);
-                int floorInt = (int)floor;
-                double mantissa = factor*x - floor;
-                double antymantissa = 1-mantissa;
-                int ceiling  = Math.min(floorInt+1,width-1);
+        for (int x = 0; x < newWidth; x++) {
 
-                int red  = (int)(((inputMap[floorInt][y] & 0x00ff0000) >> 16) * antymantissa + (((inputMap[ceiling][y] & 0x00ff0000) >> 16)) * mantissa);
-                int green = (int)(((inputMap[floorInt][y] & 0x0000ff00) >> 8) * antymantissa + (((inputMap[ceiling][y] & 0x0000ff00) >> 8)) * mantissa);
-                int blue = (int)((inputMap[floorInt][y] & 0x000000ff) * antymantissa + (inputMap[ceiling][y] & 0x000000ff) * mantissa);
-//                System.out.println(factor*x + " " + floorInt + " " + antymantissa);
-                out.setRGB(x,y,(FiltersOfColor.toRange(red) << 16) + (FiltersOfColor.toRange(green) << 8) + FiltersOfColor.toRange(blue));
+            double floor = Math.floor(factor*x);
+            int floorInt = (int)floor;
+            double mantissa = factor*x - floor;
+            double antymantissa = 1-mantissa;
+            int ceiling  = Math.min(floorInt+1,width-1);
+
+            for (int y = 0; y < height; y++) {
+                int leftPixel = inputMap[floorInt][y];
+                int rightPixel = inputMap[ceiling][y];
+
+                int red = (int) (RGBUtils.redComponent(leftPixel) * antymantissa + RGBUtils.redComponent(rightPixel) * mantissa);
+                int green = (int)(RGBUtils.greenComponent(leftPixel) * antymantissa + RGBUtils.greenComponent(rightPixel) * mantissa);
+                int blue = (int)(RGBUtils.blueComponent(leftPixel) * antymantissa + RGBUtils.blueComponent(rightPixel) * mantissa);
+
+
+                out.setRGB(x,y,(RGBUtils.toRange(red) << 16) + (RGBUtils.toRange(green) << 8) + RGBUtils.toRange(blue));
             }
         }
         node.output1.setContent(out);
