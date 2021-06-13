@@ -66,6 +66,12 @@ public class DescriptionWindow {
         mergeNodeItem.getChildren().add(blendBySaturationItem);
         TreeItem<String> ignoreGreenItem = new TreeItem<> (MergeNode.NamesOfMergeFilters.GREENSCREEN.displayName);
         mergeNodeItem.getChildren().add(ignoreGreenItem);
+        TreeItem<String> multiplyBlendItem = new TreeItem<> (MergeNode.NamesOfMergeFilters.MULTIPLY.displayName);
+        mergeNodeItem.getChildren().add(multiplyBlendItem);
+        TreeItem<String> subtractBlendItem = new TreeItem<> (MergeNode.NamesOfMergeFilters.SUBTRACT.displayName);
+        mergeNodeItem.getChildren().add(subtractBlendItem);
+        TreeItem<String> addBlendItem = new TreeItem<> (MergeNode.NamesOfMergeFilters.ADD.displayName);
+        mergeNodeItem.getChildren().add(addBlendItem);
 
         //separatorNode
         TreeItem<String> rgbSeparatorItem = new TreeItem<> ("RGB separate");
@@ -86,6 +92,8 @@ public class DescriptionWindow {
         generatorNodeItem.getChildren().add(borderItem);
         TreeItem<String> noiseItem = new TreeItem<> ("noise");
         generatorNodeItem.getChildren().add(noiseItem);
+        TreeItem<String> vignetteItem = new TreeItem<> ("vignette");
+        generatorNodeItem.getChildren().add(vignetteItem);
 
         nodesItem.getChildren().add(filterNodeItem);
         nodesItem.getChildren().add(mergeNodeItem);
@@ -139,7 +147,7 @@ public class DescriptionWindow {
                 }
                 if(item.getValue().equals(FilterNode.NamesOfFilters.GAUSSIAN.displayName)){
                     textArea.setText("Reduces details of an image, applies gaussian blur. Takes one parameter " +
-                            "which tells how much in percent image will be blurred.");
+                            "which tells how much in pixels image will be blurred.");
                 }
                 if(item.getValue().equals(FilterNode.NamesOfFilters.TOP.displayName)){
                     textArea.setText("Erases top part of an image and stretches the rest. " +
@@ -182,6 +190,16 @@ public class DescriptionWindow {
                             "if pixel of foreground is close to green and is highly saturated then output pixel will be almost the background one, " +
                             "otherwise output pixel will be almost the foreground one.");
                 }
+                if(item.getValue().equals((MergeNode.NamesOfMergeFilters.MULTIPLY.displayName))){
+                    textArea.setText("Multiplies values of pixels componentwise, and then normalize them. " +
+                            "I. e. (r1,g1,b1) * (r2,g2,b2) = (r1*r2/256,g1*g2/256,b1*b2/256)");
+                }
+                if(item.getValue().equals((MergeNode.NamesOfMergeFilters.GREENSCREEN.displayName))){
+                    textArea.setText("Adds values of pixels componentwise, clamping the resulting components to stay between 0 and 256" );
+                }
+                if(item.getValue().equals((MergeNode.NamesOfMergeFilters.GREENSCREEN.displayName))){
+                    textArea.setText("Subtracts values of pixels componentwise, clamping the resulting components to stay between 0 and 256" );
+                }
 
                 //separatorNode
                 if(item.getValue().equals("RGB separate")){
@@ -210,10 +228,13 @@ public class DescriptionWindow {
                 }
                 if(item.getValue().equals("border")){
                     textArea.setText("Generates picture of given resolution with border of given color, e.g. #FF0000 is red. " +
-                            "Area inside the border is green so green screen merge can be applied.");
+                            "Area inside the border is black.");
                 }
                 if(item.getValue().equals("noise")){
                     textArea.setText("Generates picture of given resolution with noise of given color, e.g. #FF0000 is red.");
+                }
+                if(item.getValue().equals("vignette")){
+                    textArea.setText("Generates picture of given resolution with vignette of given color, e.g. #FF0000 is red.");
                 }
 
             }
