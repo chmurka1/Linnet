@@ -41,8 +41,8 @@ public class FilterNode extends AbstractNode {
         gridPane.add(textField,0,0);
         gridPane.add(setButton,1,0);
 
-        String[] listOfFilters ={"empty filter","brighten image","darken image", "black and white",
-                "sharpen","contrast","saturate","horizontal blur","vertical blur","gaussian blur","trim top","set new width","set new height"};
+        String[] listOfFilters ={"brighten image","darken image", "sharpen","contrast","saturate",
+                "horizontal blur","vertical blur","gaussian blur","trim top","set new width","set new height"};
 
         ComboBox<String> comboBox= new ComboBox<>(FXCollections.observableArrayList(listOfFilters));
         comboBox.setOnAction(e -> {

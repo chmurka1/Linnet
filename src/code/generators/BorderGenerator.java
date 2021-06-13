@@ -22,7 +22,7 @@ public class BorderGenerator implements Generator{
                 if(y<height/10 || y>height*9/10 || x<width/10 || x>width*9/10)
                     img.setRGB(x,y,Color.decode(colorInHex).getRGB());
                 else
-                    img.setRGB(x,y,Color.white.getRGB());
+                    img.setRGB(x,y,Color.green.getRGB());
             }
         }
 

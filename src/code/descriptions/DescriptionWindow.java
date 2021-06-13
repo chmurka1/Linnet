@@ -26,14 +26,14 @@ public class DescriptionWindow {
         TreeItem<String> generatorNodeItem = new TreeItem<> ("Generator node");
 
         //filterNode
-        TreeItem<String> emptyFilterItem = new TreeItem<> ("empty filter");
-        filterNodeItem.getChildren().add(emptyFilterItem);
+    //    TreeItem<String> emptyFilterItem = new TreeItem<> ("empty filter");
+    //    filterNodeItem.getChildren().add(emptyFilterItem);
         TreeItem<String> brightenImageItem = new TreeItem<> ("brighten image");
         filterNodeItem.getChildren().add(brightenImageItem);
         TreeItem<String> darkenImageItem = new TreeItem<> ("darken image");
         filterNodeItem.getChildren().add(darkenImageItem);
-        TreeItem<String> blackAndWhiteItem = new TreeItem<> ("black and white");
-        filterNodeItem.getChildren().add(blackAndWhiteItem);
+    //    TreeItem<String> blackAndWhiteItem = new TreeItem<> ("black and white");
+    //    filterNodeItem.getChildren().add(blackAndWhiteItem);
         TreeItem<String> sharpenItem = new TreeItem<> ("sharpen");
         filterNodeItem.getChildren().add(sharpenItem);
         TreeItem<String> contrastItem = new TreeItem<> ("contrast");
@@ -144,11 +144,11 @@ public class DescriptionWindow {
                             "Takes one parameter which tells how many percents of image will be trimmed.");
                 }
                 if(item.getValue().equals("set width")){
-                    textArea.setText("sets new width of image" +
+                    textArea.setText("Sets new width of image. " +
                             "Takes one parameter which tells new width in pixels.");
                 }
                 if(item.getValue().equals("set height")){
-                    textArea.setText("sets new width of image" +
+                    textArea.setText("Sets new width of image. " +
                             "Takes one parameter which tells new height in pixels.");
                 }
 
@@ -207,7 +207,8 @@ public class DescriptionWindow {
                     textArea.setText("Generates plain picture of given color and resolution, e.g. #FF0000 is red.");
                 }
                 if(item.getValue().equals("border")){
-                    textArea.setText("Generates picture of given resolution with border of given color, e.g. #FF0000 is red.");
+                    textArea.setText("Generates picture of given resolution with border of given color, e.g. #FF0000 is red. " +
+                            "Area inside the border is green so green screen merge can be applied.");
                 }
                 if(item.getValue().equals("noise")){
                     textArea.setText("Generates picture of given resolution with noise of given color, e.g. #FF0000 is red.");
